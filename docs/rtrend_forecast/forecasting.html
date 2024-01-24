@@ -1,0 +1,4689 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>rtrend_forecast.forecasting API documentation</title>
+<meta name="description" content="Methods to assemble and run a forecast pipeline, besides some
+tools to manage multiple forecasts." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rtrend_forecast.forecasting</code></h1>
+</header>
+<section id="section-intro">
+<p>Methods to assemble and run a forecast pipeline, besides some
+tools to manage multiple forecasts.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Methods to assemble and run a forecast pipeline, besides some
+tools to manage multiple forecasts.
+&#34;&#34;&#34;
+import gc
+from collections import OrderedDict
+
+import numpy as np
+import pandas as pd
+
+from rtrend_forecast.errchecking import ForecastStatusError, RtrendError
+from rtrend_forecast.inc_reconstruction import reconstruct_ct_multiple
+from rtrend_forecast.postprocessing import aggregate_in_periods
+from rtrend_forecast.preprocessing import interpolate_cumulative, interpolate_smooth_pycno, AbstractNoise, NOISE_CLASSES
+from rtrend_forecast.reporting import get_rtrend_logger, SUCCESS, ExecTimeTracker
+from rtrend_forecast.rt_estimation import run_mcmc_rt_c, run_mcmc_rt_numba
+from rtrend_forecast.rt_synthesis import (
+    static_ramp_avg_synth,
+    dynamic_ramp_avg_synth,
+    random_normal_synth,
+    static_ramp_valbased_avg_synth,
+    drift_rw_synth_reconstruct,
+)
+from rtrend_forecast.scoring import weighted_interval_score_fast
+from rtrend_forecast.structs import IncidenceData, TgBase, RtData, \
+    PreprocParams, RtEstimationParams, RtSynthesisParams, \
+    IncReconstructionParams, PostprocParams, TimeData
+from rtrend_forecast.utils import extract_prefixed_keys, rsetattr, rgetattr
+
+_STAGE_UNSET = &#34;UNSET&#34;
+_STAGE_DONE = &#34;DONE&#34;
+_STAGE_ERROR = &#34;ERROR&#34;
+
+_DEFAULT_NOISE = &#34;main&#34;
+
+
+_LOGGER = get_rtrend_logger().getChild(__name__)
+# XTT = ExecTimeTracker(category=__name__)
+# ^^ TODO: improve this. Can&#39;t be a class member (if I want to use as a decorator...)
+
+
+# Static default name generator for the ForecastOperator instances
+def _namegen():
+    name = f&#34;forecast_{_namegen.idx:06d}&#34;
+    _namegen.idx += 1
+    return name
+
+
+_namegen.idx = 0
+
+
+def _make_param_dict(key, cl, params):
+    &#34;&#34;&#34;Create a typed dict from a regular one in params, if present.&#34;&#34;&#34;
+    if key in params:
+        if params[key] is None:
+            # Key present but no sub-keys were informed in YAML file.
+            return cl()
+        elif isinstance(params[key], dict):
+            # Key present and contains a dict
+            return cl(**params[key])
+        else:
+            raise ValueError(
+                f&#34;Hey, params[{key}] must contain a dictionary, but&#34;
+                f&#34; {params[key]} was given instead.&#34;)
+
+    else:  # Key not found. Return empty dict.
+        return cl()
+
+
+def _select_gran_aggr(which, gran_out, aggr_out, sum_if_both=False):
+    &#34;&#34;&#34;Convenience method to select, via string, a granular or
+    aggregated object.
+    &#34;&#34;&#34;
+    lwhich = which.lower()  # Case-insensitive
+    if lwhich in [&#34;gran&#34;, &#34;granular&#34;]:
+        return gran_out
+    elif lwhich in [&#34;aggr&#34;, &#34;aggregate&#34;]:
+        return aggr_out
+    elif lwhich in [&#34;both&#34;] and sum_if_both:
+        return gran_out + aggr_out
+    else:
+        raise ValueError(
+            f&#34;Hey, `which` = &#39;{which}&#39; is invalid. &#34;
+            f&#34;It must be one of the following: [&#39;gran&#39;, &#39;aggr&#39;&#34;
+            + f&#34;&#39;both&#39;&#34; * sum_if_both +
+            &#34;].&#34;
+        )
+
+
+def _set_select_gran_aggr(
+        fop, which: str, gran_attr: str, aggr_attr: str, val):
+    &#34;&#34;&#34;Selects between granular and aggregated based on `which`,
+    then sets an attribute of object `fop` based on
+    that choice.
+
+    If `which` refers to granular data, &#39;fop.gran_attr&#39; is set to val.
+    If it refers to aggregated data, &#39;fop.aggr_attr&#39; is set.
+
+    For convenience, the function also returns the set attribute.
+    &#34;&#34;&#34;
+    attr = _select_gran_aggr(
+        which, gran_attr, aggr_attr)
+    rsetattr(fop, attr, val)
+    return rgetattr(fop, attr)
+
+
+def _set_select_gran_aggr_fmt(fop, which, attr_fmt, val):
+    &#34;&#34;&#34;Selects between granular and aggregated based on `which`,
+    then sets an attribute of object `fop` based on
+    that choice.
+
+    The attribute is specified by `attr_fmt`, which must be a format
+    string that receives the prefix &#39;gran&#39; or &#39;aggr&#39;. It can refer
+    to a nested attribute, separated by &#34;.&#34;.
+
+    Example:
+        `attr_fmt=&#34;inc.past_{}_sr&#34;`
+        This will set `fop.inc.past_gran_sr` or fop.inc.past_gran_sr
+        to `val` depending on `which`.
+    &#34;&#34;&#34;
+    attr = _select_gran_aggr(
+        which, attr_fmt.format(&#34;gran&#34;), attr_fmt.format(&#34;aggr&#34;))
+
+    rsetattr(fop, attr, val)
+
+
+def _check_if_set(data, name, formal_name=None, step_name=None):
+    &#34;&#34;&#34;Generic check function to report a variable that is `None` but
+    should be set to something else.
+    &#34;&#34;&#34;
+
+    if data is None:
+        msg = f&#34;Hey, `{name}`&#34;
+        msg += f&#34; ({formal_name})&#34; if formal_name is not None else &#34;&#34;
+        msg += f&#34; must be defined&#34;
+        msg += f&#34; before {step_name}&#34; if step_name is not None else &#34;&#34;
+        msg += f&#34;, but is it set to None.&#34;
+
+        raise ForecastStatusError(msg)
+
+
+class ForecastOperator:
+    &#34;&#34;&#34;THE class!!!&#34;&#34;&#34;
+
+    # Time steps of granular and aggregated periods.
+    gran_dt = pd.Timedelta(&#34;1d&#34;)
+    is_aggr = True  # INPUT data aggregation type.
+    aggr_nperiods = 7  # Must be round(aggr_dt / gran_dt)
+
+    #
+    # ----------------------------------------------------------------
+    # INITIALIZATION, RESET AND CLOSURE
+    # ----------------------------------------------------------------
+    #
+
+    def __init__(
+            self,
+            incid_series: pd.Series,
+            params: dict,
+            nperiods_fore: int,
+            name=None,
+            tg_past: TgBase = None, tg_fore: TgBase = None,
+            max_steps=100,
+    ):
+        &#34;&#34;&#34;TODO DOCS REQUIRED:
+            - please explain that `params` is a dict of dicts, expected
+              to have one dict for each pipeline stage.
+
+        Parameters
+        ----------
+
+        ...
+        nperiods_fore : int
+            Number of periods to forecast.
+            If the input data is aggregated (is_aggr = True), this is in
+            aggregated periods.
+            If the input data is granular (is_aggr = False), this is in
+            granular periods.
+        &#34;&#34;&#34;
+        # Input data handling
+        # -------------------
+        self.raw_incid_sr = incid_series
+        self.nperiods_fore = nperiods_fore
+        self.name = _namegen() if name is None else name
+
+        # --- Parameter dictionaries
+        self.preproc_params: PreprocParams = (
+            _make_param_dict(
+                &#34;preprocessing&#34;, PreprocParams, params))
+
+        self.rt_estimation_params: RtEstimationParams = (
+            _make_param_dict(
+                &#34;rt_estimation&#34;, RtEstimationParams, params))
+
+        self.rt_synthesis_params: RtSynthesisParams = (
+            _make_param_dict(
+                &#34;rt_synthesis&#34;, RtSynthesisParams, params))
+
+        self.inc_reconstruction_params: IncReconstructionParams = (
+            _make_param_dict(
+                &#34;inc_reconstruction&#34;, IncReconstructionParams, params))
+
+        self.postproc_params: PostprocParams = (
+            _make_param_dict(
+                &#34;postprocessing&#34;, PostprocParams, params))
+
+        # Generic dictionary for other parameters
+        self.general_params: dict = (
+            _make_param_dict(
+                &#34;general&#34;, dict, params)
+        )
+
+        # --- Parameter dict aliases
+        self.pp = self.preproc_params
+        self.ep = self.rt_estimation_params
+        self.sp = self.rt_synthesis_params
+        self.rp = self.inc_reconstruction_params
+        self.op = self.postproc_params
+
+        # --- Composite structs
+        self.inc = IncidenceData()
+        self.inc.is_aggr = self.is_aggr
+        self.inc.raw_sr = self.raw_incid_sr
+
+        if tg_past is None:
+            self.tg_past = TgBase()  # TODO: create from parameters.
+            raise NotImplementedError(&#34;Hey, by now you must inform a &#34;
+                                      &#34;Tg object at construction.&#34;)
+        else:
+            self.tg_past = tg_past
+
+        self.tg_fore = tg_fore  # `None` is acceptable
+
+        self.rt_past: RtData = None
+        self.rt_fore: RtData = None
+
+        self.noise_obj_dict: dict[AbstractNoise] = dict()
+
+        self.time = TimeData()
+        self.time.is_aggr = self.is_aggr
+
+        # A dictionary to store extra intermediate step objects.
+        self.extra = dict()
+
+        # Default forecast staging
+        # ------------------------
+        self.stage_callback = OrderedDict(  # TODO: can I make this a class attribute???
+            preprocessing=self.callback_preprocessing,
+            rt_estimation=self.callback_rt_estimation,
+            rt_synthesis=self.callback_rt_synthesis,
+            inc_reconstruction=self.callback_inc_reconstruction,
+            postprocessing=self.callback_postprocessing,
+        )
+
+        self._stages = list(self.stage_callback.keys())
+        self.max_steps = max_steps
+        self.step = 0
+        self._stage = _STAGE_UNSET
+        self.stage_note = &#34;&#34;
+
+        # --- Other infrastructure
+        self.logger = _LOGGER.getChild(self.name)
+
+        self.aggr_dt = self.aggr_nperiods * self.gran_dt
+
+        if self.is_aggr:
+            self.nperiods_fore_gran = (
+                    self.nperiods_fore * self.aggr_nperiods)
+        else:
+            self.nperiods_fore_gran = self.nperiods_fore
+
+        # A flag to indicate successfully finished forecasts
+        self.success = False
+
+        # Integrity check
+        # ---------------
+        pass
+
+    def reset_pipeline(self):
+        self.step = 0
+        self._stage = _STAGE_UNSET
+        self.stage_note = &#34;&#34;
+
+    def remove_stage(self, stage):
+        &#34;&#34;&#34;Removes a stage of the pipeline, rearranging the class
+        properly.
+        &#34;&#34;&#34;
+        self.stage_callback.pop(stage)  # Key error if not found
+        self._stages = list(self.stage_callback.keys())
+
+    #
+    # ----------------------------------------------------------------
+    # INTEGRITY: STATUS CHECKING
+    # ----------------------------------------------------------------
+    #
+
+    def _check_past_aggr_timestructs(self):
+        &#34;&#34;&#34;Verify if past aggregated names are defined.&#34;&#34;&#34;
+        for name in [&#34;past_aggr_idx&#34;, &#34;pa0&#34;, &#34;pa1&#34;, &#34;pa_len&#34;]:
+            if self.time.__getattribute__(name) is None:
+                raise ForecastStatusError(
+                    f&#34;Hey, attribute self.time.{name} should be set&#34;
+                    f&#34; at this point, but it is None.&#34;)
+
+    def _check_past_gran_timestructs(self):
+        &#34;&#34;&#34;Verify if past aggregated names are defined.&#34;&#34;&#34;
+        for name in [&#34;past_gran_idx&#34;, &#34;pg0&#34;, &#34;pg1&#34;, &#34;pg_len&#34;]:
+            if self.time.__getattribute__(name) is None:
+                raise ForecastStatusError(
+                    f&#34;Hey, attribute self.time.{name} should be set&#34;
+                    f&#34; at this point, but it is None.&#34;)
+
+    def _check_for_crop_roi(self, start, end):
+        if self.raw_incid_sr is None:
+            raise ForecastStatusError(
+                f&#34;Hey, the raw incidence series is set to None.&#34;
+                f&#34; Please ensure that you informed a propper time&#34;
+                f&#34; series for the raw data during initialization.&#34;
+            )
+        if start &gt;= end:
+            raise ValueError(
+                f&#34;Hey, start date ({start}) must be prior to end&#34;
+                f&#34; date ({end}).&#34;)
+
+    @staticmethod
+    def _check_for_denoise(data: pd.Series, which):
+        &#34;&#34;&#34;Check if required structs are defined for denoising.
+        Data must be the selected raw data to denoise.
+        &#34;&#34;&#34;
+        if data is None:
+            raise ForecastStatusError(
+                f&#34;Hey, the past {which} incidence data must be set &#34;
+                f&#34;before denoising, but it&#39;s `None`.&#34;
+            )
+
+        if not isinstance(data, pd.Series):
+            raise TypeError(
+                f&#34;Hey, the past {which} incidence data must be a &#34;
+                f&#34;pandas Series, but it is a `{type(data)}` instead.&#34;
+            )
+
+    def _check_for_rt_estimation(self):
+
+        if self.inc.past_gran_sr is None:
+            raise ForecastStatusError(
+                f&#34;Hey, the past granular time series &#34;
+                f&#34;(`self.inc.past_gran_sr`) must be defined before &#34;
+                f&#34;R(t) estimation, but it is set to None.&#34;
+            )
+
+        if self.tg_past is None:
+            raise ForecastStatusError(
+                f&#34;Hey, the past generation time object &#34;
+                f&#34;(`self.tg_past`) must be defined before &#34;
+                f&#34;R(t) estimation, but it is set to None.&#34;
+            )
+
+        if self.time.pg_len is None:
+            raise ForecastStatusError(
+                f&#34;Hey, the past granular ROI len &#34;
+                f&#34;(`self.time.pg_len`) must be defined before &#34;
+                f&#34;R(t) estimation, but it is set to None.&#34;
+            )
+
+    def _check_for_inc_reconstruction(self):
+
+        # -------------------------------------
+        # Check definition of essential structs
+        # -------------------------------------
+        msg_fmt = (
+            &#34;Hey, the {} (`{}`) must be defined before the incidence&#34;
+            &#34; reconstruction, but it is set to None.&#34;
+        )
+
+        if self.inc.past_gran_sr is None:
+            raise ForecastStatusError(
+                msg_fmt.format(&#34;past granular incidence series&#34;,
+                               &#34;self.inc.past_gran_sr&#34;))
+
+        if self.rt_fore is None:
+            raise ForecastStatusError(
+                msg_fmt.format(&#34;future R(t) object&#34;,
+                               &#34;self.rt_fore&#34;) +
+                &#34; Call `self.synthesize_rt()` first.&#34;
+            )
+
+        if self.tg_past is None:
+            raise ForecastStatusError(
+                msg_fmt.format(&#34;past generation time object&#34;,
+                               &#34;self.tg_past&#34;)
+            )
+
+        if self.tg_fore is None:
+            raise ForecastStatusError(
+                msg_fmt.format(&#34;future generation time object&#34;,
+                               &#34;self.tg_fore&#34;)
+            )
+
+        if self.time.fore_gran_idx is None:
+            raise ForecastStatusError(
+                msg_fmt.format(&#34;future granular time index&#34;,
+                               &#34;self.time.fore_gran.idx&#34;)
+            )
+
+        # -------------------------------------
+        # Check values
+        # -------------------------------------
+
+        # Negative incidence
+        if self.inc.past_gran_sr.min() &lt; 0:
+            negatives = self.inc.past_gran_sr.loc[
+                self.inc.past_gran_sr &lt; 0]
+            sum_negatives = negatives.sum()
+            num_negatives = negatives.shape[0]
+            min_negatives = negatives.min()
+            msg = (f&#34;Hey, {num_negatives} negative values were found&#34; 
+                   f&#34; in the preprocessed past incidence series,&#34;
+                   f&#34; (`self.inc.past_gran_sr`). &#34;
+                   f&#34;\nThe minimum is&#34;
+                   f&#34; {min_negatives}.&#34;
+                   f&#34;\nThe sum is {sum_negatives}.&#34;)
+
+            self.logger.warning(msg)
+
+        # Negative reproduction number
+        # TODO
+
+    @staticmethod
+    def _check_for_inc_quantiles(data, name):
+        _check_if_set(data, &#34;self.&#34; + name,
+                      formal_name=&#34;future incidence ensemble&#34;,
+                      step_name=&#34;`make_quantiles_for()`&#34;)
+
+    #
+    # ----------------------------------------------------------------
+    # AUX/MISCELLANEOUS METHODS
+    # ----------------------------------------------------------------
+    #
+    #
+
+    #
+    # ----------------------------------------------------------------
+    # INTERFACE: ATTRIBUTE HANDLING (setters and getters)
+    # ----------------------------------------------------------------
+    #
+
+    def get_past_aggr_tlabels(self):
+        try:
+            return self.inc.past_aggr_sr.index
+        except ForecastStatusError as err:
+            raise Exception(
+                &#34;Hey, past aggregate incidence series (past_aggr_sr)&#34;
+                &#34; is not set.&#34;).with_traceback(err.__traceback__)
+
+    def get_past_gran_tlabels(self):
+        try:
+            return self.inc.past_gran_sr.index
+        except ForecastStatusError as err:
+            raise Exception(
+                &#34;Hey, past granular incidence series (past_aggr_sr)&#34;
+                &#34; is not set.&#34;).with_traceback(err.__traceback__)
+
+    #
+    # ----------------------------------------------------------------
+    # INTERFACE: MODULAR FORECAST PROCEDURES
+    # ----------------------------------------------------------------
+    #
+
+    # ------------------------
+    # Preprocessing procedures
+    # ------------------------
+
+    # Region of interest (ROI) managing
+    # ---------------------------------
+
+    def crop_roi(self, start, end):
+        &#34;&#34;&#34;Return a _region of interest_ (ROI) from the main
+        raw incidence series (`self.raw_incid_sr`).
+
+        Parameters
+        ----------
+        start : pd.Timestamp, str
+            First time label of the region of interest (included).
+        end : pd.Timestamp, str
+            Last time label of the region of interest. This point is
+            **include** if present in the original series.
+
+        Returns
+        -------
+        roi : pd.Series
+            A view of the raw time series, cropped within the requested
+            region.
+        &#34;&#34;&#34;
+        self._check_for_crop_roi(start, end)
+
+        return self.raw_incid_sr.loc[start:end]
+
+    def set_main_roi(self, start, end, sort_data=True):
+        &#34;&#34;&#34;Crop a _region of interest_ (ROI) and set as the main
+        past incidence series, which is used in the forecast pipeline.
+
+        Any changes to the main ROI must pass through this function.
+
+        Parameters
+        ----------
+        start : pd.Timestamp, str
+            First time label of the region of interest (included).
+        end : pd.Timestamp, str
+            Last time label of the region of interest. This point is
+            **include** if present in the original series.
+        &#34;&#34;&#34;
+
+        roi = self.crop_roi(start, end)
+
+        # --- Checks
+        if roi.shape == 0:
+            msg = f&#34;&#34;&#34;Hey, empty ROI between timestamps 
+                  {start} and {end}.&#34;&#34;&#34;
+            # self.logger.warning(msg)
+            raise ValueError(msg)
+
+        # Optionally sort
+        if sort_data:
+            roi.sort_index(inplace=True)
+
+        # Attribute the ROI
+        if self.is_aggr:
+            self.inc.past_aggr_sr = roi
+        else:
+            self.inc.past_gran_sr = roi
+
+        # Get effective labels after cropping the data
+        roi_start = roi.index[0]  # Actual start date
+        day_pres = roi.index[-1]
+        if not self.is_aggr:
+            day_pres += self.gran_dt
+        # TODO: ^  ^  Line above refers to input data aggregation.
+
+        #
+        self.make_all_time_data(roi_start, day_pres)
+
+    def sort_past_series(self):
+        &#34;&#34;&#34;As raw input data may be unsorted over time, this ensures
+        that the ROI-cropped series are. Modifies inplace.
+        &#34;&#34;&#34;
+        for sr in [
+                self.inc.past_gran_sr,
+                self.inc.past_aggr_sr,
+        ]:
+            if sr is not None:
+                sr.sort_index(inplace=True)
+
+    # Noise filtering and fitting
+    # ---------------------------------
+
+    def _retrieve_denoise_kwds(self, name=None):
+        &#34;&#34;&#34;Reads keywords like &#39;denoise_key&#39; or &#39;name_denoise_key&#39;
+        from the preprocessing parameter dictionary.
+        &#34;&#34;&#34;
+        prefix = (&#34;denoise_&#34;
+                  if name is None
+                  else name + &#34;_denoise_&#34;)
+        d_kwargs = extract_prefixed_keys(self.pp, prefix)
+
+        if not d_kwargs:
+            self.logger.debug(
+                f&#34;No denoise keywords found for name = {name}.&#34;)
+
+        return d_kwargs
+
+    def _make_get_noise_obj(self, model, name=None, **kwargs):
+        &#34;&#34;&#34;Returns (possibly creating) a noise object from `model`
+        and named as `name`.
+        If object already exists,
+        &#34;&#34;&#34;
+        name = _DEFAULT_NOISE if name is None else name
+
+        if name not in self.noise_obj_dict:
+            try:
+                # CREATE NOISE OBJECT (construction params?)
+                self.noise_obj_dict[name] = NOISE_CLASSES[model](
+                    logger=self.logger, **kwargs)
+            except KeyError:
+                # self.logger.error(
+                raise KeyError(
+                    f&#34;Hey, denoise model &#39;{model}&#39; was not recognized.\n&#34;
+                    f&#34;Accepted values are:\n&#34;
+                    f&#34;{list(NOISE_CLASSES.keys())}&#34;
+                )
+
+        return self.noise_obj_dict[name]
+
+    def get_noise_object(self, name=_DEFAULT_NOISE):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        name : str
+            Name of the noise object. Defaults to the main one.
+
+        Returns
+        -------
+        noise_obj : AbstractNoise
+
+        Raises
+        ------
+        KeyError
+            If a noise object keyed as `name` is not found.
+        &#34;&#34;&#34;
+        try:
+            return self.noise_obj_dict[name]
+        except KeyError:
+            raise ForecastStatusError(
+                f&#34;Hey, a noise object with name &#39;{name}&#39; was not&#34;
+                f&#34; found at `self.noise_obj_dict`.&#34;)
+
+    def denoise(self):
+        pass
+
+    def denoise_and_fit(self, name=None, which=&#34;gran&#34;):
+        &#34;&#34;&#34;
+        Call the `denoise_and_fit` method from the noise object
+        specified as `name`.
+
+        Parameters
+        ----------
+        name : str, optional
+            The name of the noise object. Defaults to the main object.
+        which : str, optional
+            The type of data to denoise and fit. Can be either &#34;gran&#34;
+            for granular dat aor &#34;aggr&#34; for aggregated data.
+            Default is &#34;gran&#34;.
+
+        Returns
+        -------
+        numpy.ndarray
+            A denoised version of the input data. The noise object
+            will also have fittet parameters for the noise.
+
+        Raises
+        ------
+        ValueError
+            If the input `which` argument is not &#34;gran&#34; or &#34;aggr&#34;.
+        &#34;&#34;&#34;
+        data = _select_gran_aggr(
+            which, self.inc.past_gran_sr, self.inc.past_aggr_sr)
+
+        # --- Checks
+        self._check_for_denoise(data, which)
+
+        # Retrieve denoise keywords
+        d_kwargs = self._retrieve_denoise_kwds(name=name)
+        noise_obj: AbstractNoise = self._make_get_noise_obj(
+            name=name, **d_kwargs)
+
+        # Apply denoise+fit method
+        # data[:] = noise_obj.denoise_and_fit(data, **d_kwargs)
+        denoised = _set_select_gran_aggr(
+            self, which, &#34;inc.past_gran_sr&#34;, &#34;inc.past_aggr_sr&#34;,
+            noise_obj.denoise_and_fit(data, **d_kwargs))
+
+        return denoised
+
+    # Interpolation
+    # ---------------------------------
+
+    def make_all_time_data(self, roi_start, time_pres):
+        &#34;&#34;&#34;&#34;CANDIDATE FUNCTION TODO
+        Optional method that defines ALL THE time labels and indexes, once
+        you have the roi_start, time_pres and self.nperiods_fore info.
+
+        Given `time_pres` and `roi_start`
+        (whether `is_aggr` is True or False):
+        - pa0 = roi_start
+        - pa1 = time_pres
+        - pg0 = roi_start
+        - pg1 = time_pres - gran_dt
+
+        - fa0 = time_pres + agg_dt
+        - fa1 = time_pres + nperiods_fore * agg_dt
+        - fg0 = time_pres
+        - fg1 = time_pres + (nperiods_fore_gran - 1) * gran_dt
+        &#34;&#34;&#34;
+        self.time.pres = time_pres
+
+        # Past labels
+        self.time.pa0 = roi_start
+        self.time.pa1 = time_pres
+        self.time.pg0 = roi_start
+        self.time.pg1 = time_pres - self.gran_dt
+
+        # Future labels
+        self.time.fa0 = time_pres + self.aggr_dt
+        self.time.fg0 = time_pres
+        self.time.fg1 = (time_pres
+                         + (self.nperiods_fore_gran-1) * self.gran_dt)
+        self.time.fa1 = self.time.fg1 + self.gran_dt
+
+        # Aggregate indexes, if needed
+        if self.is_aggr:
+            self.time.past_aggr_idx = pd.date_range(
+                self.time.pa0, self.time.pa1, freq=self.aggr_dt
+            )
+            self.time.fore_aggr_idx = pd.date_range(
+                self.time.fa0, self.time.fa1, freq=self.aggr_dt
+            )
+
+            self.time.pa_len = self.time.past_aggr_idx.shape[0]
+            self.time.fa_len = self.time.fore_aggr_idx.shape[0]
+
+        # Granular indexes
+        self.time.past_gran_idx = pd.date_range(
+            self.time.pg0, self.time.pg1, freq=self.gran_dt
+        )
+        self.time.fore_gran_idx = pd.date_range(
+            self.time.fg0, self.time.fg1, freq=self.gran_dt
+        )
+
+        self.time.pg_len = self.time.past_gran_idx.shape[0]
+        self.time.fg_len = self.time.fore_gran_idx.shape[0]
+
+    def make_gran_time_data(self):
+        &#34;&#34;&#34;Based on aggregate time data, create the past and fore
+        granular index and related time data.
+
+        DEVNOTE IDEA: join the creation of all labels in one function,
+        which checks whether self.is_aggr == True to decide procedures.
+        ALSO DEVNOTE: invert current logic – first define limits, then
+          define indexes and length.
+
+        Given `time_pres` and `roi_start`
+        (whether `is_aggr` is True or False):
+        - pa0 = roi_start
+        - pa1 = time_pres
+        - pg0 = roi_start
+        - pg1 = time_pres - gran_dt
+
+        - fa0 = time_pres + agg_dt
+        - fa1 = time_pres + nperiods_fore * agg_dt
+        - fg0 = time_pres
+        - fg1 = time_pres + (nperiods_fore_gran - 1) * gran_dt
+
+        &#34;&#34;&#34;
+        # Check integrity
+        self._check_past_aggr_timestructs()
+
+        # Create time indexes
+        self.time.past_gran_idx = pd.date_range(
+            start=self.time.pa0,
+            end=self.time.pa1 - self.gran_dt,
+            freq=self.gran_dt,
+        )
+
+        self.time.fore_gran_idx = pd.date_range(
+            start=self.time.pa1,
+            end=(self.time.pa1
+                 + (self.nperiods_fore_gran - 1) * self.gran_dt),
+            freq=self.gran_dt,
+        )
+
+        # Define other time-related labels
+        self.time.pg0 = self.time.past_gran_idx[0]
+        self.time.pg1 = self.time.past_gran_idx[-1]
+        self.time.pg_len = self.time.past_gran_idx.shape[0]
+
+        self.time.fg0 = self.time.fore_gran_idx[0]
+        self.time.fg1 = self.time.fore_gran_idx[-1]
+        self.time.fg_len = self.time.fore_gran_idx.shape[0]
+
+    def _retrieve_interp_kwds(self, name=None):
+        &#34;&#34;&#34;Reads keywords like &#39;interp_key&#39; or &#39;name_interp_key&#39;
+        from the preprocessing parameter dictionary.
+        &#34;&#34;&#34;
+        prefix = (&#34;interp_&#34;
+                  if name is None
+                  else name + &#34;_interp_&#34;)
+        d_kwargs = extract_prefixed_keys(self.pp, prefix)
+
+        if not d_kwargs:
+            self.logger.debug(
+                f&#34;No `interp` keywords found for name = {name}.&#34;)
+
+        return d_kwargs
+
+    def interpolate_to_granular(self):
+        &#34;&#34;&#34;TODO: this is an incomplete implementation&#34;&#34;&#34;
+        # --- SKETCH
+        # Check internal states
+        # Decide method
+        # Employ and store
+
+        self.make_gran_time_data()
+        interp_kwargs = self._retrieve_interp_kwds()
+
+        # --- Perform the interpolation
+        self.inc.past_gran_sr = pd.Series(
+            interpolate_cumulative(
+                self.inc.past_aggr_sr.values,
+                logger=self.logger,
+                agg_period=self.aggr_nperiods,
+                # **self.preproc_params,
+                **interp_kwargs,
+            ),
+            index=self.time.past_gran_idx,
+        )
+
+        # # TODO: i&#39;ll have to extract parameters with &#39;interp&#39; prefix.
+        # self.inc.past_gran_sr = pd.Series(
+        #     interpolate_smooth_pycno(
+        #         self.inc.past_aggr_sr.values, **self.preproc_params),
+        #     index=self.time.past_gran_idx)
+
+    # Data scaling
+    # ---------------------------------
+    def get_scaled_past_incidence(self, which=&#34;gran&#34;):
+        &#34;&#34;&#34;Multiplies the past time series by a coefficient, given
+        a method to determine the coefficient.
+
+        Returns a modified copy of the series. Changes are not made in place!
+        &#34;&#34;&#34;
+        data = _select_gran_aggr(
+            which, self.inc.past_gran_sr, self.inc.past_aggr_sr
+        )
+
+        method = self.ep[&#34;scale_method&#34;]
+
+        # --- Decision chain for scaling factor
+        # -()- Constant pre-specified factor
+        if method in [&#34;const&#34;, &#34;just_scale_it&#34;]:
+            pass  # self.ep[&#34;scale_factor&#34;] expected to be defined
+
+        # -()- Based on the average data over a given ROI
+        elif method in [&#34;data_pwr&#34;]:
+            roi_start = - self.ep[&#34;scale_roi_len&#34;]  # TAKE THE MCMC ROI (without lag, fix if changed!)
+            scale_fac = (self.ep[&#39;scale_ref_inc&#39;] /
+                         self.inc.past_gran_sr.iloc[roi_start:].mean())
+            self.ep[&#34;scale_factor&#34;] = (
+                    scale_fac ** self.ep[&#34;scale_power&#34;]
+                    if scale_fac else 1.
+            )
+
+        # TODO: based on population (change to power)
+        # if method in [&#34;pop_linear&#34;]:
+        #     scale_fac = self.ep[&#39;scale_ref_pop&#39;] / self.ep[&#39;pop_size&#39;]
+        #     self.inc.past_gran_sr *= scale_fac
+
+        # -()- Not found – no scaling performed
+        else:
+            self.logger.error(
+                f&#34;Scaling method {method} was not recognized. &#34;
+                f&#34;No scaling was performed.&#34;)
+            self.ep[&#34;scale_factor&#34;] = 1.
+
+        return self.ep[&#34;scale_factor&#34;] * data
+
+    # Data regularization
+    # ---------------------------------
+
+    # def round_past_incidence(self, which=&#34;gran&#34;, decimals=0):
+    #     &#34;&#34;&#34;Round float values of a past incidence series into integers.
+    #     Modifies `self.inc.past_gran_sr` or `self.inc.past_aggr_sr`
+    #     inplace.
+    #     &#34;&#34;&#34;
+    #     _set_select_gran_aggr(
+    #         self, which, &#34;inc.past_gran_df&#34;, &#34;inc.past_aggr_df&#34;,
+    #         _select_gran_aggr(
+    #             which, self.inc.past_gran_sr, self.inc.past_aggr_sr)
+    #     )
+
+    def remove_negative_incidence(
+            self, which=&#34;gran&#34;, method=&#34;clamp&#34;, warn=True):
+        &#34;&#34;&#34;Deals with potential negative incidence values.
+        Modifies `self.inc.past_gran_sr` or `self.inc.past_aggr_sr`
+        inplace.
+        &#34;&#34;&#34;
+        data = _select_gran_aggr(
+            which, self.inc.past_gran_sr, self.inc.past_aggr_sr)
+
+        # Finds negative values
+        # ---------------------
+        negative_idx = data.loc[data &lt; 0].index
+
+        if negative_idx.shape[0] == 0:
+            return  # Nothing to do
+
+        negatives = data.loc[negative_idx]
+
+        # Warn about negative values
+        # --------------------------
+        if warn:
+            sum_negatives = negatives.sum()
+            num_negatives = negatives.shape[0]
+            min_negatives = negatives.min()
+            msg = (
+                f&#34;{num_negatives} negative values were found&#34;
+                f&#34; in the preprocessed past incidence series &#34;
+                f&#34; will be handled with method &#39;{method}&#39;.&#34;
+                f&#34; (`self.inc.past_gran_sr`). &#34;
+                f&#34;\n\t – The minimum is&#34;
+                f&#34; {min_negatives}.&#34;
+                f&#34;\n\t – The sum is {sum_negatives}.&#34;)
+            self.logger.warning(msg)
+
+        # Does the handling
+        # ---------------------
+        # -()- # Set all to zero. Ok for small deviations.
+        #      # May cause huge estimates for low count data.
+        if method == &#34;clamp&#34;:
+            data.loc[negative_idx] = 0  # Changes inplace
+
+        # -()- Shift values by adding the minimum.
+        #      Again, only fine for small deviations.
+        elif method == &#34;shift&#34;:
+            data += -negatives.min()
+
+        else:
+            raise ValueError(
+                f&#34;Hey, negative handling method &#39;{method}&#39; is not &#34;
+                f&#34;recognized for `remove_negative_incidence`.&#34;)
+
+    # --------------------------
+    # R(t) estimation procedures
+    # --------------------------
+    def estimate_rt_mcmc(
+            self, ct_array=None, df_columns_as_dates=True, sim_name=None,
+            # use_tmp=None,
+    ):
+        &#34;&#34;&#34;Runs a Monte Carlo Markov Chain procedure to estimate the
+        distribution of the reproduction number over time for the past
+        time series.
+
+        If not specified, ct_array is taken from the series of past
+        granular incidence.
+
+        When `use_tmp` is set to True, uses temporary files
+        for the C engine and erase them. It defaults to the value in
+        the `rt_estimation_params`.
+        [devnote!] It needed to be iplemented that way to avoid
+        conflicts between different workflows!
+        &#34;&#34;&#34;
+
+        # Retrieve parameters
+        params = self.ep
+        sim_name = sim_name if sim_name is not None else self.name
+        engine = params.get(&#34;engine&#34;, None)
+        roi_len = params.get(&#34;roi_len&#34;, None)  # MCMC roi (in gran periods)
+
+        # Default parameter replacement
+        if ct_array is None:
+            ct_array = self.inc.past_gran_sr.values
+        engine = &#34;c&#34; if engine is None else engine
+        roi_len = 0 if roi_len is None else roi_len
+        # if use_tmp is not None:
+        #     params[&#34;use_tmp&#34;] = use_tmp
+
+        # Crop MCMC ROI
+        ct_array = ct_array[-roi_len:]
+
+        # Build generation time distribution
+        tg_array = self.tg_past.get_param_arrays_bysize(
+            ct_array.shape[0])
+
+        # --- Check integrity
+        self._check_for_rt_estimation()
+
+        # --- Run MCMC based on engine choice
+        self.logger.debug(f&#34;Running MCMC with engine {engine}.&#34;)
+        if engine.lower() == &#34;c&#34;:
+
+            # Define file prefixes by the name of the operator
+            # TODO: get as a parameter and just modify here
+            self.ep[&#34;in_prefix&#34;] = f&#34;mcmc/inputs/{self.name}&#34;
+            self.ep[&#34;out_prefix&#34;] = f&#34;mcmc/outputs/{self.name}&#34;
+            self.ep[&#34;out_prefix&#34;] = f&#34;mcmc/logs/{self.name}&#34;
+
+            # --- Run C engine MCMC
+            self.rt_past = run_mcmc_rt_c(
+                ct_array,
+                tg_array,
+                sim_name=sim_name,
+                **params
+            )
+
+        elif engine.lower() == &#34;numba&#34;:
+            # --- Run Numba engine MCMC
+            self.rt_past = run_mcmc_rt_numba(
+                ct_array,
+                tg_array,
+                **params
+            )
+
+        else:
+            raise ValueError(
+                f&#34;Hey, MCMC engine &#39;{engine}&#39; is not recognized&#34;
+                f&#34; or implemented.&#34;)
+
+        if df_columns_as_dates:
+            self.rt_past.df.columns = (
+                self.time.past_gran_idx[-self.rt_past.nperiods:]
+            )
+
+        return self.rt_past
+
+    # ----------------------------------
+    # R(t) (future) synthesis procedures
+    # ----------------------------------
+
+    def synthesize_tg(self):
+        &#34;&#34;&#34;TODO: more methods, including dynamic Tg&#34;&#34;&#34;
+
+        params = self.sp
+        method = params[&#34;tg_synth_method&#34;]
+
+        if not self.tg_past.is_const:
+            raise NotImplementedError(
+                &#34;Hey, dynamic generation time distribution &#34;
+                &#34;isn&#39;t supported yet&#34;)
+
+        if method.lower() == &#34;same&#34;:
+            # Just use the same object (by reference) of past Tg.
+            self.tg_fore = self.tg_past
+
+        else:
+            raise NotImplementedError(
+                f&#34;Hey, tg_synth_method = {method} not &#34;
+                f&#34;recognized or implemented.&#34;)
+
+        return self.tg_fore
+
+    def synthesize_rt(self, df_columns_as_dates=True):
+        &#34;&#34;&#34;
+
+        TODO: this will be refurbished for the smart/poly formulation
+
+        Parameters
+        ----------
+        df_columns_as_dates: bool
+
+        Returns
+        -------
+
+        &#34;&#34;&#34;
+
+        # TODO Check integrity:
+        # ..... do it case by case. Call a method.
+        # - [MEH] Granular past data
+        # - [SOME] Past R(t) (Msome don&#39;t need it)
+        # - [NOPE] Past and future P_Tg(t)
+
+        params = self.sp
+
+        # Define default method
+        if params[&#34;synth_method&#34;] in [&#34;STD&#34;, &#34;default&#34;]:
+            params[&#34;synth_method&#34;] = &#34;dynamic_ramp&#34;
+
+        # --- Execution elif chain
+        # Static ramp
+        if params[&#34;synth_method&#34;] == &#34;static_ramp&#34;:
+            self.rt_fore = RtData(static_ramp_avg_synth(
+                self.nperiods_fore_gran, self.rt_past,
+                **params
+            ))
+            self.logger.debug(&#34;Synth R(t) with &#39;static_ramp&#39; method.&#34;)
+
+        # Dynamic ramp
+        elif params[&#34;synth_method&#34;] == &#34;dynamic_ramp&#34;:
+            self.rt_fore = RtData(dynamic_ramp_avg_synth(
+                self.nperiods_fore_gran, self.rt_past,
+                **params
+            ))
+            self.logger.debug(&#34;Synth R(t) with &#39;dynamic_ramp&#39; method.&#34;)
+
+        # Random normal
+        elif params[&#34;synth_method&#34;] == &#34;rnd_normal&#34;:
+            self.rt_fore = RtData(random_normal_synth(
+                self.nperiods_fore_gran, **params))
+            self.logger.debug(&#34;Synth R(t) with &#39;rnd_normal&#39; method.&#34;)
+
+        else:
+            msg = (
+                f&#34;Hey, synth_method = \&#34;{params[&#39;synth_method&#39;]}\&#34;&#34;
+                f&#34; is not recognized.&#34;
+            )
+
+            self.logger.critical(msg, exc_info=ValueError(msg))
+            self.set_stage_error()
+            return
+
+        # --- Etc
+        if df_columns_as_dates:
+            self.rt_fore.df.columns = self.time.fore_gran_idx
+
+        return self.inc.fore_gran_df
+
+    # ----------------------------------------
+    # C(t) Incidence reconstruction procedures
+    # ----------------------------------------
+
+    def reconstruct_incidence(self, df_columns_as_dates=True):
+        &#34;&#34;&#34;
+
+        Notes
+        -----
+        If both past and fore generation times are constant:
+        - Each one is still passed to the reconstruction method, so
+          it can accept different distributions for past and future.
+        - Maximum Tg value is assumed as the minimum betwen past and fore.
+          This can be a problem if past and fore distributions are too
+          different.
+        &#34;&#34;&#34;
+        self._check_for_inc_reconstruction()
+
+        # TODO  - DEVNOTE: compiling the numba reconstruction is taking
+        #      - really most of the time.
+
+        params = self.rp
+        method = params.get(&#34;method&#34;, &#34;STD&#34;)  # May be omitted.
+
+        if method in [&#34;default&#34;, &#34;STD&#34;]:
+            method = &#34;renewal&#34;
+
+        # --- Execution elif chain
+        if method == &#34;renewal&#34;:
+            array = np.empty_like(self.rt_fore.array, dtype=float)
+
+            # Constant generation time
+            if self.tg_past.is_const and self.tg_fore.is_const:
+                reconstruct_ct_multiple(
+                    self.inc.past_gran_sr.values,
+                    self.rt_fore.array,
+                    self.tg_past.get_pmf_array(),
+                    self.tg_fore.get_pmf_array(),
+                    min(self.tg_past.tmax, self.tg_fore.tmax),
+                    array, self.nperiods_fore_gran,
+                    seed=params.get(&#34;seed&#34;, 0)
+                )
+
+            else:
+                # TODO: implement dynamic Tg
+                raise NotImplementedError(&#34;é isso aí TODO&#34;)
+
+            # Make dataframe from constructed array
+            self.inc.fore_gran_df = pd.DataFrame(array)
+            if df_columns_as_dates:
+                self.inc.fore_gran_df.columns = self.time.fore_gran_idx
+
+        # -----------------------------------
+        else:
+            raise ValueError(
+                f&#34;Hey, reconstruction method {method} not implemented&#34;
+                f&#34; or recognized.&#34;)
+
+        return self.inc.fore_gran_df
+
+    def incorporate_noise(self, which=&#34;gran&#34;, name=_DEFAULT_NOISE):
+        &#34;&#34;&#34;TODO DOCS&#34;&#34;&#34;
+
+        data = _select_gran_aggr(
+            which, self.inc.fore_gran_df, self.inc.fore_aggr_df)
+        noise_obj = self.get_noise_object(name)
+
+        # TODO: integrity check
+        #    - check that corresponding time series exists
+        #    - Warn if self.rc[gen_noise] == False
+
+        incorp_data = _set_select_gran_aggr(
+            self, which, &#34;inc.fore_gran_df&#34;, &#34;inc.fore_aggr_df&#34;,
+            noise_obj.generate(data))
+
+        return incorp_data
+
+    # -------------------------------------
+    # Combined synthesis and reconstruction
+    # -------------------------------------
+    # This function accounts for methods that require the R(t) synthesis
+    # and the incidence reconstruction to be run together at each time
+    # step. If the requested method does not require this, simply calls
+    # the regular synthesis and reconstruction functions in sequence.
+
+    def synthesize_and_reconstruct(self):
+        &#34;&#34;&#34; This function accounts for methods that require the R(t) synthesis
+        and the incidence reconstruction to be run together at each time
+        step. If the synth method does not require this, simply calls
+        the regular synthesis and reconstruction functions in sequence.
+
+        All operations occur with the granular time scale.
+        &#34;&#34;&#34;
+
+        # TODO: Check for required structures
+
+        if self.sp[&#34;synth_method&#34;] in [  # Methods that are not yet officially included
+            &#34;drift_pop&#34;,
+            &#34;drift_const&#34;,
+        ]:
+            # Calculate the drift coefficient from population
+            if self.sp[&#34;synth_method&#34;] == &#34;drift_pop&#34;:
+                self.sp[&#34;drift_coef&#34;] = (
+                        float(self.sp[&#34;drift_pop_coef&#34;])
+                        / self.sp[&#34;population&#34;]  # ERROR IF NOT DEFINED
+                )
+
+            # Run the drift synth-reconstruction
+            try:
+                rt_fore_2d, ct_fore_2d = drift_rw_synth_reconstruct(
+                    self.nperiods_fore_gran,
+                    self.rt_past,
+                    self.inc.past_gran_sr.to_numpy(),
+                    self.tg_past.get_pmf_array(),
+                    self.tg_fore.get_pmf_array(),
+                    min(self.tg_past.tmax, self.tg_fore.tmax),
+                    self.sp[&#34;nperiods_past&#34;],
+                    float(self.sp[&#34;drift_coef&#34;]),
+                    float(self.sp.get(&#34;rw_coef&#34;, 0)),
+                    float(self.sp.get(&#34;bias&#34;, 0)),
+                    self.sp[&#34;q_low&#34;],
+                    self.sp[&#34;q_hig&#34;],
+                    logger=self.logger,
+                )
+            except ValueError as e:
+                self.logger.error(f&#34;{e}&#34;)
+                self.set_stage_error()
+                return
+            except Exception as e:
+                raise Exception(f&#34;{self.name}: {e}&#34;)
+
+            # Store results (R(t) and c(t) forecast)
+            self.rt_fore = RtData(rt_fore_2d.T)
+            self.inc.fore_gran_df = pd.DataFrame(
+                ct_fore_2d.T, columns=self.time.fore_gran_idx
+            )
+
+            # Set columns as dates
+            self.rt_fore.df.columns = self.time.fore_gran_idx
+
+        else:  # Other methods: call the regular synth/reconstruction
+            self.synthesize_rt(df_columns_as_dates=True)
+            self.reconstruct_incidence()
+
+    # -------------------------
+    # Postprocessing procedures
+    # -------------------------
+
+    def aggregate_past_incidence(self):
+        &#34;&#34;&#34;Sum periods of a granular past (1D) incidence vector
+        into an aggregated time series.
+
+        Expected to be used as a postprocessing step
+        &#34;&#34;&#34;
+        params = self.op
+
+        _check_if_set(
+            self.inc.past_gran_sr, name=&#34;self.inc.past_gran_sr&#34;,
+            step_name=&#34;aggregate_past_incidence&#34;,
+        )
+
+        # Define border between aggr periods, for gran tlabels
+        if &#34;aggr_ref_tlabel&#34; in params:
+            ref_start = (pd.Timestamp(params[&#34;aggr_ref_tlabel&#34;])
+                         # - self.gran_dt  # WRONG ERASE: no need
+                         )
+        else:
+            ref_start = self.time.pres
+
+        # Perform aggregation to one-past-end-of-period labels
+        self.inc.past_aggr_sr = aggregate_in_periods(
+            self.inc.past_gran_sr, self.aggr_dt,
+            ref_start=ref_start, full_only=True
+        )
+
+        self.time.past_aggr_idx = self.inc.past_aggr_sr.index
+
+        return self.inc.fore_aggr_df
+
+    def aggregate_fore_incidence(self):
+        &#34;&#34;&#34;Sum periods of the granular future (2D) incidence into an
+        aggregated time series.
+
+        As an important note: this function does not remove aggr
+        periods that were incomplete (i.e., did not have all gran
+        points aggregated).
+
+        &#34;&#34;&#34;
+        params = self.op
+
+        _check_if_set(
+            self.inc.fore_gran_df, name=&#34;self.inc.fore_gran_df&#34;,
+            step_name=&#34;aggregate_fore_incidence&#34;,
+        )
+
+        # Define border between aggr periods, for gran tlabels
+        if &#34;aggr_ref_tlabel&#34; in params:
+            ref_start = (pd.Timestamp(params[&#34;aggr_ref_tlabel&#34;])
+                         # - self.gran_dt  # WRONG ERASE, no need
+                         )
+        else:
+            ref_start = self.time.pres
+
+        # Perform aggregation to one-past-end-of-period labels
+        self.inc.fore_aggr_df = aggregate_in_periods(
+            self.inc.fore_gran_df, self.aggr_dt,
+            ref_start=ref_start, full_only=True
+        )
+
+        # Make fore aggregate index
+        # TODO: this needs a trimming for when periods don&#39;t match
+        self.time.fore_aggr_idx = self.inc.fore_aggr_df.columns
+
+        return self.inc.fore_aggr_df
+
+    def make_quantiles_for(self, which=&#34;gran&#34;, inc_quantiles=None):
+
+        # Granular/aggregate selection
+        df = _select_gran_aggr(
+            which, self.inc.fore_gran_df, self.inc.fore_aggr_df)
+        name = _select_gran_aggr(
+            which, &#34;gran_quantiles&#34;, &#34;aggr_quantiles&#34;)
+
+        # State consistency check
+        self._check_for_inc_quantiles(df, name)
+
+        # Get quantile bounds
+        if inc_quantiles is None:
+
+            if &#34;inc_quantiles&#34; not in self.op:
+                raise KeyError(
+                    &#34;Hey, &#39;inc_quantiles&#39; must be informed &#34;
+                    &#34;as a list of quantiles in `postprocess_params`&#34;)
+
+            inc_quantiles = self.op[&#39;inc_quantiles&#39;]
+
+        # Calculate quantile, assign to attribute and return
+        q = df.quantile(inc_quantiles, axis=0)
+        self.inc.__setattr__(name, q)
+        return q
+
+    #
+    # ----------------------------------------------------------------
+    # FORECAST SCORING
+    # ----------------------------------------------------------------
+    #
+
+    def score_forecast(
+            self, which=&#34;aggr&#34;, method=&#34;wis&#34;, time_labels=None,
+            truth_sr: pd.Series = None, alphas=None
+    ):
+        &#34;&#34;&#34;TODO docs
+
+        DEV SKETCHES
+        - What do I need?
+           - The calculated quantiles of the required level (aggr/gran)
+           - &#34;Future&#34; data for the required period.
+                - Find that on:
+           - The time labels to score.
+               - Get from horizons, but that&#39;s not up to this function
+               - Default: fore_time_labels
+        &#34;&#34;&#34;
+        # ----------------------------
+        # Preamble operations
+        # ----------------------------
+        self.logger.debug(
+            f&#34;Scoring `{which}` forecast with method \&#34;{method}\&#34;.&#34;)
+
+        # Granular/aggregate quantiles selection
+        q_df = _select_gran_aggr(
+            which, self.inc.gran_quantiles, self.inc.aggr_quantiles)
+        q_df_name = _select_gran_aggr(
+            which, &#34;gran_quantiles&#34;, &#34;aggr_quantiles&#34;)
+
+        # Check if required quantiles are calculated
+        _check_if_set(
+            q_df, name=f&#34;self.inc.{q_df_name}&#34;,
+            step_name=f&#34;`score_forecast` with which = {which}&#34;,
+        )
+
+        if time_labels is None:
+            time_labels = _select_gran_aggr(
+                which, self.time.fore_gran_idx, self.time.fore_aggr_idx
+            )
+
+        # Get appropriate truth data
+        # ----------------------------
+
+        # -()- If not informed, take truth from `self.raw_incid_sr`
+        if truth_sr is None:
+            # -()- Truth data is in the required aggr. level
+            if (self.is_aggr and which == &#34;aggr&#34;
+                  or (not self.is_aggr) and which == &#34;gran&#34;):
+                truth_sr = self.raw_incid_sr
+
+            # -()- Truth data is granular but scores will be aggregate
+            elif (not self.is_aggr) and which == &#34;aggr&#34;:
+                ref_start = self.op[&#34;aggr_ref_tlabel&#34;]
+                gran_time_labels = 0  #  TODO  MAKE&#39;M HERE!
+
+                truth_sr = aggregate_in_periods(
+                    self.raw_incid_sr.loc[gran_time_labels],
+                    self.aggr_dt,
+                    ref_start=ref_start,
+                    full_only=True
+                )  # AGGGREGATE from raw past
+
+            # -()- Truth data is aggregated but scores are granular.
+            elif self.is_aggr and which == &#34;gran&#34;:
+                raise ValueError(
+                    &#34;Cannot score a granular forecast with aggregated &#34;
+                    &#34; truth data&#34;)
+
+            else:
+                raise ValueError(f&#34;Abnormal condition: which = {which} &#34;
+                                 f&#34;(must be \&#34;aggr\&#34; or \&#34;gran\&#34;&#34;)
+
+        # Locate the relevant time labels in the truth data
+        try:
+            truth_sr = truth_sr.loc[time_labels]
+        except KeyError:
+            # Log to add fop info. Also raises the error for details.
+            self.logger.error(&#34;Golden truth series has missing labels&#34;)
+            raise
+
+        # ----------------------------
+        # Scoring
+        # ----------------------------
+
+        # Devnote: no common signature for now, an elif chain is used
+        if method.lower() == &#39;wis&#39;:
+            scores = weighted_interval_score_fast(
+                observations=truth_sr.values,
+                alphas=alphas,  # TODO: check, CANNOT BE NONE
+                q_dict=q_df.T,  # Needs to be transposed
+            )  # OBS: return a tuple of scores: WIS, sharpn., calibr.
+
+        else:
+            msg = f&#34;Unrecognized scoring method: {method}&#34;
+            self.logger.error(msg)
+            raise ValueError(msg)
+
+        return scores
+
+
+
+
+    #
+    # ----------------------------------------------------------------
+    # EXECUTION: FORECAST PIPELINE
+    # ----------------------------------------------------------------
+    #
+
+    # ----------------------------------
+    # Forecast stages and steps handling
+    # ----------------------------------
+
+    def get_stages(self):
+        return self._stages
+
+    def set_stage_first(self):
+        self._stage = self._stages[0]
+
+    def set_stage_error(self):
+        self._stage = _STAGE_ERROR
+
+    def set_stage_done(self):
+        self._stage = _STAGE_DONE
+
+    def set_stage(self, name):
+        if name not in self._stages:
+            raise RtrendError(
+                f&#34;Hey, stage name &#39;{name}&#39; is not recognized. It must&#34;
+                f&#34; be one of the following:\n&#34;
+                f&#34;{self._stages}&#34;
+            )
+        self._stage = name
+
+    def set_stage_next(self):
+        &#34;&#34;&#34;Set the internal forecast stage to the next one in the list.
+        If current stage is _done_, _error_ or _unset_, the function
+        does nothing. If current stage is the last, it is set
+        as _done_. If current stage is not recognized, raises a value
+        error.
+        &#34;&#34;&#34;
+        if self._stage in [_STAGE_DONE, _STAGE_ERROR, _STAGE_UNSET]:
+            return
+
+        try:
+            i_stage = self._stages.index(self._stage)
+        except ValueError:
+            raise  # Current stage is not recognized TODO: something else?
+
+        if i_stage == len(self._stages) - 1:
+            self.set_stage_done()
+        else:
+            self.set_stage(self._stages[i_stage+1])
+
+    # --------------------------
+    # Generic pipeline interface
+    # --------------------------
+
+    def callback_preprocessing(self):
+        pass
+
+    def callback_rt_estimation(self):
+        pass
+
+    def callback_rt_synthesis(self):
+        pass
+
+    def callback_inc_reconstruction(self):
+        pass
+
+    def callback_postprocessing(self):
+        pass
+
+    def run(self, reset_state=True):
+        &#34;&#34;&#34;TODO: documentation&#34;&#34;&#34;
+        if reset_state:
+            self.set_stage_first()
+            self.step = 0
+
+        current_stage = self._stage
+
+        for self.step in range(self.step, self.max_steps):
+
+            # LOG STAGE. Internally and to the loggers. TODO: internally
+            self.logger.debug(
+                f&#34;Step {self.step}: {self._stage} &#34;)
+
+            previous_stage = current_stage
+            current_stage = self._stage
+
+            # ---
+
+            if self._stage in self._stages:
+                self.stage_callback[self._stage]()
+
+            elif self._stage == _STAGE_DONE:
+                self.success = True
+                self.logger.log(SUCCESS, &#34;Forecast concluded&#34;)
+                break  # Do final procedures.
+
+            elif self._stage == _STAGE_ERROR:
+                # Logs the failure, returns None
+                msg = (
+                    f&#34;Forecast failed at stage \&#34;{previous_stage}\&#34;&#34;
+                    f&#34; after {self.step} steps.&#34;
+                )
+                if self.stage_note:  # Optionally include the note.
+                    msg += f&#34; Note: \&#34;{self.stage_note}\&#34;&#34;
+
+                self.logger.error(msg)
+                break
+
+            else:
+                # TODO
+                print(f&#34;INCONSISTENT STAGE &#39;{self._stage}&#39;. Please loggggg&#34;)
+                break
+
+            # ---
+
+        else:
+            # Placeholder. TODO: A better handling will be implemented.
+            self.logger.error(&#34;TODO: THE PIPELINE REACHED ITS STEP LIMIT.&#34;)
+
+    # --------------------------
+    # Closing operations
+    # --------------------------
+
+    def dump_heavy_stuff(self):
+        &#34;&#34;&#34;Manually discard structures that have high memory usage,
+        but are possibly not useful for the next stages.
+        &#34;&#34;&#34;
+        self.rt_past = None
+        self.rt_fore = None
+        self.inc.fore_gran_df = None
+        self.inc.fore_agg_df = None
+
+        gc.collect()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="rtrend_forecast.forecasting.ForecastOperator"><code class="flex name class">
+<span>class <span class="ident">ForecastOperator</span></span>
+<span>(</span><span>incid_series: pandas.core.series.Series, params: dict, nperiods_fore: int, name=None, tg_past: <a title="rtrend_forecast.structs.TgBase" href="structs.html#rtrend_forecast.structs.TgBase">TgBase</a> = None, tg_fore: <a title="rtrend_forecast.structs.TgBase" href="structs.html#rtrend_forecast.structs.TgBase">TgBase</a> = None, max_steps=100)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>THE class!!!</p>
+<p>TODO DOCS REQUIRED:
+- please explain that <code>params</code> is a dict of dicts, expected
+to have one dict for each pipeline stage.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt>&hellip;</dt>
+<dt><strong><code>nperiods_fore</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of periods to forecast.
+If the input data is aggregated (is_aggr = True), this is in
+aggregated periods.
+If the input data is granular (is_aggr = False), this is in
+granular periods.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ForecastOperator:
+    &#34;&#34;&#34;THE class!!!&#34;&#34;&#34;
+
+    # Time steps of granular and aggregated periods.
+    gran_dt = pd.Timedelta(&#34;1d&#34;)
+    is_aggr = True  # INPUT data aggregation type.
+    aggr_nperiods = 7  # Must be round(aggr_dt / gran_dt)
+
+    #
+    # ----------------------------------------------------------------
+    # INITIALIZATION, RESET AND CLOSURE
+    # ----------------------------------------------------------------
+    #
+
+    def __init__(
+            self,
+            incid_series: pd.Series,
+            params: dict,
+            nperiods_fore: int,
+            name=None,
+            tg_past: TgBase = None, tg_fore: TgBase = None,
+            max_steps=100,
+    ):
+        &#34;&#34;&#34;TODO DOCS REQUIRED:
+            - please explain that `params` is a dict of dicts, expected
+              to have one dict for each pipeline stage.
+
+        Parameters
+        ----------
+
+        ...
+        nperiods_fore : int
+            Number of periods to forecast.
+            If the input data is aggregated (is_aggr = True), this is in
+            aggregated periods.
+            If the input data is granular (is_aggr = False), this is in
+            granular periods.
+        &#34;&#34;&#34;
+        # Input data handling
+        # -------------------
+        self.raw_incid_sr = incid_series
+        self.nperiods_fore = nperiods_fore
+        self.name = _namegen() if name is None else name
+
+        # --- Parameter dictionaries
+        self.preproc_params: PreprocParams = (
+            _make_param_dict(
+                &#34;preprocessing&#34;, PreprocParams, params))
+
+        self.rt_estimation_params: RtEstimationParams = (
+            _make_param_dict(
+                &#34;rt_estimation&#34;, RtEstimationParams, params))
+
+        self.rt_synthesis_params: RtSynthesisParams = (
+            _make_param_dict(
+                &#34;rt_synthesis&#34;, RtSynthesisParams, params))
+
+        self.inc_reconstruction_params: IncReconstructionParams = (
+            _make_param_dict(
+                &#34;inc_reconstruction&#34;, IncReconstructionParams, params))
+
+        self.postproc_params: PostprocParams = (
+            _make_param_dict(
+                &#34;postprocessing&#34;, PostprocParams, params))
+
+        # Generic dictionary for other parameters
+        self.general_params: dict = (
+            _make_param_dict(
+                &#34;general&#34;, dict, params)
+        )
+
+        # --- Parameter dict aliases
+        self.pp = self.preproc_params
+        self.ep = self.rt_estimation_params
+        self.sp = self.rt_synthesis_params
+        self.rp = self.inc_reconstruction_params
+        self.op = self.postproc_params
+
+        # --- Composite structs
+        self.inc = IncidenceData()
+        self.inc.is_aggr = self.is_aggr
+        self.inc.raw_sr = self.raw_incid_sr
+
+        if tg_past is None:
+            self.tg_past = TgBase()  # TODO: create from parameters.
+            raise NotImplementedError(&#34;Hey, by now you must inform a &#34;
+                                      &#34;Tg object at construction.&#34;)
+        else:
+            self.tg_past = tg_past
+
+        self.tg_fore = tg_fore  # `None` is acceptable
+
+        self.rt_past: RtData = None
+        self.rt_fore: RtData = None
+
+        self.noise_obj_dict: dict[AbstractNoise] = dict()
+
+        self.time = TimeData()
+        self.time.is_aggr = self.is_aggr
+
+        # A dictionary to store extra intermediate step objects.
+        self.extra = dict()
+
+        # Default forecast staging
+        # ------------------------
+        self.stage_callback = OrderedDict(  # TODO: can I make this a class attribute???
+            preprocessing=self.callback_preprocessing,
+            rt_estimation=self.callback_rt_estimation,
+            rt_synthesis=self.callback_rt_synthesis,
+            inc_reconstruction=self.callback_inc_reconstruction,
+            postprocessing=self.callback_postprocessing,
+        )
+
+        self._stages = list(self.stage_callback.keys())
+        self.max_steps = max_steps
+        self.step = 0
+        self._stage = _STAGE_UNSET
+        self.stage_note = &#34;&#34;
+
+        # --- Other infrastructure
+        self.logger = _LOGGER.getChild(self.name)
+
+        self.aggr_dt = self.aggr_nperiods * self.gran_dt
+
+        if self.is_aggr:
+            self.nperiods_fore_gran = (
+                    self.nperiods_fore * self.aggr_nperiods)
+        else:
+            self.nperiods_fore_gran = self.nperiods_fore
+
+        # A flag to indicate successfully finished forecasts
+        self.success = False
+
+        # Integrity check
+        # ---------------
+        pass
+
+    def reset_pipeline(self):
+        self.step = 0
+        self._stage = _STAGE_UNSET
+        self.stage_note = &#34;&#34;
+
+    def remove_stage(self, stage):
+        &#34;&#34;&#34;Removes a stage of the pipeline, rearranging the class
+        properly.
+        &#34;&#34;&#34;
+        self.stage_callback.pop(stage)  # Key error if not found
+        self._stages = list(self.stage_callback.keys())
+
+    #
+    # ----------------------------------------------------------------
+    # INTEGRITY: STATUS CHECKING
+    # ----------------------------------------------------------------
+    #
+
+    def _check_past_aggr_timestructs(self):
+        &#34;&#34;&#34;Verify if past aggregated names are defined.&#34;&#34;&#34;
+        for name in [&#34;past_aggr_idx&#34;, &#34;pa0&#34;, &#34;pa1&#34;, &#34;pa_len&#34;]:
+            if self.time.__getattribute__(name) is None:
+                raise ForecastStatusError(
+                    f&#34;Hey, attribute self.time.{name} should be set&#34;
+                    f&#34; at this point, but it is None.&#34;)
+
+    def _check_past_gran_timestructs(self):
+        &#34;&#34;&#34;Verify if past aggregated names are defined.&#34;&#34;&#34;
+        for name in [&#34;past_gran_idx&#34;, &#34;pg0&#34;, &#34;pg1&#34;, &#34;pg_len&#34;]:
+            if self.time.__getattribute__(name) is None:
+                raise ForecastStatusError(
+                    f&#34;Hey, attribute self.time.{name} should be set&#34;
+                    f&#34; at this point, but it is None.&#34;)
+
+    def _check_for_crop_roi(self, start, end):
+        if self.raw_incid_sr is None:
+            raise ForecastStatusError(
+                f&#34;Hey, the raw incidence series is set to None.&#34;
+                f&#34; Please ensure that you informed a propper time&#34;
+                f&#34; series for the raw data during initialization.&#34;
+            )
+        if start &gt;= end:
+            raise ValueError(
+                f&#34;Hey, start date ({start}) must be prior to end&#34;
+                f&#34; date ({end}).&#34;)
+
+    @staticmethod
+    def _check_for_denoise(data: pd.Series, which):
+        &#34;&#34;&#34;Check if required structs are defined for denoising.
+        Data must be the selected raw data to denoise.
+        &#34;&#34;&#34;
+        if data is None:
+            raise ForecastStatusError(
+                f&#34;Hey, the past {which} incidence data must be set &#34;
+                f&#34;before denoising, but it&#39;s `None`.&#34;
+            )
+
+        if not isinstance(data, pd.Series):
+            raise TypeError(
+                f&#34;Hey, the past {which} incidence data must be a &#34;
+                f&#34;pandas Series, but it is a `{type(data)}` instead.&#34;
+            )
+
+    def _check_for_rt_estimation(self):
+
+        if self.inc.past_gran_sr is None:
+            raise ForecastStatusError(
+                f&#34;Hey, the past granular time series &#34;
+                f&#34;(`self.inc.past_gran_sr`) must be defined before &#34;
+                f&#34;R(t) estimation, but it is set to None.&#34;
+            )
+
+        if self.tg_past is None:
+            raise ForecastStatusError(
+                f&#34;Hey, the past generation time object &#34;
+                f&#34;(`self.tg_past`) must be defined before &#34;
+                f&#34;R(t) estimation, but it is set to None.&#34;
+            )
+
+        if self.time.pg_len is None:
+            raise ForecastStatusError(
+                f&#34;Hey, the past granular ROI len &#34;
+                f&#34;(`self.time.pg_len`) must be defined before &#34;
+                f&#34;R(t) estimation, but it is set to None.&#34;
+            )
+
+    def _check_for_inc_reconstruction(self):
+
+        # -------------------------------------
+        # Check definition of essential structs
+        # -------------------------------------
+        msg_fmt = (
+            &#34;Hey, the {} (`{}`) must be defined before the incidence&#34;
+            &#34; reconstruction, but it is set to None.&#34;
+        )
+
+        if self.inc.past_gran_sr is None:
+            raise ForecastStatusError(
+                msg_fmt.format(&#34;past granular incidence series&#34;,
+                               &#34;self.inc.past_gran_sr&#34;))
+
+        if self.rt_fore is None:
+            raise ForecastStatusError(
+                msg_fmt.format(&#34;future R(t) object&#34;,
+                               &#34;self.rt_fore&#34;) +
+                &#34; Call `self.synthesize_rt()` first.&#34;
+            )
+
+        if self.tg_past is None:
+            raise ForecastStatusError(
+                msg_fmt.format(&#34;past generation time object&#34;,
+                               &#34;self.tg_past&#34;)
+            )
+
+        if self.tg_fore is None:
+            raise ForecastStatusError(
+                msg_fmt.format(&#34;future generation time object&#34;,
+                               &#34;self.tg_fore&#34;)
+            )
+
+        if self.time.fore_gran_idx is None:
+            raise ForecastStatusError(
+                msg_fmt.format(&#34;future granular time index&#34;,
+                               &#34;self.time.fore_gran.idx&#34;)
+            )
+
+        # -------------------------------------
+        # Check values
+        # -------------------------------------
+
+        # Negative incidence
+        if self.inc.past_gran_sr.min() &lt; 0:
+            negatives = self.inc.past_gran_sr.loc[
+                self.inc.past_gran_sr &lt; 0]
+            sum_negatives = negatives.sum()
+            num_negatives = negatives.shape[0]
+            min_negatives = negatives.min()
+            msg = (f&#34;Hey, {num_negatives} negative values were found&#34; 
+                   f&#34; in the preprocessed past incidence series,&#34;
+                   f&#34; (`self.inc.past_gran_sr`). &#34;
+                   f&#34;\nThe minimum is&#34;
+                   f&#34; {min_negatives}.&#34;
+                   f&#34;\nThe sum is {sum_negatives}.&#34;)
+
+            self.logger.warning(msg)
+
+        # Negative reproduction number
+        # TODO
+
+    @staticmethod
+    def _check_for_inc_quantiles(data, name):
+        _check_if_set(data, &#34;self.&#34; + name,
+                      formal_name=&#34;future incidence ensemble&#34;,
+                      step_name=&#34;`make_quantiles_for()`&#34;)
+
+    #
+    # ----------------------------------------------------------------
+    # AUX/MISCELLANEOUS METHODS
+    # ----------------------------------------------------------------
+    #
+    #
+
+    #
+    # ----------------------------------------------------------------
+    # INTERFACE: ATTRIBUTE HANDLING (setters and getters)
+    # ----------------------------------------------------------------
+    #
+
+    def get_past_aggr_tlabels(self):
+        try:
+            return self.inc.past_aggr_sr.index
+        except ForecastStatusError as err:
+            raise Exception(
+                &#34;Hey, past aggregate incidence series (past_aggr_sr)&#34;
+                &#34; is not set.&#34;).with_traceback(err.__traceback__)
+
+    def get_past_gran_tlabels(self):
+        try:
+            return self.inc.past_gran_sr.index
+        except ForecastStatusError as err:
+            raise Exception(
+                &#34;Hey, past granular incidence series (past_aggr_sr)&#34;
+                &#34; is not set.&#34;).with_traceback(err.__traceback__)
+
+    #
+    # ----------------------------------------------------------------
+    # INTERFACE: MODULAR FORECAST PROCEDURES
+    # ----------------------------------------------------------------
+    #
+
+    # ------------------------
+    # Preprocessing procedures
+    # ------------------------
+
+    # Region of interest (ROI) managing
+    # ---------------------------------
+
+    def crop_roi(self, start, end):
+        &#34;&#34;&#34;Return a _region of interest_ (ROI) from the main
+        raw incidence series (`self.raw_incid_sr`).
+
+        Parameters
+        ----------
+        start : pd.Timestamp, str
+            First time label of the region of interest (included).
+        end : pd.Timestamp, str
+            Last time label of the region of interest. This point is
+            **include** if present in the original series.
+
+        Returns
+        -------
+        roi : pd.Series
+            A view of the raw time series, cropped within the requested
+            region.
+        &#34;&#34;&#34;
+        self._check_for_crop_roi(start, end)
+
+        return self.raw_incid_sr.loc[start:end]
+
+    def set_main_roi(self, start, end, sort_data=True):
+        &#34;&#34;&#34;Crop a _region of interest_ (ROI) and set as the main
+        past incidence series, which is used in the forecast pipeline.
+
+        Any changes to the main ROI must pass through this function.
+
+        Parameters
+        ----------
+        start : pd.Timestamp, str
+            First time label of the region of interest (included).
+        end : pd.Timestamp, str
+            Last time label of the region of interest. This point is
+            **include** if present in the original series.
+        &#34;&#34;&#34;
+
+        roi = self.crop_roi(start, end)
+
+        # --- Checks
+        if roi.shape == 0:
+            msg = f&#34;&#34;&#34;Hey, empty ROI between timestamps 
+                  {start} and {end}.&#34;&#34;&#34;
+            # self.logger.warning(msg)
+            raise ValueError(msg)
+
+        # Optionally sort
+        if sort_data:
+            roi.sort_index(inplace=True)
+
+        # Attribute the ROI
+        if self.is_aggr:
+            self.inc.past_aggr_sr = roi
+        else:
+            self.inc.past_gran_sr = roi
+
+        # Get effective labels after cropping the data
+        roi_start = roi.index[0]  # Actual start date
+        day_pres = roi.index[-1]
+        if not self.is_aggr:
+            day_pres += self.gran_dt
+        # TODO: ^  ^  Line above refers to input data aggregation.
+
+        #
+        self.make_all_time_data(roi_start, day_pres)
+
+    def sort_past_series(self):
+        &#34;&#34;&#34;As raw input data may be unsorted over time, this ensures
+        that the ROI-cropped series are. Modifies inplace.
+        &#34;&#34;&#34;
+        for sr in [
+                self.inc.past_gran_sr,
+                self.inc.past_aggr_sr,
+        ]:
+            if sr is not None:
+                sr.sort_index(inplace=True)
+
+    # Noise filtering and fitting
+    # ---------------------------------
+
+    def _retrieve_denoise_kwds(self, name=None):
+        &#34;&#34;&#34;Reads keywords like &#39;denoise_key&#39; or &#39;name_denoise_key&#39;
+        from the preprocessing parameter dictionary.
+        &#34;&#34;&#34;
+        prefix = (&#34;denoise_&#34;
+                  if name is None
+                  else name + &#34;_denoise_&#34;)
+        d_kwargs = extract_prefixed_keys(self.pp, prefix)
+
+        if not d_kwargs:
+            self.logger.debug(
+                f&#34;No denoise keywords found for name = {name}.&#34;)
+
+        return d_kwargs
+
+    def _make_get_noise_obj(self, model, name=None, **kwargs):
+        &#34;&#34;&#34;Returns (possibly creating) a noise object from `model`
+        and named as `name`.
+        If object already exists,
+        &#34;&#34;&#34;
+        name = _DEFAULT_NOISE if name is None else name
+
+        if name not in self.noise_obj_dict:
+            try:
+                # CREATE NOISE OBJECT (construction params?)
+                self.noise_obj_dict[name] = NOISE_CLASSES[model](
+                    logger=self.logger, **kwargs)
+            except KeyError:
+                # self.logger.error(
+                raise KeyError(
+                    f&#34;Hey, denoise model &#39;{model}&#39; was not recognized.\n&#34;
+                    f&#34;Accepted values are:\n&#34;
+                    f&#34;{list(NOISE_CLASSES.keys())}&#34;
+                )
+
+        return self.noise_obj_dict[name]
+
+    def get_noise_object(self, name=_DEFAULT_NOISE):
+        &#34;&#34;&#34;
+        Parameters
+        ----------
+        name : str
+            Name of the noise object. Defaults to the main one.
+
+        Returns
+        -------
+        noise_obj : AbstractNoise
+
+        Raises
+        ------
+        KeyError
+            If a noise object keyed as `name` is not found.
+        &#34;&#34;&#34;
+        try:
+            return self.noise_obj_dict[name]
+        except KeyError:
+            raise ForecastStatusError(
+                f&#34;Hey, a noise object with name &#39;{name}&#39; was not&#34;
+                f&#34; found at `self.noise_obj_dict`.&#34;)
+
+    def denoise(self):
+        pass
+
+    def denoise_and_fit(self, name=None, which=&#34;gran&#34;):
+        &#34;&#34;&#34;
+        Call the `denoise_and_fit` method from the noise object
+        specified as `name`.
+
+        Parameters
+        ----------
+        name : str, optional
+            The name of the noise object. Defaults to the main object.
+        which : str, optional
+            The type of data to denoise and fit. Can be either &#34;gran&#34;
+            for granular dat aor &#34;aggr&#34; for aggregated data.
+            Default is &#34;gran&#34;.
+
+        Returns
+        -------
+        numpy.ndarray
+            A denoised version of the input data. The noise object
+            will also have fittet parameters for the noise.
+
+        Raises
+        ------
+        ValueError
+            If the input `which` argument is not &#34;gran&#34; or &#34;aggr&#34;.
+        &#34;&#34;&#34;
+        data = _select_gran_aggr(
+            which, self.inc.past_gran_sr, self.inc.past_aggr_sr)
+
+        # --- Checks
+        self._check_for_denoise(data, which)
+
+        # Retrieve denoise keywords
+        d_kwargs = self._retrieve_denoise_kwds(name=name)
+        noise_obj: AbstractNoise = self._make_get_noise_obj(
+            name=name, **d_kwargs)
+
+        # Apply denoise+fit method
+        # data[:] = noise_obj.denoise_and_fit(data, **d_kwargs)
+        denoised = _set_select_gran_aggr(
+            self, which, &#34;inc.past_gran_sr&#34;, &#34;inc.past_aggr_sr&#34;,
+            noise_obj.denoise_and_fit(data, **d_kwargs))
+
+        return denoised
+
+    # Interpolation
+    # ---------------------------------
+
+    def make_all_time_data(self, roi_start, time_pres):
+        &#34;&#34;&#34;&#34;CANDIDATE FUNCTION TODO
+        Optional method that defines ALL THE time labels and indexes, once
+        you have the roi_start, time_pres and self.nperiods_fore info.
+
+        Given `time_pres` and `roi_start`
+        (whether `is_aggr` is True or False):
+        - pa0 = roi_start
+        - pa1 = time_pres
+        - pg0 = roi_start
+        - pg1 = time_pres - gran_dt
+
+        - fa0 = time_pres + agg_dt
+        - fa1 = time_pres + nperiods_fore * agg_dt
+        - fg0 = time_pres
+        - fg1 = time_pres + (nperiods_fore_gran - 1) * gran_dt
+        &#34;&#34;&#34;
+        self.time.pres = time_pres
+
+        # Past labels
+        self.time.pa0 = roi_start
+        self.time.pa1 = time_pres
+        self.time.pg0 = roi_start
+        self.time.pg1 = time_pres - self.gran_dt
+
+        # Future labels
+        self.time.fa0 = time_pres + self.aggr_dt
+        self.time.fg0 = time_pres
+        self.time.fg1 = (time_pres
+                         + (self.nperiods_fore_gran-1) * self.gran_dt)
+        self.time.fa1 = self.time.fg1 + self.gran_dt
+
+        # Aggregate indexes, if needed
+        if self.is_aggr:
+            self.time.past_aggr_idx = pd.date_range(
+                self.time.pa0, self.time.pa1, freq=self.aggr_dt
+            )
+            self.time.fore_aggr_idx = pd.date_range(
+                self.time.fa0, self.time.fa1, freq=self.aggr_dt
+            )
+
+            self.time.pa_len = self.time.past_aggr_idx.shape[0]
+            self.time.fa_len = self.time.fore_aggr_idx.shape[0]
+
+        # Granular indexes
+        self.time.past_gran_idx = pd.date_range(
+            self.time.pg0, self.time.pg1, freq=self.gran_dt
+        )
+        self.time.fore_gran_idx = pd.date_range(
+            self.time.fg0, self.time.fg1, freq=self.gran_dt
+        )
+
+        self.time.pg_len = self.time.past_gran_idx.shape[0]
+        self.time.fg_len = self.time.fore_gran_idx.shape[0]
+
+    def make_gran_time_data(self):
+        &#34;&#34;&#34;Based on aggregate time data, create the past and fore
+        granular index and related time data.
+
+        DEVNOTE IDEA: join the creation of all labels in one function,
+        which checks whether self.is_aggr == True to decide procedures.
+        ALSO DEVNOTE: invert current logic – first define limits, then
+          define indexes and length.
+
+        Given `time_pres` and `roi_start`
+        (whether `is_aggr` is True or False):
+        - pa0 = roi_start
+        - pa1 = time_pres
+        - pg0 = roi_start
+        - pg1 = time_pres - gran_dt
+
+        - fa0 = time_pres + agg_dt
+        - fa1 = time_pres + nperiods_fore * agg_dt
+        - fg0 = time_pres
+        - fg1 = time_pres + (nperiods_fore_gran - 1) * gran_dt
+
+        &#34;&#34;&#34;
+        # Check integrity
+        self._check_past_aggr_timestructs()
+
+        # Create time indexes
+        self.time.past_gran_idx = pd.date_range(
+            start=self.time.pa0,
+            end=self.time.pa1 - self.gran_dt,
+            freq=self.gran_dt,
+        )
+
+        self.time.fore_gran_idx = pd.date_range(
+            start=self.time.pa1,
+            end=(self.time.pa1
+                 + (self.nperiods_fore_gran - 1) * self.gran_dt),
+            freq=self.gran_dt,
+        )
+
+        # Define other time-related labels
+        self.time.pg0 = self.time.past_gran_idx[0]
+        self.time.pg1 = self.time.past_gran_idx[-1]
+        self.time.pg_len = self.time.past_gran_idx.shape[0]
+
+        self.time.fg0 = self.time.fore_gran_idx[0]
+        self.time.fg1 = self.time.fore_gran_idx[-1]
+        self.time.fg_len = self.time.fore_gran_idx.shape[0]
+
+    def _retrieve_interp_kwds(self, name=None):
+        &#34;&#34;&#34;Reads keywords like &#39;interp_key&#39; or &#39;name_interp_key&#39;
+        from the preprocessing parameter dictionary.
+        &#34;&#34;&#34;
+        prefix = (&#34;interp_&#34;
+                  if name is None
+                  else name + &#34;_interp_&#34;)
+        d_kwargs = extract_prefixed_keys(self.pp, prefix)
+
+        if not d_kwargs:
+            self.logger.debug(
+                f&#34;No `interp` keywords found for name = {name}.&#34;)
+
+        return d_kwargs
+
+    def interpolate_to_granular(self):
+        &#34;&#34;&#34;TODO: this is an incomplete implementation&#34;&#34;&#34;
+        # --- SKETCH
+        # Check internal states
+        # Decide method
+        # Employ and store
+
+        self.make_gran_time_data()
+        interp_kwargs = self._retrieve_interp_kwds()
+
+        # --- Perform the interpolation
+        self.inc.past_gran_sr = pd.Series(
+            interpolate_cumulative(
+                self.inc.past_aggr_sr.values,
+                logger=self.logger,
+                agg_period=self.aggr_nperiods,
+                # **self.preproc_params,
+                **interp_kwargs,
+            ),
+            index=self.time.past_gran_idx,
+        )
+
+        # # TODO: i&#39;ll have to extract parameters with &#39;interp&#39; prefix.
+        # self.inc.past_gran_sr = pd.Series(
+        #     interpolate_smooth_pycno(
+        #         self.inc.past_aggr_sr.values, **self.preproc_params),
+        #     index=self.time.past_gran_idx)
+
+    # Data scaling
+    # ---------------------------------
+    def get_scaled_past_incidence(self, which=&#34;gran&#34;):
+        &#34;&#34;&#34;Multiplies the past time series by a coefficient, given
+        a method to determine the coefficient.
+
+        Returns a modified copy of the series. Changes are not made in place!
+        &#34;&#34;&#34;
+        data = _select_gran_aggr(
+            which, self.inc.past_gran_sr, self.inc.past_aggr_sr
+        )
+
+        method = self.ep[&#34;scale_method&#34;]
+
+        # --- Decision chain for scaling factor
+        # -()- Constant pre-specified factor
+        if method in [&#34;const&#34;, &#34;just_scale_it&#34;]:
+            pass  # self.ep[&#34;scale_factor&#34;] expected to be defined
+
+        # -()- Based on the average data over a given ROI
+        elif method in [&#34;data_pwr&#34;]:
+            roi_start = - self.ep[&#34;scale_roi_len&#34;]  # TAKE THE MCMC ROI (without lag, fix if changed!)
+            scale_fac = (self.ep[&#39;scale_ref_inc&#39;] /
+                         self.inc.past_gran_sr.iloc[roi_start:].mean())
+            self.ep[&#34;scale_factor&#34;] = (
+                    scale_fac ** self.ep[&#34;scale_power&#34;]
+                    if scale_fac else 1.
+            )
+
+        # TODO: based on population (change to power)
+        # if method in [&#34;pop_linear&#34;]:
+        #     scale_fac = self.ep[&#39;scale_ref_pop&#39;] / self.ep[&#39;pop_size&#39;]
+        #     self.inc.past_gran_sr *= scale_fac
+
+        # -()- Not found – no scaling performed
+        else:
+            self.logger.error(
+                f&#34;Scaling method {method} was not recognized. &#34;
+                f&#34;No scaling was performed.&#34;)
+            self.ep[&#34;scale_factor&#34;] = 1.
+
+        return self.ep[&#34;scale_factor&#34;] * data
+
+    # Data regularization
+    # ---------------------------------
+
+    # def round_past_incidence(self, which=&#34;gran&#34;, decimals=0):
+    #     &#34;&#34;&#34;Round float values of a past incidence series into integers.
+    #     Modifies `self.inc.past_gran_sr` or `self.inc.past_aggr_sr`
+    #     inplace.
+    #     &#34;&#34;&#34;
+    #     _set_select_gran_aggr(
+    #         self, which, &#34;inc.past_gran_df&#34;, &#34;inc.past_aggr_df&#34;,
+    #         _select_gran_aggr(
+    #             which, self.inc.past_gran_sr, self.inc.past_aggr_sr)
+    #     )
+
+    def remove_negative_incidence(
+            self, which=&#34;gran&#34;, method=&#34;clamp&#34;, warn=True):
+        &#34;&#34;&#34;Deals with potential negative incidence values.
+        Modifies `self.inc.past_gran_sr` or `self.inc.past_aggr_sr`
+        inplace.
+        &#34;&#34;&#34;
+        data = _select_gran_aggr(
+            which, self.inc.past_gran_sr, self.inc.past_aggr_sr)
+
+        # Finds negative values
+        # ---------------------
+        negative_idx = data.loc[data &lt; 0].index
+
+        if negative_idx.shape[0] == 0:
+            return  # Nothing to do
+
+        negatives = data.loc[negative_idx]
+
+        # Warn about negative values
+        # --------------------------
+        if warn:
+            sum_negatives = negatives.sum()
+            num_negatives = negatives.shape[0]
+            min_negatives = negatives.min()
+            msg = (
+                f&#34;{num_negatives} negative values were found&#34;
+                f&#34; in the preprocessed past incidence series &#34;
+                f&#34; will be handled with method &#39;{method}&#39;.&#34;
+                f&#34; (`self.inc.past_gran_sr`). &#34;
+                f&#34;\n\t – The minimum is&#34;
+                f&#34; {min_negatives}.&#34;
+                f&#34;\n\t – The sum is {sum_negatives}.&#34;)
+            self.logger.warning(msg)
+
+        # Does the handling
+        # ---------------------
+        # -()- # Set all to zero. Ok for small deviations.
+        #      # May cause huge estimates for low count data.
+        if method == &#34;clamp&#34;:
+            data.loc[negative_idx] = 0  # Changes inplace
+
+        # -()- Shift values by adding the minimum.
+        #      Again, only fine for small deviations.
+        elif method == &#34;shift&#34;:
+            data += -negatives.min()
+
+        else:
+            raise ValueError(
+                f&#34;Hey, negative handling method &#39;{method}&#39; is not &#34;
+                f&#34;recognized for `remove_negative_incidence`.&#34;)
+
+    # --------------------------
+    # R(t) estimation procedures
+    # --------------------------
+    def estimate_rt_mcmc(
+            self, ct_array=None, df_columns_as_dates=True, sim_name=None,
+            # use_tmp=None,
+    ):
+        &#34;&#34;&#34;Runs a Monte Carlo Markov Chain procedure to estimate the
+        distribution of the reproduction number over time for the past
+        time series.
+
+        If not specified, ct_array is taken from the series of past
+        granular incidence.
+
+        When `use_tmp` is set to True, uses temporary files
+        for the C engine and erase them. It defaults to the value in
+        the `rt_estimation_params`.
+        [devnote!] It needed to be iplemented that way to avoid
+        conflicts between different workflows!
+        &#34;&#34;&#34;
+
+        # Retrieve parameters
+        params = self.ep
+        sim_name = sim_name if sim_name is not None else self.name
+        engine = params.get(&#34;engine&#34;, None)
+        roi_len = params.get(&#34;roi_len&#34;, None)  # MCMC roi (in gran periods)
+
+        # Default parameter replacement
+        if ct_array is None:
+            ct_array = self.inc.past_gran_sr.values
+        engine = &#34;c&#34; if engine is None else engine
+        roi_len = 0 if roi_len is None else roi_len
+        # if use_tmp is not None:
+        #     params[&#34;use_tmp&#34;] = use_tmp
+
+        # Crop MCMC ROI
+        ct_array = ct_array[-roi_len:]
+
+        # Build generation time distribution
+        tg_array = self.tg_past.get_param_arrays_bysize(
+            ct_array.shape[0])
+
+        # --- Check integrity
+        self._check_for_rt_estimation()
+
+        # --- Run MCMC based on engine choice
+        self.logger.debug(f&#34;Running MCMC with engine {engine}.&#34;)
+        if engine.lower() == &#34;c&#34;:
+
+            # Define file prefixes by the name of the operator
+            # TODO: get as a parameter and just modify here
+            self.ep[&#34;in_prefix&#34;] = f&#34;mcmc/inputs/{self.name}&#34;
+            self.ep[&#34;out_prefix&#34;] = f&#34;mcmc/outputs/{self.name}&#34;
+            self.ep[&#34;out_prefix&#34;] = f&#34;mcmc/logs/{self.name}&#34;
+
+            # --- Run C engine MCMC
+            self.rt_past = run_mcmc_rt_c(
+                ct_array,
+                tg_array,
+                sim_name=sim_name,
+                **params
+            )
+
+        elif engine.lower() == &#34;numba&#34;:
+            # --- Run Numba engine MCMC
+            self.rt_past = run_mcmc_rt_numba(
+                ct_array,
+                tg_array,
+                **params
+            )
+
+        else:
+            raise ValueError(
+                f&#34;Hey, MCMC engine &#39;{engine}&#39; is not recognized&#34;
+                f&#34; or implemented.&#34;)
+
+        if df_columns_as_dates:
+            self.rt_past.df.columns = (
+                self.time.past_gran_idx[-self.rt_past.nperiods:]
+            )
+
+        return self.rt_past
+
+    # ----------------------------------
+    # R(t) (future) synthesis procedures
+    # ----------------------------------
+
+    def synthesize_tg(self):
+        &#34;&#34;&#34;TODO: more methods, including dynamic Tg&#34;&#34;&#34;
+
+        params = self.sp
+        method = params[&#34;tg_synth_method&#34;]
+
+        if not self.tg_past.is_const:
+            raise NotImplementedError(
+                &#34;Hey, dynamic generation time distribution &#34;
+                &#34;isn&#39;t supported yet&#34;)
+
+        if method.lower() == &#34;same&#34;:
+            # Just use the same object (by reference) of past Tg.
+            self.tg_fore = self.tg_past
+
+        else:
+            raise NotImplementedError(
+                f&#34;Hey, tg_synth_method = {method} not &#34;
+                f&#34;recognized or implemented.&#34;)
+
+        return self.tg_fore
+
+    def synthesize_rt(self, df_columns_as_dates=True):
+        &#34;&#34;&#34;
+
+        TODO: this will be refurbished for the smart/poly formulation
+
+        Parameters
+        ----------
+        df_columns_as_dates: bool
+
+        Returns
+        -------
+
+        &#34;&#34;&#34;
+
+        # TODO Check integrity:
+        # ..... do it case by case. Call a method.
+        # - [MEH] Granular past data
+        # - [SOME] Past R(t) (Msome don&#39;t need it)
+        # - [NOPE] Past and future P_Tg(t)
+
+        params = self.sp
+
+        # Define default method
+        if params[&#34;synth_method&#34;] in [&#34;STD&#34;, &#34;default&#34;]:
+            params[&#34;synth_method&#34;] = &#34;dynamic_ramp&#34;
+
+        # --- Execution elif chain
+        # Static ramp
+        if params[&#34;synth_method&#34;] == &#34;static_ramp&#34;:
+            self.rt_fore = RtData(static_ramp_avg_synth(
+                self.nperiods_fore_gran, self.rt_past,
+                **params
+            ))
+            self.logger.debug(&#34;Synth R(t) with &#39;static_ramp&#39; method.&#34;)
+
+        # Dynamic ramp
+        elif params[&#34;synth_method&#34;] == &#34;dynamic_ramp&#34;:
+            self.rt_fore = RtData(dynamic_ramp_avg_synth(
+                self.nperiods_fore_gran, self.rt_past,
+                **params
+            ))
+            self.logger.debug(&#34;Synth R(t) with &#39;dynamic_ramp&#39; method.&#34;)
+
+        # Random normal
+        elif params[&#34;synth_method&#34;] == &#34;rnd_normal&#34;:
+            self.rt_fore = RtData(random_normal_synth(
+                self.nperiods_fore_gran, **params))
+            self.logger.debug(&#34;Synth R(t) with &#39;rnd_normal&#39; method.&#34;)
+
+        else:
+            msg = (
+                f&#34;Hey, synth_method = \&#34;{params[&#39;synth_method&#39;]}\&#34;&#34;
+                f&#34; is not recognized.&#34;
+            )
+
+            self.logger.critical(msg, exc_info=ValueError(msg))
+            self.set_stage_error()
+            return
+
+        # --- Etc
+        if df_columns_as_dates:
+            self.rt_fore.df.columns = self.time.fore_gran_idx
+
+        return self.inc.fore_gran_df
+
+    # ----------------------------------------
+    # C(t) Incidence reconstruction procedures
+    # ----------------------------------------
+
+    def reconstruct_incidence(self, df_columns_as_dates=True):
+        &#34;&#34;&#34;
+
+        Notes
+        -----
+        If both past and fore generation times are constant:
+        - Each one is still passed to the reconstruction method, so
+          it can accept different distributions for past and future.
+        - Maximum Tg value is assumed as the minimum betwen past and fore.
+          This can be a problem if past and fore distributions are too
+          different.
+        &#34;&#34;&#34;
+        self._check_for_inc_reconstruction()
+
+        # TODO  - DEVNOTE: compiling the numba reconstruction is taking
+        #      - really most of the time.
+
+        params = self.rp
+        method = params.get(&#34;method&#34;, &#34;STD&#34;)  # May be omitted.
+
+        if method in [&#34;default&#34;, &#34;STD&#34;]:
+            method = &#34;renewal&#34;
+
+        # --- Execution elif chain
+        if method == &#34;renewal&#34;:
+            array = np.empty_like(self.rt_fore.array, dtype=float)
+
+            # Constant generation time
+            if self.tg_past.is_const and self.tg_fore.is_const:
+                reconstruct_ct_multiple(
+                    self.inc.past_gran_sr.values,
+                    self.rt_fore.array,
+                    self.tg_past.get_pmf_array(),
+                    self.tg_fore.get_pmf_array(),
+                    min(self.tg_past.tmax, self.tg_fore.tmax),
+                    array, self.nperiods_fore_gran,
+                    seed=params.get(&#34;seed&#34;, 0)
+                )
+
+            else:
+                # TODO: implement dynamic Tg
+                raise NotImplementedError(&#34;é isso aí TODO&#34;)
+
+            # Make dataframe from constructed array
+            self.inc.fore_gran_df = pd.DataFrame(array)
+            if df_columns_as_dates:
+                self.inc.fore_gran_df.columns = self.time.fore_gran_idx
+
+        # -----------------------------------
+        else:
+            raise ValueError(
+                f&#34;Hey, reconstruction method {method} not implemented&#34;
+                f&#34; or recognized.&#34;)
+
+        return self.inc.fore_gran_df
+
+    def incorporate_noise(self, which=&#34;gran&#34;, name=_DEFAULT_NOISE):
+        &#34;&#34;&#34;TODO DOCS&#34;&#34;&#34;
+
+        data = _select_gran_aggr(
+            which, self.inc.fore_gran_df, self.inc.fore_aggr_df)
+        noise_obj = self.get_noise_object(name)
+
+        # TODO: integrity check
+        #    - check that corresponding time series exists
+        #    - Warn if self.rc[gen_noise] == False
+
+        incorp_data = _set_select_gran_aggr(
+            self, which, &#34;inc.fore_gran_df&#34;, &#34;inc.fore_aggr_df&#34;,
+            noise_obj.generate(data))
+
+        return incorp_data
+
+    # -------------------------------------
+    # Combined synthesis and reconstruction
+    # -------------------------------------
+    # This function accounts for methods that require the R(t) synthesis
+    # and the incidence reconstruction to be run together at each time
+    # step. If the requested method does not require this, simply calls
+    # the regular synthesis and reconstruction functions in sequence.
+
+    def synthesize_and_reconstruct(self):
+        &#34;&#34;&#34; This function accounts for methods that require the R(t) synthesis
+        and the incidence reconstruction to be run together at each time
+        step. If the synth method does not require this, simply calls
+        the regular synthesis and reconstruction functions in sequence.
+
+        All operations occur with the granular time scale.
+        &#34;&#34;&#34;
+
+        # TODO: Check for required structures
+
+        if self.sp[&#34;synth_method&#34;] in [  # Methods that are not yet officially included
+            &#34;drift_pop&#34;,
+            &#34;drift_const&#34;,
+        ]:
+            # Calculate the drift coefficient from population
+            if self.sp[&#34;synth_method&#34;] == &#34;drift_pop&#34;:
+                self.sp[&#34;drift_coef&#34;] = (
+                        float(self.sp[&#34;drift_pop_coef&#34;])
+                        / self.sp[&#34;population&#34;]  # ERROR IF NOT DEFINED
+                )
+
+            # Run the drift synth-reconstruction
+            try:
+                rt_fore_2d, ct_fore_2d = drift_rw_synth_reconstruct(
+                    self.nperiods_fore_gran,
+                    self.rt_past,
+                    self.inc.past_gran_sr.to_numpy(),
+                    self.tg_past.get_pmf_array(),
+                    self.tg_fore.get_pmf_array(),
+                    min(self.tg_past.tmax, self.tg_fore.tmax),
+                    self.sp[&#34;nperiods_past&#34;],
+                    float(self.sp[&#34;drift_coef&#34;]),
+                    float(self.sp.get(&#34;rw_coef&#34;, 0)),
+                    float(self.sp.get(&#34;bias&#34;, 0)),
+                    self.sp[&#34;q_low&#34;],
+                    self.sp[&#34;q_hig&#34;],
+                    logger=self.logger,
+                )
+            except ValueError as e:
+                self.logger.error(f&#34;{e}&#34;)
+                self.set_stage_error()
+                return
+            except Exception as e:
+                raise Exception(f&#34;{self.name}: {e}&#34;)
+
+            # Store results (R(t) and c(t) forecast)
+            self.rt_fore = RtData(rt_fore_2d.T)
+            self.inc.fore_gran_df = pd.DataFrame(
+                ct_fore_2d.T, columns=self.time.fore_gran_idx
+            )
+
+            # Set columns as dates
+            self.rt_fore.df.columns = self.time.fore_gran_idx
+
+        else:  # Other methods: call the regular synth/reconstruction
+            self.synthesize_rt(df_columns_as_dates=True)
+            self.reconstruct_incidence()
+
+    # -------------------------
+    # Postprocessing procedures
+    # -------------------------
+
+    def aggregate_past_incidence(self):
+        &#34;&#34;&#34;Sum periods of a granular past (1D) incidence vector
+        into an aggregated time series.
+
+        Expected to be used as a postprocessing step
+        &#34;&#34;&#34;
+        params = self.op
+
+        _check_if_set(
+            self.inc.past_gran_sr, name=&#34;self.inc.past_gran_sr&#34;,
+            step_name=&#34;aggregate_past_incidence&#34;,
+        )
+
+        # Define border between aggr periods, for gran tlabels
+        if &#34;aggr_ref_tlabel&#34; in params:
+            ref_start = (pd.Timestamp(params[&#34;aggr_ref_tlabel&#34;])
+                         # - self.gran_dt  # WRONG ERASE: no need
+                         )
+        else:
+            ref_start = self.time.pres
+
+        # Perform aggregation to one-past-end-of-period labels
+        self.inc.past_aggr_sr = aggregate_in_periods(
+            self.inc.past_gran_sr, self.aggr_dt,
+            ref_start=ref_start, full_only=True
+        )
+
+        self.time.past_aggr_idx = self.inc.past_aggr_sr.index
+
+        return self.inc.fore_aggr_df
+
+    def aggregate_fore_incidence(self):
+        &#34;&#34;&#34;Sum periods of the granular future (2D) incidence into an
+        aggregated time series.
+
+        As an important note: this function does not remove aggr
+        periods that were incomplete (i.e., did not have all gran
+        points aggregated).
+
+        &#34;&#34;&#34;
+        params = self.op
+
+        _check_if_set(
+            self.inc.fore_gran_df, name=&#34;self.inc.fore_gran_df&#34;,
+            step_name=&#34;aggregate_fore_incidence&#34;,
+        )
+
+        # Define border between aggr periods, for gran tlabels
+        if &#34;aggr_ref_tlabel&#34; in params:
+            ref_start = (pd.Timestamp(params[&#34;aggr_ref_tlabel&#34;])
+                         # - self.gran_dt  # WRONG ERASE, no need
+                         )
+        else:
+            ref_start = self.time.pres
+
+        # Perform aggregation to one-past-end-of-period labels
+        self.inc.fore_aggr_df = aggregate_in_periods(
+            self.inc.fore_gran_df, self.aggr_dt,
+            ref_start=ref_start, full_only=True
+        )
+
+        # Make fore aggregate index
+        # TODO: this needs a trimming for when periods don&#39;t match
+        self.time.fore_aggr_idx = self.inc.fore_aggr_df.columns
+
+        return self.inc.fore_aggr_df
+
+    def make_quantiles_for(self, which=&#34;gran&#34;, inc_quantiles=None):
+
+        # Granular/aggregate selection
+        df = _select_gran_aggr(
+            which, self.inc.fore_gran_df, self.inc.fore_aggr_df)
+        name = _select_gran_aggr(
+            which, &#34;gran_quantiles&#34;, &#34;aggr_quantiles&#34;)
+
+        # State consistency check
+        self._check_for_inc_quantiles(df, name)
+
+        # Get quantile bounds
+        if inc_quantiles is None:
+
+            if &#34;inc_quantiles&#34; not in self.op:
+                raise KeyError(
+                    &#34;Hey, &#39;inc_quantiles&#39; must be informed &#34;
+                    &#34;as a list of quantiles in `postprocess_params`&#34;)
+
+            inc_quantiles = self.op[&#39;inc_quantiles&#39;]
+
+        # Calculate quantile, assign to attribute and return
+        q = df.quantile(inc_quantiles, axis=0)
+        self.inc.__setattr__(name, q)
+        return q
+
+    #
+    # ----------------------------------------------------------------
+    # FORECAST SCORING
+    # ----------------------------------------------------------------
+    #
+
+    def score_forecast(
+            self, which=&#34;aggr&#34;, method=&#34;wis&#34;, time_labels=None,
+            truth_sr: pd.Series = None, alphas=None
+    ):
+        &#34;&#34;&#34;TODO docs
+
+        DEV SKETCHES
+        - What do I need?
+           - The calculated quantiles of the required level (aggr/gran)
+           - &#34;Future&#34; data for the required period.
+                - Find that on:
+           - The time labels to score.
+               - Get from horizons, but that&#39;s not up to this function
+               - Default: fore_time_labels
+        &#34;&#34;&#34;
+        # ----------------------------
+        # Preamble operations
+        # ----------------------------
+        self.logger.debug(
+            f&#34;Scoring `{which}` forecast with method \&#34;{method}\&#34;.&#34;)
+
+        # Granular/aggregate quantiles selection
+        q_df = _select_gran_aggr(
+            which, self.inc.gran_quantiles, self.inc.aggr_quantiles)
+        q_df_name = _select_gran_aggr(
+            which, &#34;gran_quantiles&#34;, &#34;aggr_quantiles&#34;)
+
+        # Check if required quantiles are calculated
+        _check_if_set(
+            q_df, name=f&#34;self.inc.{q_df_name}&#34;,
+            step_name=f&#34;`score_forecast` with which = {which}&#34;,
+        )
+
+        if time_labels is None:
+            time_labels = _select_gran_aggr(
+                which, self.time.fore_gran_idx, self.time.fore_aggr_idx
+            )
+
+        # Get appropriate truth data
+        # ----------------------------
+
+        # -()- If not informed, take truth from `self.raw_incid_sr`
+        if truth_sr is None:
+            # -()- Truth data is in the required aggr. level
+            if (self.is_aggr and which == &#34;aggr&#34;
+                  or (not self.is_aggr) and which == &#34;gran&#34;):
+                truth_sr = self.raw_incid_sr
+
+            # -()- Truth data is granular but scores will be aggregate
+            elif (not self.is_aggr) and which == &#34;aggr&#34;:
+                ref_start = self.op[&#34;aggr_ref_tlabel&#34;]
+                gran_time_labels = 0  #  TODO  MAKE&#39;M HERE!
+
+                truth_sr = aggregate_in_periods(
+                    self.raw_incid_sr.loc[gran_time_labels],
+                    self.aggr_dt,
+                    ref_start=ref_start,
+                    full_only=True
+                )  # AGGGREGATE from raw past
+
+            # -()- Truth data is aggregated but scores are granular.
+            elif self.is_aggr and which == &#34;gran&#34;:
+                raise ValueError(
+                    &#34;Cannot score a granular forecast with aggregated &#34;
+                    &#34; truth data&#34;)
+
+            else:
+                raise ValueError(f&#34;Abnormal condition: which = {which} &#34;
+                                 f&#34;(must be \&#34;aggr\&#34; or \&#34;gran\&#34;&#34;)
+
+        # Locate the relevant time labels in the truth data
+        try:
+            truth_sr = truth_sr.loc[time_labels]
+        except KeyError:
+            # Log to add fop info. Also raises the error for details.
+            self.logger.error(&#34;Golden truth series has missing labels&#34;)
+            raise
+
+        # ----------------------------
+        # Scoring
+        # ----------------------------
+
+        # Devnote: no common signature for now, an elif chain is used
+        if method.lower() == &#39;wis&#39;:
+            scores = weighted_interval_score_fast(
+                observations=truth_sr.values,
+                alphas=alphas,  # TODO: check, CANNOT BE NONE
+                q_dict=q_df.T,  # Needs to be transposed
+            )  # OBS: return a tuple of scores: WIS, sharpn., calibr.
+
+        else:
+            msg = f&#34;Unrecognized scoring method: {method}&#34;
+            self.logger.error(msg)
+            raise ValueError(msg)
+
+        return scores
+
+
+
+
+    #
+    # ----------------------------------------------------------------
+    # EXECUTION: FORECAST PIPELINE
+    # ----------------------------------------------------------------
+    #
+
+    # ----------------------------------
+    # Forecast stages and steps handling
+    # ----------------------------------
+
+    def get_stages(self):
+        return self._stages
+
+    def set_stage_first(self):
+        self._stage = self._stages[0]
+
+    def set_stage_error(self):
+        self._stage = _STAGE_ERROR
+
+    def set_stage_done(self):
+        self._stage = _STAGE_DONE
+
+    def set_stage(self, name):
+        if name not in self._stages:
+            raise RtrendError(
+                f&#34;Hey, stage name &#39;{name}&#39; is not recognized. It must&#34;
+                f&#34; be one of the following:\n&#34;
+                f&#34;{self._stages}&#34;
+            )
+        self._stage = name
+
+    def set_stage_next(self):
+        &#34;&#34;&#34;Set the internal forecast stage to the next one in the list.
+        If current stage is _done_, _error_ or _unset_, the function
+        does nothing. If current stage is the last, it is set
+        as _done_. If current stage is not recognized, raises a value
+        error.
+        &#34;&#34;&#34;
+        if self._stage in [_STAGE_DONE, _STAGE_ERROR, _STAGE_UNSET]:
+            return
+
+        try:
+            i_stage = self._stages.index(self._stage)
+        except ValueError:
+            raise  # Current stage is not recognized TODO: something else?
+
+        if i_stage == len(self._stages) - 1:
+            self.set_stage_done()
+        else:
+            self.set_stage(self._stages[i_stage+1])
+
+    # --------------------------
+    # Generic pipeline interface
+    # --------------------------
+
+    def callback_preprocessing(self):
+        pass
+
+    def callback_rt_estimation(self):
+        pass
+
+    def callback_rt_synthesis(self):
+        pass
+
+    def callback_inc_reconstruction(self):
+        pass
+
+    def callback_postprocessing(self):
+        pass
+
+    def run(self, reset_state=True):
+        &#34;&#34;&#34;TODO: documentation&#34;&#34;&#34;
+        if reset_state:
+            self.set_stage_first()
+            self.step = 0
+
+        current_stage = self._stage
+
+        for self.step in range(self.step, self.max_steps):
+
+            # LOG STAGE. Internally and to the loggers. TODO: internally
+            self.logger.debug(
+                f&#34;Step {self.step}: {self._stage} &#34;)
+
+            previous_stage = current_stage
+            current_stage = self._stage
+
+            # ---
+
+            if self._stage in self._stages:
+                self.stage_callback[self._stage]()
+
+            elif self._stage == _STAGE_DONE:
+                self.success = True
+                self.logger.log(SUCCESS, &#34;Forecast concluded&#34;)
+                break  # Do final procedures.
+
+            elif self._stage == _STAGE_ERROR:
+                # Logs the failure, returns None
+                msg = (
+                    f&#34;Forecast failed at stage \&#34;{previous_stage}\&#34;&#34;
+                    f&#34; after {self.step} steps.&#34;
+                )
+                if self.stage_note:  # Optionally include the note.
+                    msg += f&#34; Note: \&#34;{self.stage_note}\&#34;&#34;
+
+                self.logger.error(msg)
+                break
+
+            else:
+                # TODO
+                print(f&#34;INCONSISTENT STAGE &#39;{self._stage}&#39;. Please loggggg&#34;)
+                break
+
+            # ---
+
+        else:
+            # Placeholder. TODO: A better handling will be implemented.
+            self.logger.error(&#34;TODO: THE PIPELINE REACHED ITS STEP LIMIT.&#34;)
+
+    # --------------------------
+    # Closing operations
+    # --------------------------
+
+    def dump_heavy_stuff(self):
+        &#34;&#34;&#34;Manually discard structures that have high memory usage,
+        but are possibly not useful for the next stages.
+        &#34;&#34;&#34;
+        self.rt_past = None
+        self.rt_fore = None
+        self.inc.fore_gran_df = None
+        self.inc.fore_agg_df = None
+
+        gc.collect()</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.aggr_nperiods"><code class="name">var <span class="ident">aggr_nperiods</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.gran_dt"><code class="name">var <span class="ident">gran_dt</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.is_aggr"><code class="name">var <span class="ident">is_aggr</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.aggregate_fore_incidence"><code class="name flex">
+<span>def <span class="ident">aggregate_fore_incidence</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sum periods of the granular future (2D) incidence into an
+aggregated time series.</p>
+<p>As an important note: this function does not remove aggr
+periods that were incomplete (i.e., did not have all gran
+points aggregated).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def aggregate_fore_incidence(self):
+    &#34;&#34;&#34;Sum periods of the granular future (2D) incidence into an
+    aggregated time series.
+
+    As an important note: this function does not remove aggr
+    periods that were incomplete (i.e., did not have all gran
+    points aggregated).
+
+    &#34;&#34;&#34;
+    params = self.op
+
+    _check_if_set(
+        self.inc.fore_gran_df, name=&#34;self.inc.fore_gran_df&#34;,
+        step_name=&#34;aggregate_fore_incidence&#34;,
+    )
+
+    # Define border between aggr periods, for gran tlabels
+    if &#34;aggr_ref_tlabel&#34; in params:
+        ref_start = (pd.Timestamp(params[&#34;aggr_ref_tlabel&#34;])
+                     # - self.gran_dt  # WRONG ERASE, no need
+                     )
+    else:
+        ref_start = self.time.pres
+
+    # Perform aggregation to one-past-end-of-period labels
+    self.inc.fore_aggr_df = aggregate_in_periods(
+        self.inc.fore_gran_df, self.aggr_dt,
+        ref_start=ref_start, full_only=True
+    )
+
+    # Make fore aggregate index
+    # TODO: this needs a trimming for when periods don&#39;t match
+    self.time.fore_aggr_idx = self.inc.fore_aggr_df.columns
+
+    return self.inc.fore_aggr_df</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.aggregate_past_incidence"><code class="name flex">
+<span>def <span class="ident">aggregate_past_incidence</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sum periods of a granular past (1D) incidence vector
+into an aggregated time series.</p>
+<p>Expected to be used as a postprocessing step</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def aggregate_past_incidence(self):
+    &#34;&#34;&#34;Sum periods of a granular past (1D) incidence vector
+    into an aggregated time series.
+
+    Expected to be used as a postprocessing step
+    &#34;&#34;&#34;
+    params = self.op
+
+    _check_if_set(
+        self.inc.past_gran_sr, name=&#34;self.inc.past_gran_sr&#34;,
+        step_name=&#34;aggregate_past_incidence&#34;,
+    )
+
+    # Define border between aggr periods, for gran tlabels
+    if &#34;aggr_ref_tlabel&#34; in params:
+        ref_start = (pd.Timestamp(params[&#34;aggr_ref_tlabel&#34;])
+                     # - self.gran_dt  # WRONG ERASE: no need
+                     )
+    else:
+        ref_start = self.time.pres
+
+    # Perform aggregation to one-past-end-of-period labels
+    self.inc.past_aggr_sr = aggregate_in_periods(
+        self.inc.past_gran_sr, self.aggr_dt,
+        ref_start=ref_start, full_only=True
+    )
+
+    self.time.past_aggr_idx = self.inc.past_aggr_sr.index
+
+    return self.inc.fore_aggr_df</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.callback_inc_reconstruction"><code class="name flex">
+<span>def <span class="ident">callback_inc_reconstruction</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def callback_inc_reconstruction(self):
+    pass</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.callback_postprocessing"><code class="name flex">
+<span>def <span class="ident">callback_postprocessing</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def callback_postprocessing(self):
+    pass</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.callback_preprocessing"><code class="name flex">
+<span>def <span class="ident">callback_preprocessing</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def callback_preprocessing(self):
+    pass</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.callback_rt_estimation"><code class="name flex">
+<span>def <span class="ident">callback_rt_estimation</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def callback_rt_estimation(self):
+    pass</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.callback_rt_synthesis"><code class="name flex">
+<span>def <span class="ident">callback_rt_synthesis</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def callback_rt_synthesis(self):
+    pass</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.crop_roi"><code class="name flex">
+<span>def <span class="ident">crop_roi</span></span>(<span>self, start, end)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a <em>region of interest</em> (ROI) from the main
+raw incidence series (<code>self.raw_incid_sr</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>start</code></strong> :&ensp;<code>pd.Timestamp, str</code></dt>
+<dd>First time label of the region of interest (included).</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>pd.Timestamp, str</code></dt>
+<dd>Last time label of the region of interest. This point is
+<strong>include</strong> if present in the original series.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>roi</code></strong> :&ensp;<code>pd.Series</code></dt>
+<dd>A view of the raw time series, cropped within the requested
+region.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def crop_roi(self, start, end):
+    &#34;&#34;&#34;Return a _region of interest_ (ROI) from the main
+    raw incidence series (`self.raw_incid_sr`).
+
+    Parameters
+    ----------
+    start : pd.Timestamp, str
+        First time label of the region of interest (included).
+    end : pd.Timestamp, str
+        Last time label of the region of interest. This point is
+        **include** if present in the original series.
+
+    Returns
+    -------
+    roi : pd.Series
+        A view of the raw time series, cropped within the requested
+        region.
+    &#34;&#34;&#34;
+    self._check_for_crop_roi(start, end)
+
+    return self.raw_incid_sr.loc[start:end]</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.denoise"><code class="name flex">
+<span>def <span class="ident">denoise</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def denoise(self):
+    pass</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.denoise_and_fit"><code class="name flex">
+<span>def <span class="ident">denoise_and_fit</span></span>(<span>self, name=None, which='gran')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Call the <code>denoise_and_fit</code> method from the noise object
+specified as <code>name</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The name of the noise object. Defaults to the main object.</dd>
+<dt><strong><code>which</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The type of data to denoise and fit. Can be either "gran"
+for granular dat aor "aggr" for aggregated data.
+Default is "gran".</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>numpy.ndarray</code></dt>
+<dd>A denoised version of the input data. The noise object
+will also have fittet parameters for the noise.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>ValueError</code></dt>
+<dd>If the input <code>which</code> argument is not "gran" or "aggr".</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def denoise_and_fit(self, name=None, which=&#34;gran&#34;):
+    &#34;&#34;&#34;
+    Call the `denoise_and_fit` method from the noise object
+    specified as `name`.
+
+    Parameters
+    ----------
+    name : str, optional
+        The name of the noise object. Defaults to the main object.
+    which : str, optional
+        The type of data to denoise and fit. Can be either &#34;gran&#34;
+        for granular dat aor &#34;aggr&#34; for aggregated data.
+        Default is &#34;gran&#34;.
+
+    Returns
+    -------
+    numpy.ndarray
+        A denoised version of the input data. The noise object
+        will also have fittet parameters for the noise.
+
+    Raises
+    ------
+    ValueError
+        If the input `which` argument is not &#34;gran&#34; or &#34;aggr&#34;.
+    &#34;&#34;&#34;
+    data = _select_gran_aggr(
+        which, self.inc.past_gran_sr, self.inc.past_aggr_sr)
+
+    # --- Checks
+    self._check_for_denoise(data, which)
+
+    # Retrieve denoise keywords
+    d_kwargs = self._retrieve_denoise_kwds(name=name)
+    noise_obj: AbstractNoise = self._make_get_noise_obj(
+        name=name, **d_kwargs)
+
+    # Apply denoise+fit method
+    # data[:] = noise_obj.denoise_and_fit(data, **d_kwargs)
+    denoised = _set_select_gran_aggr(
+        self, which, &#34;inc.past_gran_sr&#34;, &#34;inc.past_aggr_sr&#34;,
+        noise_obj.denoise_and_fit(data, **d_kwargs))
+
+    return denoised</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.dump_heavy_stuff"><code class="name flex">
+<span>def <span class="ident">dump_heavy_stuff</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Manually discard structures that have high memory usage,
+but are possibly not useful for the next stages.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dump_heavy_stuff(self):
+    &#34;&#34;&#34;Manually discard structures that have high memory usage,
+    but are possibly not useful for the next stages.
+    &#34;&#34;&#34;
+    self.rt_past = None
+    self.rt_fore = None
+    self.inc.fore_gran_df = None
+    self.inc.fore_agg_df = None
+
+    gc.collect()</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.estimate_rt_mcmc"><code class="name flex">
+<span>def <span class="ident">estimate_rt_mcmc</span></span>(<span>self, ct_array=None, df_columns_as_dates=True, sim_name=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Runs a Monte Carlo Markov Chain procedure to estimate the
+distribution of the reproduction number over time for the past
+time series.</p>
+<p>If not specified, ct_array is taken from the series of past
+granular incidence.</p>
+<p>When <code>use_tmp</code> is set to True, uses temporary files
+for the C engine and erase them. It defaults to the value in
+the <code>rt_estimation_params</code>.
+[devnote!] It needed to be iplemented that way to avoid
+conflicts between different workflows!</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def estimate_rt_mcmc(
+        self, ct_array=None, df_columns_as_dates=True, sim_name=None,
+        # use_tmp=None,
+):
+    &#34;&#34;&#34;Runs a Monte Carlo Markov Chain procedure to estimate the
+    distribution of the reproduction number over time for the past
+    time series.
+
+    If not specified, ct_array is taken from the series of past
+    granular incidence.
+
+    When `use_tmp` is set to True, uses temporary files
+    for the C engine and erase them. It defaults to the value in
+    the `rt_estimation_params`.
+    [devnote!] It needed to be iplemented that way to avoid
+    conflicts between different workflows!
+    &#34;&#34;&#34;
+
+    # Retrieve parameters
+    params = self.ep
+    sim_name = sim_name if sim_name is not None else self.name
+    engine = params.get(&#34;engine&#34;, None)
+    roi_len = params.get(&#34;roi_len&#34;, None)  # MCMC roi (in gran periods)
+
+    # Default parameter replacement
+    if ct_array is None:
+        ct_array = self.inc.past_gran_sr.values
+    engine = &#34;c&#34; if engine is None else engine
+    roi_len = 0 if roi_len is None else roi_len
+    # if use_tmp is not None:
+    #     params[&#34;use_tmp&#34;] = use_tmp
+
+    # Crop MCMC ROI
+    ct_array = ct_array[-roi_len:]
+
+    # Build generation time distribution
+    tg_array = self.tg_past.get_param_arrays_bysize(
+        ct_array.shape[0])
+
+    # --- Check integrity
+    self._check_for_rt_estimation()
+
+    # --- Run MCMC based on engine choice
+    self.logger.debug(f&#34;Running MCMC with engine {engine}.&#34;)
+    if engine.lower() == &#34;c&#34;:
+
+        # Define file prefixes by the name of the operator
+        # TODO: get as a parameter and just modify here
+        self.ep[&#34;in_prefix&#34;] = f&#34;mcmc/inputs/{self.name}&#34;
+        self.ep[&#34;out_prefix&#34;] = f&#34;mcmc/outputs/{self.name}&#34;
+        self.ep[&#34;out_prefix&#34;] = f&#34;mcmc/logs/{self.name}&#34;
+
+        # --- Run C engine MCMC
+        self.rt_past = run_mcmc_rt_c(
+            ct_array,
+            tg_array,
+            sim_name=sim_name,
+            **params
+        )
+
+    elif engine.lower() == &#34;numba&#34;:
+        # --- Run Numba engine MCMC
+        self.rt_past = run_mcmc_rt_numba(
+            ct_array,
+            tg_array,
+            **params
+        )
+
+    else:
+        raise ValueError(
+            f&#34;Hey, MCMC engine &#39;{engine}&#39; is not recognized&#34;
+            f&#34; or implemented.&#34;)
+
+    if df_columns_as_dates:
+        self.rt_past.df.columns = (
+            self.time.past_gran_idx[-self.rt_past.nperiods:]
+        )
+
+    return self.rt_past</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.get_noise_object"><code class="name flex">
+<span>def <span class="ident">get_noise_object</span></span>(<span>self, name='main')</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Name of the noise object. Defaults to the main one.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>noise_obj</code></strong> :&ensp;<code>AbstractNoise</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>KeyError</code></dt>
+<dd>If a noise object keyed as <code>name</code> is not found.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_noise_object(self, name=_DEFAULT_NOISE):
+    &#34;&#34;&#34;
+    Parameters
+    ----------
+    name : str
+        Name of the noise object. Defaults to the main one.
+
+    Returns
+    -------
+    noise_obj : AbstractNoise
+
+    Raises
+    ------
+    KeyError
+        If a noise object keyed as `name` is not found.
+    &#34;&#34;&#34;
+    try:
+        return self.noise_obj_dict[name]
+    except KeyError:
+        raise ForecastStatusError(
+            f&#34;Hey, a noise object with name &#39;{name}&#39; was not&#34;
+            f&#34; found at `self.noise_obj_dict`.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.get_past_aggr_tlabels"><code class="name flex">
+<span>def <span class="ident">get_past_aggr_tlabels</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_past_aggr_tlabels(self):
+    try:
+        return self.inc.past_aggr_sr.index
+    except ForecastStatusError as err:
+        raise Exception(
+            &#34;Hey, past aggregate incidence series (past_aggr_sr)&#34;
+            &#34; is not set.&#34;).with_traceback(err.__traceback__)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.get_past_gran_tlabels"><code class="name flex">
+<span>def <span class="ident">get_past_gran_tlabels</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_past_gran_tlabels(self):
+    try:
+        return self.inc.past_gran_sr.index
+    except ForecastStatusError as err:
+        raise Exception(
+            &#34;Hey, past granular incidence series (past_aggr_sr)&#34;
+            &#34; is not set.&#34;).with_traceback(err.__traceback__)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.get_scaled_past_incidence"><code class="name flex">
+<span>def <span class="ident">get_scaled_past_incidence</span></span>(<span>self, which='gran')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Multiplies the past time series by a coefficient, given
+a method to determine the coefficient.</p>
+<p>Returns a modified copy of the series. Changes are not made in place!</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_scaled_past_incidence(self, which=&#34;gran&#34;):
+    &#34;&#34;&#34;Multiplies the past time series by a coefficient, given
+    a method to determine the coefficient.
+
+    Returns a modified copy of the series. Changes are not made in place!
+    &#34;&#34;&#34;
+    data = _select_gran_aggr(
+        which, self.inc.past_gran_sr, self.inc.past_aggr_sr
+    )
+
+    method = self.ep[&#34;scale_method&#34;]
+
+    # --- Decision chain for scaling factor
+    # -()- Constant pre-specified factor
+    if method in [&#34;const&#34;, &#34;just_scale_it&#34;]:
+        pass  # self.ep[&#34;scale_factor&#34;] expected to be defined
+
+    # -()- Based on the average data over a given ROI
+    elif method in [&#34;data_pwr&#34;]:
+        roi_start = - self.ep[&#34;scale_roi_len&#34;]  # TAKE THE MCMC ROI (without lag, fix if changed!)
+        scale_fac = (self.ep[&#39;scale_ref_inc&#39;] /
+                     self.inc.past_gran_sr.iloc[roi_start:].mean())
+        self.ep[&#34;scale_factor&#34;] = (
+                scale_fac ** self.ep[&#34;scale_power&#34;]
+                if scale_fac else 1.
+        )
+
+    # TODO: based on population (change to power)
+    # if method in [&#34;pop_linear&#34;]:
+    #     scale_fac = self.ep[&#39;scale_ref_pop&#39;] / self.ep[&#39;pop_size&#39;]
+    #     self.inc.past_gran_sr *= scale_fac
+
+    # -()- Not found – no scaling performed
+    else:
+        self.logger.error(
+            f&#34;Scaling method {method} was not recognized. &#34;
+            f&#34;No scaling was performed.&#34;)
+        self.ep[&#34;scale_factor&#34;] = 1.
+
+    return self.ep[&#34;scale_factor&#34;] * data</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.get_stages"><code class="name flex">
+<span>def <span class="ident">get_stages</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_stages(self):
+    return self._stages</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.incorporate_noise"><code class="name flex">
+<span>def <span class="ident">incorporate_noise</span></span>(<span>self, which='gran', name='main')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO DOCS</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def incorporate_noise(self, which=&#34;gran&#34;, name=_DEFAULT_NOISE):
+    &#34;&#34;&#34;TODO DOCS&#34;&#34;&#34;
+
+    data = _select_gran_aggr(
+        which, self.inc.fore_gran_df, self.inc.fore_aggr_df)
+    noise_obj = self.get_noise_object(name)
+
+    # TODO: integrity check
+    #    - check that corresponding time series exists
+    #    - Warn if self.rc[gen_noise] == False
+
+    incorp_data = _set_select_gran_aggr(
+        self, which, &#34;inc.fore_gran_df&#34;, &#34;inc.fore_aggr_df&#34;,
+        noise_obj.generate(data))
+
+    return incorp_data</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.interpolate_to_granular"><code class="name flex">
+<span>def <span class="ident">interpolate_to_granular</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO: this is an incomplete implementation</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_to_granular(self):
+    &#34;&#34;&#34;TODO: this is an incomplete implementation&#34;&#34;&#34;
+    # --- SKETCH
+    # Check internal states
+    # Decide method
+    # Employ and store
+
+    self.make_gran_time_data()
+    interp_kwargs = self._retrieve_interp_kwds()
+
+    # --- Perform the interpolation
+    self.inc.past_gran_sr = pd.Series(
+        interpolate_cumulative(
+            self.inc.past_aggr_sr.values,
+            logger=self.logger,
+            agg_period=self.aggr_nperiods,
+            # **self.preproc_params,
+            **interp_kwargs,
+        ),
+        index=self.time.past_gran_idx,
+    )
+
+    # # TODO: i&#39;ll have to extract parameters with &#39;interp&#39; prefix.
+    # self.inc.past_gran_sr = pd.Series(
+    #     interpolate_smooth_pycno(
+    #         self.inc.past_aggr_sr.values, **self.preproc_params),
+    #     index=self.time.past_gran_idx)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.make_all_time_data"><code class="name flex">
+<span>def <span class="ident">make_all_time_data</span></span>(<span>self, roi_start, time_pres)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>"CANDIDATE FUNCTION TODO
+Optional method that defines ALL THE time labels and indexes, once
+you have the roi_start, time_pres and self.nperiods_fore info.</p>
+<p>Given <code>time_pres</code> and <code>roi_start</code>
+(whether <code>is_aggr</code> is True or False):
+- pa0 = roi_start
+- pa1 = time_pres
+- pg0 = roi_start
+- pg1 = time_pres - gran_dt</p>
+<ul>
+<li>fa0 = time_pres + agg_dt</li>
+<li>fa1 = time_pres + nperiods_fore * agg_dt</li>
+<li>fg0 = time_pres</li>
+<li>fg1 = time_pres + (nperiods_fore_gran - 1) * gran_dt</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_all_time_data(self, roi_start, time_pres):
+    &#34;&#34;&#34;&#34;CANDIDATE FUNCTION TODO
+    Optional method that defines ALL THE time labels and indexes, once
+    you have the roi_start, time_pres and self.nperiods_fore info.
+
+    Given `time_pres` and `roi_start`
+    (whether `is_aggr` is True or False):
+    - pa0 = roi_start
+    - pa1 = time_pres
+    - pg0 = roi_start
+    - pg1 = time_pres - gran_dt
+
+    - fa0 = time_pres + agg_dt
+    - fa1 = time_pres + nperiods_fore * agg_dt
+    - fg0 = time_pres
+    - fg1 = time_pres + (nperiods_fore_gran - 1) * gran_dt
+    &#34;&#34;&#34;
+    self.time.pres = time_pres
+
+    # Past labels
+    self.time.pa0 = roi_start
+    self.time.pa1 = time_pres
+    self.time.pg0 = roi_start
+    self.time.pg1 = time_pres - self.gran_dt
+
+    # Future labels
+    self.time.fa0 = time_pres + self.aggr_dt
+    self.time.fg0 = time_pres
+    self.time.fg1 = (time_pres
+                     + (self.nperiods_fore_gran-1) * self.gran_dt)
+    self.time.fa1 = self.time.fg1 + self.gran_dt
+
+    # Aggregate indexes, if needed
+    if self.is_aggr:
+        self.time.past_aggr_idx = pd.date_range(
+            self.time.pa0, self.time.pa1, freq=self.aggr_dt
+        )
+        self.time.fore_aggr_idx = pd.date_range(
+            self.time.fa0, self.time.fa1, freq=self.aggr_dt
+        )
+
+        self.time.pa_len = self.time.past_aggr_idx.shape[0]
+        self.time.fa_len = self.time.fore_aggr_idx.shape[0]
+
+    # Granular indexes
+    self.time.past_gran_idx = pd.date_range(
+        self.time.pg0, self.time.pg1, freq=self.gran_dt
+    )
+    self.time.fore_gran_idx = pd.date_range(
+        self.time.fg0, self.time.fg1, freq=self.gran_dt
+    )
+
+    self.time.pg_len = self.time.past_gran_idx.shape[0]
+    self.time.fg_len = self.time.fore_gran_idx.shape[0]</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.make_gran_time_data"><code class="name flex">
+<span>def <span class="ident">make_gran_time_data</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Based on aggregate time data, create the past and fore
+granular index and related time data.</p>
+<p>DEVNOTE IDEA: join the creation of all labels in one function,
+which checks whether self.is_aggr == True to decide procedures.
+ALSO DEVNOTE: invert current logic – first define limits, then
+define indexes and length.</p>
+<p>Given <code>time_pres</code> and <code>roi_start</code>
+(whether <code>is_aggr</code> is True or False):
+- pa0 = roi_start
+- pa1 = time_pres
+- pg0 = roi_start
+- pg1 = time_pres - gran_dt</p>
+<ul>
+<li>fa0 = time_pres + agg_dt</li>
+<li>fa1 = time_pres + nperiods_fore * agg_dt</li>
+<li>fg0 = time_pres</li>
+<li>fg1 = time_pres + (nperiods_fore_gran - 1) * gran_dt</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_gran_time_data(self):
+    &#34;&#34;&#34;Based on aggregate time data, create the past and fore
+    granular index and related time data.
+
+    DEVNOTE IDEA: join the creation of all labels in one function,
+    which checks whether self.is_aggr == True to decide procedures.
+    ALSO DEVNOTE: invert current logic – first define limits, then
+      define indexes and length.
+
+    Given `time_pres` and `roi_start`
+    (whether `is_aggr` is True or False):
+    - pa0 = roi_start
+    - pa1 = time_pres
+    - pg0 = roi_start
+    - pg1 = time_pres - gran_dt
+
+    - fa0 = time_pres + agg_dt
+    - fa1 = time_pres + nperiods_fore * agg_dt
+    - fg0 = time_pres
+    - fg1 = time_pres + (nperiods_fore_gran - 1) * gran_dt
+
+    &#34;&#34;&#34;
+    # Check integrity
+    self._check_past_aggr_timestructs()
+
+    # Create time indexes
+    self.time.past_gran_idx = pd.date_range(
+        start=self.time.pa0,
+        end=self.time.pa1 - self.gran_dt,
+        freq=self.gran_dt,
+    )
+
+    self.time.fore_gran_idx = pd.date_range(
+        start=self.time.pa1,
+        end=(self.time.pa1
+             + (self.nperiods_fore_gran - 1) * self.gran_dt),
+        freq=self.gran_dt,
+    )
+
+    # Define other time-related labels
+    self.time.pg0 = self.time.past_gran_idx[0]
+    self.time.pg1 = self.time.past_gran_idx[-1]
+    self.time.pg_len = self.time.past_gran_idx.shape[0]
+
+    self.time.fg0 = self.time.fore_gran_idx[0]
+    self.time.fg1 = self.time.fore_gran_idx[-1]
+    self.time.fg_len = self.time.fore_gran_idx.shape[0]</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.make_quantiles_for"><code class="name flex">
+<span>def <span class="ident">make_quantiles_for</span></span>(<span>self, which='gran', inc_quantiles=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_quantiles_for(self, which=&#34;gran&#34;, inc_quantiles=None):
+
+    # Granular/aggregate selection
+    df = _select_gran_aggr(
+        which, self.inc.fore_gran_df, self.inc.fore_aggr_df)
+    name = _select_gran_aggr(
+        which, &#34;gran_quantiles&#34;, &#34;aggr_quantiles&#34;)
+
+    # State consistency check
+    self._check_for_inc_quantiles(df, name)
+
+    # Get quantile bounds
+    if inc_quantiles is None:
+
+        if &#34;inc_quantiles&#34; not in self.op:
+            raise KeyError(
+                &#34;Hey, &#39;inc_quantiles&#39; must be informed &#34;
+                &#34;as a list of quantiles in `postprocess_params`&#34;)
+
+        inc_quantiles = self.op[&#39;inc_quantiles&#39;]
+
+    # Calculate quantile, assign to attribute and return
+    q = df.quantile(inc_quantiles, axis=0)
+    self.inc.__setattr__(name, q)
+    return q</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.reconstruct_incidence"><code class="name flex">
+<span>def <span class="ident">reconstruct_incidence</span></span>(<span>self, df_columns_as_dates=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><h2 id="notes">Notes</h2>
+<p>If both past and fore generation times are constant:
+- Each one is still passed to the reconstruction method, so
+it can accept different distributions for past and future.
+- Maximum Tg value is assumed as the minimum betwen past and fore.
+This can be a problem if past and fore distributions are too
+different.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reconstruct_incidence(self, df_columns_as_dates=True):
+    &#34;&#34;&#34;
+
+    Notes
+    -----
+    If both past and fore generation times are constant:
+    - Each one is still passed to the reconstruction method, so
+      it can accept different distributions for past and future.
+    - Maximum Tg value is assumed as the minimum betwen past and fore.
+      This can be a problem if past and fore distributions are too
+      different.
+    &#34;&#34;&#34;
+    self._check_for_inc_reconstruction()
+
+    # TODO  - DEVNOTE: compiling the numba reconstruction is taking
+    #      - really most of the time.
+
+    params = self.rp
+    method = params.get(&#34;method&#34;, &#34;STD&#34;)  # May be omitted.
+
+    if method in [&#34;default&#34;, &#34;STD&#34;]:
+        method = &#34;renewal&#34;
+
+    # --- Execution elif chain
+    if method == &#34;renewal&#34;:
+        array = np.empty_like(self.rt_fore.array, dtype=float)
+
+        # Constant generation time
+        if self.tg_past.is_const and self.tg_fore.is_const:
+            reconstruct_ct_multiple(
+                self.inc.past_gran_sr.values,
+                self.rt_fore.array,
+                self.tg_past.get_pmf_array(),
+                self.tg_fore.get_pmf_array(),
+                min(self.tg_past.tmax, self.tg_fore.tmax),
+                array, self.nperiods_fore_gran,
+                seed=params.get(&#34;seed&#34;, 0)
+            )
+
+        else:
+            # TODO: implement dynamic Tg
+            raise NotImplementedError(&#34;é isso aí TODO&#34;)
+
+        # Make dataframe from constructed array
+        self.inc.fore_gran_df = pd.DataFrame(array)
+        if df_columns_as_dates:
+            self.inc.fore_gran_df.columns = self.time.fore_gran_idx
+
+    # -----------------------------------
+    else:
+        raise ValueError(
+            f&#34;Hey, reconstruction method {method} not implemented&#34;
+            f&#34; or recognized.&#34;)
+
+    return self.inc.fore_gran_df</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.remove_negative_incidence"><code class="name flex">
+<span>def <span class="ident">remove_negative_incidence</span></span>(<span>self, which='gran', method='clamp', warn=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Deals with potential negative incidence values.
+Modifies <code>self.inc.past_gran_sr</code> or <code>self.inc.past_aggr_sr</code>
+inplace.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_negative_incidence(
+        self, which=&#34;gran&#34;, method=&#34;clamp&#34;, warn=True):
+    &#34;&#34;&#34;Deals with potential negative incidence values.
+    Modifies `self.inc.past_gran_sr` or `self.inc.past_aggr_sr`
+    inplace.
+    &#34;&#34;&#34;
+    data = _select_gran_aggr(
+        which, self.inc.past_gran_sr, self.inc.past_aggr_sr)
+
+    # Finds negative values
+    # ---------------------
+    negative_idx = data.loc[data &lt; 0].index
+
+    if negative_idx.shape[0] == 0:
+        return  # Nothing to do
+
+    negatives = data.loc[negative_idx]
+
+    # Warn about negative values
+    # --------------------------
+    if warn:
+        sum_negatives = negatives.sum()
+        num_negatives = negatives.shape[0]
+        min_negatives = negatives.min()
+        msg = (
+            f&#34;{num_negatives} negative values were found&#34;
+            f&#34; in the preprocessed past incidence series &#34;
+            f&#34; will be handled with method &#39;{method}&#39;.&#34;
+            f&#34; (`self.inc.past_gran_sr`). &#34;
+            f&#34;\n\t – The minimum is&#34;
+            f&#34; {min_negatives}.&#34;
+            f&#34;\n\t – The sum is {sum_negatives}.&#34;)
+        self.logger.warning(msg)
+
+    # Does the handling
+    # ---------------------
+    # -()- # Set all to zero. Ok for small deviations.
+    #      # May cause huge estimates for low count data.
+    if method == &#34;clamp&#34;:
+        data.loc[negative_idx] = 0  # Changes inplace
+
+    # -()- Shift values by adding the minimum.
+    #      Again, only fine for small deviations.
+    elif method == &#34;shift&#34;:
+        data += -negatives.min()
+
+    else:
+        raise ValueError(
+            f&#34;Hey, negative handling method &#39;{method}&#39; is not &#34;
+            f&#34;recognized for `remove_negative_incidence`.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.remove_stage"><code class="name flex">
+<span>def <span class="ident">remove_stage</span></span>(<span>self, stage)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes a stage of the pipeline, rearranging the class
+properly.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_stage(self, stage):
+    &#34;&#34;&#34;Removes a stage of the pipeline, rearranging the class
+    properly.
+    &#34;&#34;&#34;
+    self.stage_callback.pop(stage)  # Key error if not found
+    self._stages = list(self.stage_callback.keys())</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.reset_pipeline"><code class="name flex">
+<span>def <span class="ident">reset_pipeline</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reset_pipeline(self):
+    self.step = 0
+    self._stage = _STAGE_UNSET
+    self.stage_note = &#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.run"><code class="name flex">
+<span>def <span class="ident">run</span></span>(<span>self, reset_state=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO: documentation</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def run(self, reset_state=True):
+    &#34;&#34;&#34;TODO: documentation&#34;&#34;&#34;
+    if reset_state:
+        self.set_stage_first()
+        self.step = 0
+
+    current_stage = self._stage
+
+    for self.step in range(self.step, self.max_steps):
+
+        # LOG STAGE. Internally and to the loggers. TODO: internally
+        self.logger.debug(
+            f&#34;Step {self.step}: {self._stage} &#34;)
+
+        previous_stage = current_stage
+        current_stage = self._stage
+
+        # ---
+
+        if self._stage in self._stages:
+            self.stage_callback[self._stage]()
+
+        elif self._stage == _STAGE_DONE:
+            self.success = True
+            self.logger.log(SUCCESS, &#34;Forecast concluded&#34;)
+            break  # Do final procedures.
+
+        elif self._stage == _STAGE_ERROR:
+            # Logs the failure, returns None
+            msg = (
+                f&#34;Forecast failed at stage \&#34;{previous_stage}\&#34;&#34;
+                f&#34; after {self.step} steps.&#34;
+            )
+            if self.stage_note:  # Optionally include the note.
+                msg += f&#34; Note: \&#34;{self.stage_note}\&#34;&#34;
+
+            self.logger.error(msg)
+            break
+
+        else:
+            # TODO
+            print(f&#34;INCONSISTENT STAGE &#39;{self._stage}&#39;. Please loggggg&#34;)
+            break
+
+        # ---
+
+    else:
+        # Placeholder. TODO: A better handling will be implemented.
+        self.logger.error(&#34;TODO: THE PIPELINE REACHED ITS STEP LIMIT.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.score_forecast"><code class="name flex">
+<span>def <span class="ident">score_forecast</span></span>(<span>self, which='aggr', method='wis', time_labels=None, truth_sr: pandas.core.series.Series = None, alphas=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO docs</p>
+<p>DEV SKETCHES
+- What do I need?
+- The calculated quantiles of the required level (aggr/gran)
+- "Future" data for the required period.
+- Find that on:
+- The time labels to score.
+- Get from horizons, but that's not up to this function
+- Default: fore_time_labels</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def score_forecast(
+        self, which=&#34;aggr&#34;, method=&#34;wis&#34;, time_labels=None,
+        truth_sr: pd.Series = None, alphas=None
+):
+    &#34;&#34;&#34;TODO docs
+
+    DEV SKETCHES
+    - What do I need?
+       - The calculated quantiles of the required level (aggr/gran)
+       - &#34;Future&#34; data for the required period.
+            - Find that on:
+       - The time labels to score.
+           - Get from horizons, but that&#39;s not up to this function
+           - Default: fore_time_labels
+    &#34;&#34;&#34;
+    # ----------------------------
+    # Preamble operations
+    # ----------------------------
+    self.logger.debug(
+        f&#34;Scoring `{which}` forecast with method \&#34;{method}\&#34;.&#34;)
+
+    # Granular/aggregate quantiles selection
+    q_df = _select_gran_aggr(
+        which, self.inc.gran_quantiles, self.inc.aggr_quantiles)
+    q_df_name = _select_gran_aggr(
+        which, &#34;gran_quantiles&#34;, &#34;aggr_quantiles&#34;)
+
+    # Check if required quantiles are calculated
+    _check_if_set(
+        q_df, name=f&#34;self.inc.{q_df_name}&#34;,
+        step_name=f&#34;`score_forecast` with which = {which}&#34;,
+    )
+
+    if time_labels is None:
+        time_labels = _select_gran_aggr(
+            which, self.time.fore_gran_idx, self.time.fore_aggr_idx
+        )
+
+    # Get appropriate truth data
+    # ----------------------------
+
+    # -()- If not informed, take truth from `self.raw_incid_sr`
+    if truth_sr is None:
+        # -()- Truth data is in the required aggr. level
+        if (self.is_aggr and which == &#34;aggr&#34;
+              or (not self.is_aggr) and which == &#34;gran&#34;):
+            truth_sr = self.raw_incid_sr
+
+        # -()- Truth data is granular but scores will be aggregate
+        elif (not self.is_aggr) and which == &#34;aggr&#34;:
+            ref_start = self.op[&#34;aggr_ref_tlabel&#34;]
+            gran_time_labels = 0  #  TODO  MAKE&#39;M HERE!
+
+            truth_sr = aggregate_in_periods(
+                self.raw_incid_sr.loc[gran_time_labels],
+                self.aggr_dt,
+                ref_start=ref_start,
+                full_only=True
+            )  # AGGGREGATE from raw past
+
+        # -()- Truth data is aggregated but scores are granular.
+        elif self.is_aggr and which == &#34;gran&#34;:
+            raise ValueError(
+                &#34;Cannot score a granular forecast with aggregated &#34;
+                &#34; truth data&#34;)
+
+        else:
+            raise ValueError(f&#34;Abnormal condition: which = {which} &#34;
+                             f&#34;(must be \&#34;aggr\&#34; or \&#34;gran\&#34;&#34;)
+
+    # Locate the relevant time labels in the truth data
+    try:
+        truth_sr = truth_sr.loc[time_labels]
+    except KeyError:
+        # Log to add fop info. Also raises the error for details.
+        self.logger.error(&#34;Golden truth series has missing labels&#34;)
+        raise
+
+    # ----------------------------
+    # Scoring
+    # ----------------------------
+
+    # Devnote: no common signature for now, an elif chain is used
+    if method.lower() == &#39;wis&#39;:
+        scores = weighted_interval_score_fast(
+            observations=truth_sr.values,
+            alphas=alphas,  # TODO: check, CANNOT BE NONE
+            q_dict=q_df.T,  # Needs to be transposed
+        )  # OBS: return a tuple of scores: WIS, sharpn., calibr.
+
+    else:
+        msg = f&#34;Unrecognized scoring method: {method}&#34;
+        self.logger.error(msg)
+        raise ValueError(msg)
+
+    return scores</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.set_main_roi"><code class="name flex">
+<span>def <span class="ident">set_main_roi</span></span>(<span>self, start, end, sort_data=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Crop a <em>region of interest</em> (ROI) and set as the main
+past incidence series, which is used in the forecast pipeline.</p>
+<p>Any changes to the main ROI must pass through this function.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>start</code></strong> :&ensp;<code>pd.Timestamp, str</code></dt>
+<dd>First time label of the region of interest (included).</dd>
+<dt><strong><code>end</code></strong> :&ensp;<code>pd.Timestamp, str</code></dt>
+<dd>Last time label of the region of interest. This point is
+<strong>include</strong> if present in the original series.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_main_roi(self, start, end, sort_data=True):
+    &#34;&#34;&#34;Crop a _region of interest_ (ROI) and set as the main
+    past incidence series, which is used in the forecast pipeline.
+
+    Any changes to the main ROI must pass through this function.
+
+    Parameters
+    ----------
+    start : pd.Timestamp, str
+        First time label of the region of interest (included).
+    end : pd.Timestamp, str
+        Last time label of the region of interest. This point is
+        **include** if present in the original series.
+    &#34;&#34;&#34;
+
+    roi = self.crop_roi(start, end)
+
+    # --- Checks
+    if roi.shape == 0:
+        msg = f&#34;&#34;&#34;Hey, empty ROI between timestamps 
+              {start} and {end}.&#34;&#34;&#34;
+        # self.logger.warning(msg)
+        raise ValueError(msg)
+
+    # Optionally sort
+    if sort_data:
+        roi.sort_index(inplace=True)
+
+    # Attribute the ROI
+    if self.is_aggr:
+        self.inc.past_aggr_sr = roi
+    else:
+        self.inc.past_gran_sr = roi
+
+    # Get effective labels after cropping the data
+    roi_start = roi.index[0]  # Actual start date
+    day_pres = roi.index[-1]
+    if not self.is_aggr:
+        day_pres += self.gran_dt
+    # TODO: ^  ^  Line above refers to input data aggregation.
+
+    #
+    self.make_all_time_data(roi_start, day_pres)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.set_stage"><code class="name flex">
+<span>def <span class="ident">set_stage</span></span>(<span>self, name)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_stage(self, name):
+    if name not in self._stages:
+        raise RtrendError(
+            f&#34;Hey, stage name &#39;{name}&#39; is not recognized. It must&#34;
+            f&#34; be one of the following:\n&#34;
+            f&#34;{self._stages}&#34;
+        )
+    self._stage = name</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.set_stage_done"><code class="name flex">
+<span>def <span class="ident">set_stage_done</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_stage_done(self):
+    self._stage = _STAGE_DONE</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.set_stage_error"><code class="name flex">
+<span>def <span class="ident">set_stage_error</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_stage_error(self):
+    self._stage = _STAGE_ERROR</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.set_stage_first"><code class="name flex">
+<span>def <span class="ident">set_stage_first</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_stage_first(self):
+    self._stage = self._stages[0]</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.set_stage_next"><code class="name flex">
+<span>def <span class="ident">set_stage_next</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set the internal forecast stage to the next one in the list.
+If current stage is <em>done</em>, <em>error</em> or <em>unset</em>, the function
+does nothing. If current stage is the last, it is set
+as <em>done</em>. If current stage is not recognized, raises a value
+error.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_stage_next(self):
+    &#34;&#34;&#34;Set the internal forecast stage to the next one in the list.
+    If current stage is _done_, _error_ or _unset_, the function
+    does nothing. If current stage is the last, it is set
+    as _done_. If current stage is not recognized, raises a value
+    error.
+    &#34;&#34;&#34;
+    if self._stage in [_STAGE_DONE, _STAGE_ERROR, _STAGE_UNSET]:
+        return
+
+    try:
+        i_stage = self._stages.index(self._stage)
+    except ValueError:
+        raise  # Current stage is not recognized TODO: something else?
+
+    if i_stage == len(self._stages) - 1:
+        self.set_stage_done()
+    else:
+        self.set_stage(self._stages[i_stage+1])</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.sort_past_series"><code class="name flex">
+<span>def <span class="ident">sort_past_series</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>As raw input data may be unsorted over time, this ensures
+that the ROI-cropped series are. Modifies inplace.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sort_past_series(self):
+    &#34;&#34;&#34;As raw input data may be unsorted over time, this ensures
+    that the ROI-cropped series are. Modifies inplace.
+    &#34;&#34;&#34;
+    for sr in [
+            self.inc.past_gran_sr,
+            self.inc.past_aggr_sr,
+    ]:
+        if sr is not None:
+            sr.sort_index(inplace=True)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.synthesize_and_reconstruct"><code class="name flex">
+<span>def <span class="ident">synthesize_and_reconstruct</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This function accounts for methods that require the R(t) synthesis
+and the incidence reconstruction to be run together at each time
+step. If the synth method does not require this, simply calls
+the regular synthesis and reconstruction functions in sequence.</p>
+<p>All operations occur with the granular time scale.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def synthesize_and_reconstruct(self):
+    &#34;&#34;&#34; This function accounts for methods that require the R(t) synthesis
+    and the incidence reconstruction to be run together at each time
+    step. If the synth method does not require this, simply calls
+    the regular synthesis and reconstruction functions in sequence.
+
+    All operations occur with the granular time scale.
+    &#34;&#34;&#34;
+
+    # TODO: Check for required structures
+
+    if self.sp[&#34;synth_method&#34;] in [  # Methods that are not yet officially included
+        &#34;drift_pop&#34;,
+        &#34;drift_const&#34;,
+    ]:
+        # Calculate the drift coefficient from population
+        if self.sp[&#34;synth_method&#34;] == &#34;drift_pop&#34;:
+            self.sp[&#34;drift_coef&#34;] = (
+                    float(self.sp[&#34;drift_pop_coef&#34;])
+                    / self.sp[&#34;population&#34;]  # ERROR IF NOT DEFINED
+            )
+
+        # Run the drift synth-reconstruction
+        try:
+            rt_fore_2d, ct_fore_2d = drift_rw_synth_reconstruct(
+                self.nperiods_fore_gran,
+                self.rt_past,
+                self.inc.past_gran_sr.to_numpy(),
+                self.tg_past.get_pmf_array(),
+                self.tg_fore.get_pmf_array(),
+                min(self.tg_past.tmax, self.tg_fore.tmax),
+                self.sp[&#34;nperiods_past&#34;],
+                float(self.sp[&#34;drift_coef&#34;]),
+                float(self.sp.get(&#34;rw_coef&#34;, 0)),
+                float(self.sp.get(&#34;bias&#34;, 0)),
+                self.sp[&#34;q_low&#34;],
+                self.sp[&#34;q_hig&#34;],
+                logger=self.logger,
+            )
+        except ValueError as e:
+            self.logger.error(f&#34;{e}&#34;)
+            self.set_stage_error()
+            return
+        except Exception as e:
+            raise Exception(f&#34;{self.name}: {e}&#34;)
+
+        # Store results (R(t) and c(t) forecast)
+        self.rt_fore = RtData(rt_fore_2d.T)
+        self.inc.fore_gran_df = pd.DataFrame(
+            ct_fore_2d.T, columns=self.time.fore_gran_idx
+        )
+
+        # Set columns as dates
+        self.rt_fore.df.columns = self.time.fore_gran_idx
+
+    else:  # Other methods: call the regular synth/reconstruction
+        self.synthesize_rt(df_columns_as_dates=True)
+        self.reconstruct_incidence()</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.synthesize_rt"><code class="name flex">
+<span>def <span class="ident">synthesize_rt</span></span>(<span>self, df_columns_as_dates=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO: this will be refurbished for the smart/poly formulation</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>df_columns_as_dates</code></strong> :&ensp;<code>bool</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def synthesize_rt(self, df_columns_as_dates=True):
+    &#34;&#34;&#34;
+
+    TODO: this will be refurbished for the smart/poly formulation
+
+    Parameters
+    ----------
+    df_columns_as_dates: bool
+
+    Returns
+    -------
+
+    &#34;&#34;&#34;
+
+    # TODO Check integrity:
+    # ..... do it case by case. Call a method.
+    # - [MEH] Granular past data
+    # - [SOME] Past R(t) (Msome don&#39;t need it)
+    # - [NOPE] Past and future P_Tg(t)
+
+    params = self.sp
+
+    # Define default method
+    if params[&#34;synth_method&#34;] in [&#34;STD&#34;, &#34;default&#34;]:
+        params[&#34;synth_method&#34;] = &#34;dynamic_ramp&#34;
+
+    # --- Execution elif chain
+    # Static ramp
+    if params[&#34;synth_method&#34;] == &#34;static_ramp&#34;:
+        self.rt_fore = RtData(static_ramp_avg_synth(
+            self.nperiods_fore_gran, self.rt_past,
+            **params
+        ))
+        self.logger.debug(&#34;Synth R(t) with &#39;static_ramp&#39; method.&#34;)
+
+    # Dynamic ramp
+    elif params[&#34;synth_method&#34;] == &#34;dynamic_ramp&#34;:
+        self.rt_fore = RtData(dynamic_ramp_avg_synth(
+            self.nperiods_fore_gran, self.rt_past,
+            **params
+        ))
+        self.logger.debug(&#34;Synth R(t) with &#39;dynamic_ramp&#39; method.&#34;)
+
+    # Random normal
+    elif params[&#34;synth_method&#34;] == &#34;rnd_normal&#34;:
+        self.rt_fore = RtData(random_normal_synth(
+            self.nperiods_fore_gran, **params))
+        self.logger.debug(&#34;Synth R(t) with &#39;rnd_normal&#39; method.&#34;)
+
+    else:
+        msg = (
+            f&#34;Hey, synth_method = \&#34;{params[&#39;synth_method&#39;]}\&#34;&#34;
+            f&#34; is not recognized.&#34;
+        )
+
+        self.logger.critical(msg, exc_info=ValueError(msg))
+        self.set_stage_error()
+        return
+
+    # --- Etc
+    if df_columns_as_dates:
+        self.rt_fore.df.columns = self.time.fore_gran_idx
+
+    return self.inc.fore_gran_df</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.forecasting.ForecastOperator.synthesize_tg"><code class="name flex">
+<span>def <span class="ident">synthesize_tg</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO: more methods, including dynamic Tg</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def synthesize_tg(self):
+    &#34;&#34;&#34;TODO: more methods, including dynamic Tg&#34;&#34;&#34;
+
+    params = self.sp
+    method = params[&#34;tg_synth_method&#34;]
+
+    if not self.tg_past.is_const:
+        raise NotImplementedError(
+            &#34;Hey, dynamic generation time distribution &#34;
+            &#34;isn&#39;t supported yet&#34;)
+
+    if method.lower() == &#34;same&#34;:
+        # Just use the same object (by reference) of past Tg.
+        self.tg_fore = self.tg_past
+
+    else:
+        raise NotImplementedError(
+            f&#34;Hey, tg_synth_method = {method} not &#34;
+            f&#34;recognized or implemented.&#34;)
+
+    return self.tg_fore</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rtrend_forecast" href="index.html">rtrend_forecast</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="rtrend_forecast.forecasting.ForecastOperator" href="#rtrend_forecast.forecasting.ForecastOperator">ForecastOperator</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.aggr_nperiods" href="#rtrend_forecast.forecasting.ForecastOperator.aggr_nperiods">aggr_nperiods</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.aggregate_fore_incidence" href="#rtrend_forecast.forecasting.ForecastOperator.aggregate_fore_incidence">aggregate_fore_incidence</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.aggregate_past_incidence" href="#rtrend_forecast.forecasting.ForecastOperator.aggregate_past_incidence">aggregate_past_incidence</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.callback_inc_reconstruction" href="#rtrend_forecast.forecasting.ForecastOperator.callback_inc_reconstruction">callback_inc_reconstruction</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.callback_postprocessing" href="#rtrend_forecast.forecasting.ForecastOperator.callback_postprocessing">callback_postprocessing</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.callback_preprocessing" href="#rtrend_forecast.forecasting.ForecastOperator.callback_preprocessing">callback_preprocessing</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.callback_rt_estimation" href="#rtrend_forecast.forecasting.ForecastOperator.callback_rt_estimation">callback_rt_estimation</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.callback_rt_synthesis" href="#rtrend_forecast.forecasting.ForecastOperator.callback_rt_synthesis">callback_rt_synthesis</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.crop_roi" href="#rtrend_forecast.forecasting.ForecastOperator.crop_roi">crop_roi</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.denoise" href="#rtrend_forecast.forecasting.ForecastOperator.denoise">denoise</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.denoise_and_fit" href="#rtrend_forecast.forecasting.ForecastOperator.denoise_and_fit">denoise_and_fit</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.dump_heavy_stuff" href="#rtrend_forecast.forecasting.ForecastOperator.dump_heavy_stuff">dump_heavy_stuff</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.estimate_rt_mcmc" href="#rtrend_forecast.forecasting.ForecastOperator.estimate_rt_mcmc">estimate_rt_mcmc</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.get_noise_object" href="#rtrend_forecast.forecasting.ForecastOperator.get_noise_object">get_noise_object</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.get_past_aggr_tlabels" href="#rtrend_forecast.forecasting.ForecastOperator.get_past_aggr_tlabels">get_past_aggr_tlabels</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.get_past_gran_tlabels" href="#rtrend_forecast.forecasting.ForecastOperator.get_past_gran_tlabels">get_past_gran_tlabels</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.get_scaled_past_incidence" href="#rtrend_forecast.forecasting.ForecastOperator.get_scaled_past_incidence">get_scaled_past_incidence</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.get_stages" href="#rtrend_forecast.forecasting.ForecastOperator.get_stages">get_stages</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.gran_dt" href="#rtrend_forecast.forecasting.ForecastOperator.gran_dt">gran_dt</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.incorporate_noise" href="#rtrend_forecast.forecasting.ForecastOperator.incorporate_noise">incorporate_noise</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.interpolate_to_granular" href="#rtrend_forecast.forecasting.ForecastOperator.interpolate_to_granular">interpolate_to_granular</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.is_aggr" href="#rtrend_forecast.forecasting.ForecastOperator.is_aggr">is_aggr</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.make_all_time_data" href="#rtrend_forecast.forecasting.ForecastOperator.make_all_time_data">make_all_time_data</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.make_gran_time_data" href="#rtrend_forecast.forecasting.ForecastOperator.make_gran_time_data">make_gran_time_data</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.make_quantiles_for" href="#rtrend_forecast.forecasting.ForecastOperator.make_quantiles_for">make_quantiles_for</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.reconstruct_incidence" href="#rtrend_forecast.forecasting.ForecastOperator.reconstruct_incidence">reconstruct_incidence</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.remove_negative_incidence" href="#rtrend_forecast.forecasting.ForecastOperator.remove_negative_incidence">remove_negative_incidence</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.remove_stage" href="#rtrend_forecast.forecasting.ForecastOperator.remove_stage">remove_stage</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.reset_pipeline" href="#rtrend_forecast.forecasting.ForecastOperator.reset_pipeline">reset_pipeline</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.run" href="#rtrend_forecast.forecasting.ForecastOperator.run">run</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.score_forecast" href="#rtrend_forecast.forecasting.ForecastOperator.score_forecast">score_forecast</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.set_main_roi" href="#rtrend_forecast.forecasting.ForecastOperator.set_main_roi">set_main_roi</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.set_stage" href="#rtrend_forecast.forecasting.ForecastOperator.set_stage">set_stage</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.set_stage_done" href="#rtrend_forecast.forecasting.ForecastOperator.set_stage_done">set_stage_done</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.set_stage_error" href="#rtrend_forecast.forecasting.ForecastOperator.set_stage_error">set_stage_error</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.set_stage_first" href="#rtrend_forecast.forecasting.ForecastOperator.set_stage_first">set_stage_first</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.set_stage_next" href="#rtrend_forecast.forecasting.ForecastOperator.set_stage_next">set_stage_next</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.sort_past_series" href="#rtrend_forecast.forecasting.ForecastOperator.sort_past_series">sort_past_series</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.synthesize_and_reconstruct" href="#rtrend_forecast.forecasting.ForecastOperator.synthesize_and_reconstruct">synthesize_and_reconstruct</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.synthesize_rt" href="#rtrend_forecast.forecasting.ForecastOperator.synthesize_rt">synthesize_rt</a></code></li>
+<li><code><a title="rtrend_forecast.forecasting.ForecastOperator.synthesize_tg" href="#rtrend_forecast.forecasting.ForecastOperator.synthesize_tg">synthesize_tg</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

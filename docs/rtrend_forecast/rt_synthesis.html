@@ -1,0 +1,1256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>rtrend_forecast.rt_synthesis API documentation</title>
+<meta name="description" content="Methods to synthesize future R(t) values, based on past estimation
+and other criteria." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rtrend_forecast.rt_synthesis</code></h1>
+</header>
+<section id="section-intro">
+<p>Methods to synthesize future R(t) values, based on past estimation
+and other criteria.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Methods to synthesize future R(t) values, based on past estimation
+and other criteria.
+&#34;&#34;&#34;
+import logging
+
+import numba as nb
+import numpy as np
+import pandas as pd
+import scipy.optimize
+import scipy.stats
+
+from rtrend_forecast.inc_reconstruction import step_reconstruct_ct_multiple
+from rtrend_forecast.reporting import (
+    get_rtrend_logger,
+    ExecTimeTracker,
+    get_main_exectime_tracker,
+)
+from rtrend_forecast.structs import RtData
+from rtrend_forecast.utils import get_or_seed_rng
+from rtrend_forecast.errchecking import inspect_avg_r_ensemble
+
+
+# _LOGGER = logging.getLogger(__name__)
+_LOGGER = get_rtrend_logger().getChild(__name__)
+
+# LOCAL_XTT = ExecTimeTracker(category=__name__)
+GLOBAL_XTT = get_main_exectime_tracker()
+
+
+def get_sorted_mean_ensemble(
+        rtm: RtData, nperiods_past, q_low, q_hig, r_max=None,
+):
+    &#34;&#34;&#34;Sorts the ensembles of R(t) values (at each time,
+    independently), gets an interquantile range and then calculates
+    the average over each sorted time series.
+
+    Optionally, values are also filtered by its maximum value.
+
+    Returns
+    -------
+    out : np.ndarray
+        A 1D array with the averages of each R(t) sorted curve.
+    &#34;&#34;&#34;
+    # Sort and get IQR
+    i_low, i_hig = [round(rtm.nsamples * q) for q in (q_low, q_hig)]
+    filt = rtm.get_sortd()[i_low:i_hig, -nperiods_past:]
+
+    # Calculate mean ensemble and filter by maximum
+    mean_vals = filt.mean(axis=1)
+
+    if r_max is not None:
+        mean_vals = mean_vals[
+                    :np.searchsorted(mean_vals, r_max, side=&#34;right&#34;)]
+
+    return mean_vals
+
+
+def get_sorted_mean_ensemble_rtop(
+        rtm: RtData, nperiods_past, r_top, max_width,
+):
+    &#34;&#34;&#34;Sorts the ensembles of R(t) values (at each time,
+    independently), gets an interquantile range and then calculates
+    the average over each sorted time series.
+
+    Optionally, values are also filtered by its maximum value.
+
+    Returns
+    -------
+    out : np.ndarray
+        A 1D array with the averages of each R(t) sorted curve.
+    &#34;&#34;&#34;
+    mean_vals = rtm.get_sortd().mean(axis=1)[:, -nperiods_past:]
+    i_top = np.searchsorted(mean_vals, r_top)
+    int_width = min(round(rtm.nsamples * max_width), i_top)
+    mean_vals = mean_vals[i_top - int_width:i_top]  # Slices the array
+
+    return mean_vals
+
+
+def extend_1darray_repeat(arr, nperiods, dtype=float, out=None):
+    # Repeats mean values over time
+    if out is None:
+        out = np.empty((arr.shape[0], nperiods), dtype=dtype)
+
+    # out[:] = np.tile(arr[:, np.newaxis], (1, nperiods))  # Slower!
+    for i in range(nperiods):
+        out[:, i] = arr
+
+    return out
+
+
+def apply_static_ramp_to(arr, k_start, k_end, nperiods):
+    ramp = np.linspace(k_start, k_end, nperiods)
+    return np.apply_along_axis(lambda x: x * ramp, axis=1, arr=arr)
+
+
+def apply_static_ramp_inplace(arr, k_start, k_end, nperiods):
+    &#34;&#34;&#34;&#34;&#34;&#34;
+    arr *= np.linspace(k_start, k_end, nperiods)[np.newaxis, :]
+
+
+def _k_linear_func(x, r1, r2):
+    return (r2/2 - r1) * (x - 1) + r1
+
+# TODO: implement the ACTUAL linear function
+
+
+# noinspection PyUnusedLocal
+def apply_dynamic_ramp_inplace(
+        arr, r1_start, r1_end, r2_start, r2_end, nperiods,
+        x_array=None, **kwargs):
+    &#34;&#34;&#34;
+    # TODO OOOO: switch to the correct linear ramp.
+       No need to apply coefficients, just do:
+       r_start = (r2 - r1) * mean_vals + 2 * r1 - r2
+
+    TODO docs
+        Also mention x_array, arguments for the ramp coefficients.
+    --- For each of the positions, start and end, it defines a k-coeffient function:
+    k(R) = a * (R - 1) + b, where
+        a = r2 / 2 - r1
+        b = r1
+    And thus:
+        R&#39;(1) = r1
+        R&#39;(2) = r2
+    &#34;&#34;&#34;
+    if x_array is None:
+        x_array = arr[:, 0]
+
+    if x_array.shape[0] != arr.shape[0]:
+        raise ValueError(&#34;Hey, x_array must have the same &#34;
+                         &#34;size as the first dimension of arr.&#34;)
+
+    ramp = np.linspace(_k_linear_func(x_array, r1_start, r2_start),
+                       _k_linear_func(x_array, r1_end, r2_end),
+                       nperiods).T
+    # NOTE: this creates a big matrix. Consider testing alternatives
+
+    arr *= ramp
+    # return ramp * arr
+
+
+#
+#
+# =====================================================================
+# EFFECTIVE SYNTHESIS METHODS
+# =====================================================================
+#
+#
+
+# noinspection PyUnusedLocal
+def random_normal_synth(
+        nperiods, nsamples, center=1.0, sigma=0.05, rng=None, out=None,
+        logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;Generate constant R(t) series from a normal distribution with
+    given parameters.
+
+    Parameters
+    ----------
+    nperiods : int
+        Number of forward periods to generate for.
+    nsamples : int
+        Number of samples to generate.
+    center : float, optional
+        Central value of the normal distribution.
+    sigma : float, optional
+        Standard deviation of the normal distribution.
+    rng : int, np.random.Generator or None, optional
+        Random generator to be used. If an integer is passed, creates
+        a default random generator with `rng` as seed. If None, a
+        time-seeded generator is created.
+    logger : logging.Loger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+    out : np.ndarray
+        Output array to write the synthesized R(t) values on.
+
+    Returns
+    -------
+    out : np.ndarray
+        Array with synthesized R(t) values.
+        Signature: out[i_sample, i_t]
+    &#34;&#34;&#34;
+    if out is None:
+        out = np.empty((nsamples, nperiods), dtype=float)
+
+    # Sample normal values
+    rng = get_or_seed_rng(rng)
+    vals = rng.normal(center, sigma, nsamples)
+    vals[vals &lt; 0] = 0  # Filter negatives
+
+    # Repeat values over time
+    # out[:] = np.tile(vals[:, np.newaxis], (1, nperiods))  # Slower!
+    for i in range(nperiods):
+        out[:, i] = vals
+
+    return out
+
+
+# noinspection PyUnusedLocal
+def flat_avg_synth(
+        nperiods_fore, rtm: RtData, nperiods_past,
+        q_low=0.0, q_hig=1.0, r_max=None, logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;TODO DOCS&#34;&#34;&#34;
+
+    mean_vals = get_sorted_mean_ensemble(
+        rtm, nperiods_past, q_low, q_hig, r_max)
+
+    inspect_avg_r_ensemble()  # TODO fill params
+
+    out = extend_1darray_repeat(mean_vals, nperiods_fore)
+
+    return out
+
+
+# noinspection PyUnusedLocal
+def static_ramp_avg_synth(
+        nperiods_fore, rtm: RtData, nperiods_past,
+        k_start, k_end,
+        q_low=0.0, q_hig=1.0, r_max=None, logger=_LOGGER,
+        **kwargs
+):
+    &#34;&#34;&#34;Generate a linear R(t) series based on the averages of estimated
+    values from the past.
+
+    Each time series is generated from a sample value of R, which
+    is multiplied by k_start at the beginning of the fore time series
+    and by k_end at the end. Values in between are linearly
+    interpolated.
+
+    Parameters
+    ----------
+    nperiods_fore : int
+        Number of forward periods to generate for.
+    rtm : RtData
+        Object with the past R(t) estimation ensemble.
+    nperiods_past : int
+        Number of backward periods up to which the average is taken.
+    q_low : float, optional
+        Lower boundary of the interquantile range to filter by.
+    q_hig : float, optional
+        Upper boundary of the interquantile range to filter by.
+        Default takes the entire sample.
+    k_start : float
+        Ramp coefficient to apply at the start of the future R(t)
+        time series.
+    k_end : float
+        Ramp coefficient to apply at the end of the future R(t)
+        time series.
+    r_max : float, optional
+        Maximum value of the R average accepted. The ensemble is
+        truncated up to this point.
+        Defaults to None, which causes no truncation.
+    logger : logging.Loger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    out : np.ndarray
+        Array with synthesized R(t) values.
+        Signature: out[i_sample, i_t]
+    &#34;&#34;&#34;
+    out = flat_avg_synth(
+        nperiods_fore, rtm, nperiods_past, q_low, q_hig, r_max, logger)
+
+    apply_static_ramp_inplace(out, k_start, k_end, nperiods_fore)
+
+    return out
+
+
+# noinspection PyUnusedLocal
+def static_ramp_valbased_avg_synth(
+        nperiods_fore, rtm: RtData, nperiods_past,
+        k_start, k_end, r_top, max_width, logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;Generate a linear R(t) series based on the averages of estimated
+    values from the past.
+
+    Instead of filering by a given interquantile range, the ensemble of
+    averages is filtered up to a given value (`rmean_top`), then
+    selected to span at most an interquantile width given by
+    `max_width`. If less than `max_width` lies under `rmean_top`, then
+    all values from the minimum to `rmean_top` are taken.
+
+    Each time series is generated from a sample value of R, which
+    is multiplied by k_start at the beginning of the fore time series
+    and by k_end at the end. Values in between are linearly
+    interpolated.
+
+    Parameters
+    ----------
+    nperiods_fore : int
+        Number of forward periods to generate for.
+    rtm : RtData
+        Object with the past R(t) estimation ensemble.
+    nperiods_past : int
+        Number of backward periods up to which the average is taken.
+    r_top : float
+        Maximum value of average R that can be accepted. It is also
+        the top value of the returned ensemble.
+    max_width : float
+        Interquantile width of the average R ensemble under r_top
+        to use. If the sample has a shorter width, this is used
+        instead.
+    k_start : float
+        Ramp coefficient to apply at the start of the future R(t)
+        time series.
+    k_end : float
+        Ramp coefficient to apply at the end of the future R(t)
+        time series.
+    logger : logging.Loger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    out : np.ndarray
+        Array with synthesized R(t) values.
+        Signature: out[i_sample, i_t]
+    &#34;&#34;&#34;
+    mean_vals = get_sorted_mean_ensemble_rtop(
+        rtm, nperiods_past, r_top, max_width)
+
+    inspect_avg_r_ensemble()  # TODO fill params
+
+    out = extend_1darray_repeat(mean_vals, nperiods_fore)
+    apply_static_ramp_inplace(out, k_start, k_end, nperiods_fore)
+
+    return out
+
+
+# noinspection PyUnusedLocal
+def dynamic_ramp_avg_synth(
+        nperiods_fore, rtm: RtData, nperiods_past,
+        r1_start, r1_end, r2_start, r2_end,
+        q_low=0.0, q_hig=1.0, r_max=None, logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;Generate a linear R(t) series based on the averages of estimated
+    values from the past.
+
+    Each time series is generated from a sample value of R, which
+    is multiplied by k_start at the beginning of the fore time series
+    and by k_end at the end. Values in between are linearly
+    interpolated.
+
+    Parameters
+    ----------
+    nperiods_fore : int
+        Number of forward periods to generate for.
+    rtm : RtData
+        Object with the past R(t) estimation ensemble.
+    nperiods_past : int
+        Number of backward periods up to which the average is taken.
+    q_low : float, optional
+        Lower boundary of the interquantile range to filter by.
+    q_hig : float, optional
+        Upper boundary of the interquantile range to filter by.
+        Default takes the entire sample.
+    r1_start : float  # TODO Describe these
+    r1_end : float
+    r2_start : float
+    r2_end : float
+    r_max : float, optional
+        Maximum value of the R average accepted. The ensemble is
+        truncated up to this point.
+        Defaults to None, which causes no truncation.
+    logger : logging.Loger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    out : np.ndarray
+        Array with synthesized R(t) values.
+        Signature: out[i_sample, i_t]
+    &#34;&#34;&#34;
+    out = flat_avg_synth(
+        nperiods_fore, rtm, nperiods_past, q_low, q_hig, r_max, logger)
+
+    apply_dynamic_ramp_inplace(
+        out, r1_start, r1_end, r2_start, r2_end, nperiods_fore)
+
+    return out
+
+
+#
+#
+# =====================================================================
+# R(t) SYNTHESIS + C(t) RECONSTRUCTION COMBINED METHODS
+# =====================================================================
+#
+
+
+@GLOBAL_XTT.track()
+@nb.njit(cache=True)
+def _aux_step_rt_with_drift(
+        last_rt, last_ct, nsamples, drift_coef, rw_coef, bias,
+        rt_fore_2d, i_t_fore,
+):
+    &#34;&#34;&#34;&#34;&#34;&#34;
+    # Optionally runs the random walk
+    rw = np.empty(nsamples, dtype=float)
+    if rw_coef:
+        for i in range(nsamples):
+            rw[i] = np.random.normal(loc=0., scale=rw_coef)
+            # Obs: numbaed np.random does not support `size`
+    else:
+        rw[:] = 0.
+
+    rt_fore_2d[i_t_fore, :] = (
+            last_rt * np.exp(rw - drift_coef * last_ct + bias)
+    )
+
+
+@GLOBAL_XTT.track()
+def drift_rw_synth_reconstruct(
+        nperiods_fore, rtm: RtData, ct_past:np.ndarray,
+        tg_past: np.ndarray, tg_fore: np.ndarray, tg_max,
+        nperiods_past, drift_coef, rw_coef, bias=0.,
+        q_low=0.0, q_hig=1.0, r_max=None,
+        logger=_LOGGER,
+        **kwargs
+):
+    &#34;&#34;&#34;R(t) and C(t) combined Synthesis method using a random walk with
+    drift due to depletion of susceptibles.
+
+    Notes
+    -----
+    This version accepts only one generation time (Tg) array, meaning
+    that it is assumed as constant over time.
+
+    References
+    ----------
+
+    [1] Asher, Jason. &#34;Forecasting Ebola with a regression transmission
+    model.&#34; Epidemics 22 (2018): 50-55.
+
+    &#34;&#34;&#34;
+    if isinstance(ct_past, pd.Series):
+        logger.warning(
+            &#34;ct_past was passed as a pandas.Series object to `drift_rw&#34;
+            &#34;_synth_reconstruct, but np.ndarray expected.&#34;)
+
+    mean_rpast = get_sorted_mean_ensemble(
+        rtm, nperiods_past, q_low, q_hig, r_max
+    )
+
+    nsamples = mean_rpast.shape[0]
+
+    rt_fore_2d = np.zeros((nperiods_fore, nsamples), dtype=float)
+    ct_fore_2d = np.zeros((nperiods_fore, nsamples), dtype=float)
+
+    # TODO: reseed the numba random generator with a given PARAMETER
+    @nb.njit
+    def reseed():
+        np.random.seed(10)
+    reseed()
+
+    # First step
+    # ----------
+    # R(t) forecast
+    _aux_step_rt_with_drift(
+        mean_rpast, ct_past[-1], nsamples, drift_coef, rw_coef, bias,
+        rt_fore_2d, 0
+    )
+
+    # # c(t) reconstruction
+    step_reconstruct_ct_multiple(
+        0, ct_past, rt_fore_2d, tg_past, tg_fore, tg_max,
+        ct_fore_2d, nsamples,
+    )
+
+    # Remaining steps
+    # ---------------
+    for i_t in range(1, nperiods_fore):
+        # R(t) forecast
+        _aux_step_rt_with_drift(
+            rt_fore_2d[i_t - 1], ct_fore_2d[i_t - 1], nsamples, drift_coef, rw_coef,
+            bias, rt_fore_2d, i_t
+        )
+
+        # c(t) reconstruction
+        step_reconstruct_ct_multiple(
+            i_t, ct_past, rt_fore_2d, tg_past, tg_fore, tg_max,
+            ct_fore_2d, nsamples,
+        )
+
+    return rt_fore_2d, ct_fore_2d</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="rtrend_forecast.rt_synthesis.apply_dynamic_ramp_inplace"><code class="name flex">
+<span>def <span class="ident">apply_dynamic_ramp_inplace</span></span>(<span>arr, r1_start, r1_end, r2_start, r2_end, nperiods, x_array=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><h1 id="todo-oooo-switch-to-the-correct-linear-ramp">TODO OOOO: switch to the correct linear ramp.</h1>
+<p>No need to apply coefficients, just do:
+r_start = (r2 - r1) * mean_vals + 2 * r1 - r2</p>
+<p>TODO docs
+Also mention x_array, arguments for the ramp coefficients.
+&mdash; For each of the positions, start and end, it defines a k-coeffient function:
+k(R) = a * (R - 1) + b, where
+a = r2 / 2 - r1
+b = r1
+And thus:
+R'(1) = r1
+R'(2) = r2</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_dynamic_ramp_inplace(
+        arr, r1_start, r1_end, r2_start, r2_end, nperiods,
+        x_array=None, **kwargs):
+    &#34;&#34;&#34;
+    # TODO OOOO: switch to the correct linear ramp.
+       No need to apply coefficients, just do:
+       r_start = (r2 - r1) * mean_vals + 2 * r1 - r2
+
+    TODO docs
+        Also mention x_array, arguments for the ramp coefficients.
+    --- For each of the positions, start and end, it defines a k-coeffient function:
+    k(R) = a * (R - 1) + b, where
+        a = r2 / 2 - r1
+        b = r1
+    And thus:
+        R&#39;(1) = r1
+        R&#39;(2) = r2
+    &#34;&#34;&#34;
+    if x_array is None:
+        x_array = arr[:, 0]
+
+    if x_array.shape[0] != arr.shape[0]:
+        raise ValueError(&#34;Hey, x_array must have the same &#34;
+                         &#34;size as the first dimension of arr.&#34;)
+
+    ramp = np.linspace(_k_linear_func(x_array, r1_start, r2_start),
+                       _k_linear_func(x_array, r1_end, r2_end),
+                       nperiods).T
+    # NOTE: this creates a big matrix. Consider testing alternatives
+
+    arr *= ramp
+    # return ramp * arr</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.rt_synthesis.apply_static_ramp_inplace"><code class="name flex">
+<span>def <span class="ident">apply_static_ramp_inplace</span></span>(<span>arr, k_start, k_end, nperiods)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_static_ramp_inplace(arr, k_start, k_end, nperiods):
+    &#34;&#34;&#34;&#34;&#34;&#34;
+    arr *= np.linspace(k_start, k_end, nperiods)[np.newaxis, :]</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.rt_synthesis.apply_static_ramp_to"><code class="name flex">
+<span>def <span class="ident">apply_static_ramp_to</span></span>(<span>arr, k_start, k_end, nperiods)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_static_ramp_to(arr, k_start, k_end, nperiods):
+    ramp = np.linspace(k_start, k_end, nperiods)
+    return np.apply_along_axis(lambda x: x * ramp, axis=1, arr=arr)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.rt_synthesis.drift_rw_synth_reconstruct"><code class="name flex">
+<span>def <span class="ident">drift_rw_synth_reconstruct</span></span>(<span>nperiods_fore, rtm: <a title="rtrend_forecast.structs.RtData" href="structs.html#rtrend_forecast.structs.RtData">RtData</a>, ct_past: numpy.ndarray, tg_past: numpy.ndarray, tg_fore: numpy.ndarray, tg_max, nperiods_past, drift_coef, rw_coef, bias=0.0, q_low=0.0, q_hig=1.0, r_max=None, logger=&lt;Logger rtrend.rtrend_forecast.rt_synthesis (Level 15)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>R(t) and C(t) combined Synthesis method using a random walk with
+drift due to depletion of susceptibles.</p>
+<h2 id="notes">Notes</h2>
+<p>This version accepts only one generation time (Tg) array, meaning
+that it is assumed as constant over time.</p>
+<h2 id="references">References</h2>
+<p>[1] Asher, Jason. "Forecasting Ebola with a regression transmission
+model." Epidemics 22 (2018): 50-55.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@GLOBAL_XTT.track()
+def drift_rw_synth_reconstruct(
+        nperiods_fore, rtm: RtData, ct_past:np.ndarray,
+        tg_past: np.ndarray, tg_fore: np.ndarray, tg_max,
+        nperiods_past, drift_coef, rw_coef, bias=0.,
+        q_low=0.0, q_hig=1.0, r_max=None,
+        logger=_LOGGER,
+        **kwargs
+):
+    &#34;&#34;&#34;R(t) and C(t) combined Synthesis method using a random walk with
+    drift due to depletion of susceptibles.
+
+    Notes
+    -----
+    This version accepts only one generation time (Tg) array, meaning
+    that it is assumed as constant over time.
+
+    References
+    ----------
+
+    [1] Asher, Jason. &#34;Forecasting Ebola with a regression transmission
+    model.&#34; Epidemics 22 (2018): 50-55.
+
+    &#34;&#34;&#34;
+    if isinstance(ct_past, pd.Series):
+        logger.warning(
+            &#34;ct_past was passed as a pandas.Series object to `drift_rw&#34;
+            &#34;_synth_reconstruct, but np.ndarray expected.&#34;)
+
+    mean_rpast = get_sorted_mean_ensemble(
+        rtm, nperiods_past, q_low, q_hig, r_max
+    )
+
+    nsamples = mean_rpast.shape[0]
+
+    rt_fore_2d = np.zeros((nperiods_fore, nsamples), dtype=float)
+    ct_fore_2d = np.zeros((nperiods_fore, nsamples), dtype=float)
+
+    # TODO: reseed the numba random generator with a given PARAMETER
+    @nb.njit
+    def reseed():
+        np.random.seed(10)
+    reseed()
+
+    # First step
+    # ----------
+    # R(t) forecast
+    _aux_step_rt_with_drift(
+        mean_rpast, ct_past[-1], nsamples, drift_coef, rw_coef, bias,
+        rt_fore_2d, 0
+    )
+
+    # # c(t) reconstruction
+    step_reconstruct_ct_multiple(
+        0, ct_past, rt_fore_2d, tg_past, tg_fore, tg_max,
+        ct_fore_2d, nsamples,
+    )
+
+    # Remaining steps
+    # ---------------
+    for i_t in range(1, nperiods_fore):
+        # R(t) forecast
+        _aux_step_rt_with_drift(
+            rt_fore_2d[i_t - 1], ct_fore_2d[i_t - 1], nsamples, drift_coef, rw_coef,
+            bias, rt_fore_2d, i_t
+        )
+
+        # c(t) reconstruction
+        step_reconstruct_ct_multiple(
+            i_t, ct_past, rt_fore_2d, tg_past, tg_fore, tg_max,
+            ct_fore_2d, nsamples,
+        )
+
+    return rt_fore_2d, ct_fore_2d</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.rt_synthesis.dynamic_ramp_avg_synth"><code class="name flex">
+<span>def <span class="ident">dynamic_ramp_avg_synth</span></span>(<span>nperiods_fore, rtm: <a title="rtrend_forecast.structs.RtData" href="structs.html#rtrend_forecast.structs.RtData">RtData</a>, nperiods_past, r1_start, r1_end, r2_start, r2_end, q_low=0.0, q_hig=1.0, r_max=None, logger=&lt;Logger rtrend.rtrend_forecast.rt_synthesis (Level 15)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a linear R(t) series based on the averages of estimated
+values from the past.</p>
+<p>Each time series is generated from a sample value of R, which
+is multiplied by k_start at the beginning of the fore time series
+and by k_end at the end. Values in between are linearly
+interpolated.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>nperiods_fore</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of forward periods to generate for.</dd>
+<dt><strong><code>rtm</code></strong> :&ensp;<code>RtData</code></dt>
+<dd>Object with the past R(t) estimation ensemble.</dd>
+<dt><strong><code>nperiods_past</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of backward periods up to which the average is taken.</dd>
+<dt><strong><code>q_low</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>Lower boundary of the interquantile range to filter by.</dd>
+<dt><strong><code>q_hig</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>Upper boundary of the interquantile range to filter by.
+Default takes the entire sample.</dd>
+<dt><strong><code>r1_start</code></strong> :&ensp;<code>float
+# TODO Describe these</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>r1_end</code></strong> :&ensp;<code>float</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>r2_start</code></strong> :&ensp;<code>float</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>r2_end</code></strong> :&ensp;<code>float</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>r_max</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>Maximum value of the R average accepted. The ensemble is
+truncated up to this point.
+Defaults to None, which causes no truncation.</dd>
+<dt><strong><code>logger</code></strong> :&ensp;<code>logging.Loger</code>, optional</dt>
+<dd>Alternative logger object. Defaults to module's logger.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>out</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Array with synthesized R(t) values.
+Signature: out[i_sample, i_t]</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dynamic_ramp_avg_synth(
+        nperiods_fore, rtm: RtData, nperiods_past,
+        r1_start, r1_end, r2_start, r2_end,
+        q_low=0.0, q_hig=1.0, r_max=None, logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;Generate a linear R(t) series based on the averages of estimated
+    values from the past.
+
+    Each time series is generated from a sample value of R, which
+    is multiplied by k_start at the beginning of the fore time series
+    and by k_end at the end. Values in between are linearly
+    interpolated.
+
+    Parameters
+    ----------
+    nperiods_fore : int
+        Number of forward periods to generate for.
+    rtm : RtData
+        Object with the past R(t) estimation ensemble.
+    nperiods_past : int
+        Number of backward periods up to which the average is taken.
+    q_low : float, optional
+        Lower boundary of the interquantile range to filter by.
+    q_hig : float, optional
+        Upper boundary of the interquantile range to filter by.
+        Default takes the entire sample.
+    r1_start : float  # TODO Describe these
+    r1_end : float
+    r2_start : float
+    r2_end : float
+    r_max : float, optional
+        Maximum value of the R average accepted. The ensemble is
+        truncated up to this point.
+        Defaults to None, which causes no truncation.
+    logger : logging.Loger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    out : np.ndarray
+        Array with synthesized R(t) values.
+        Signature: out[i_sample, i_t]
+    &#34;&#34;&#34;
+    out = flat_avg_synth(
+        nperiods_fore, rtm, nperiods_past, q_low, q_hig, r_max, logger)
+
+    apply_dynamic_ramp_inplace(
+        out, r1_start, r1_end, r2_start, r2_end, nperiods_fore)
+
+    return out</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.rt_synthesis.extend_1darray_repeat"><code class="name flex">
+<span>def <span class="ident">extend_1darray_repeat</span></span>(<span>arr, nperiods, dtype=builtins.float, out=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extend_1darray_repeat(arr, nperiods, dtype=float, out=None):
+    # Repeats mean values over time
+    if out is None:
+        out = np.empty((arr.shape[0], nperiods), dtype=dtype)
+
+    # out[:] = np.tile(arr[:, np.newaxis], (1, nperiods))  # Slower!
+    for i in range(nperiods):
+        out[:, i] = arr
+
+    return out</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.rt_synthesis.flat_avg_synth"><code class="name flex">
+<span>def <span class="ident">flat_avg_synth</span></span>(<span>nperiods_fore, rtm: <a title="rtrend_forecast.structs.RtData" href="structs.html#rtrend_forecast.structs.RtData">RtData</a>, nperiods_past, q_low=0.0, q_hig=1.0, r_max=None, logger=&lt;Logger rtrend.rtrend_forecast.rt_synthesis (Level 15)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO DOCS</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def flat_avg_synth(
+        nperiods_fore, rtm: RtData, nperiods_past,
+        q_low=0.0, q_hig=1.0, r_max=None, logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;TODO DOCS&#34;&#34;&#34;
+
+    mean_vals = get_sorted_mean_ensemble(
+        rtm, nperiods_past, q_low, q_hig, r_max)
+
+    inspect_avg_r_ensemble()  # TODO fill params
+
+    out = extend_1darray_repeat(mean_vals, nperiods_fore)
+
+    return out</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.rt_synthesis.get_sorted_mean_ensemble"><code class="name flex">
+<span>def <span class="ident">get_sorted_mean_ensemble</span></span>(<span>rtm: <a title="rtrend_forecast.structs.RtData" href="structs.html#rtrend_forecast.structs.RtData">RtData</a>, nperiods_past, q_low, q_hig, r_max=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sorts the ensembles of R(t) values (at each time,
+independently), gets an interquantile range and then calculates
+the average over each sorted time series.</p>
+<p>Optionally, values are also filtered by its maximum value.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>out</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>A 1D array with the averages of each R(t) sorted curve.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_sorted_mean_ensemble(
+        rtm: RtData, nperiods_past, q_low, q_hig, r_max=None,
+):
+    &#34;&#34;&#34;Sorts the ensembles of R(t) values (at each time,
+    independently), gets an interquantile range and then calculates
+    the average over each sorted time series.
+
+    Optionally, values are also filtered by its maximum value.
+
+    Returns
+    -------
+    out : np.ndarray
+        A 1D array with the averages of each R(t) sorted curve.
+    &#34;&#34;&#34;
+    # Sort and get IQR
+    i_low, i_hig = [round(rtm.nsamples * q) for q in (q_low, q_hig)]
+    filt = rtm.get_sortd()[i_low:i_hig, -nperiods_past:]
+
+    # Calculate mean ensemble and filter by maximum
+    mean_vals = filt.mean(axis=1)
+
+    if r_max is not None:
+        mean_vals = mean_vals[
+                    :np.searchsorted(mean_vals, r_max, side=&#34;right&#34;)]
+
+    return mean_vals</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.rt_synthesis.get_sorted_mean_ensemble_rtop"><code class="name flex">
+<span>def <span class="ident">get_sorted_mean_ensemble_rtop</span></span>(<span>rtm: <a title="rtrend_forecast.structs.RtData" href="structs.html#rtrend_forecast.structs.RtData">RtData</a>, nperiods_past, r_top, max_width)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sorts the ensembles of R(t) values (at each time,
+independently), gets an interquantile range and then calculates
+the average over each sorted time series.</p>
+<p>Optionally, values are also filtered by its maximum value.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>out</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>A 1D array with the averages of each R(t) sorted curve.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_sorted_mean_ensemble_rtop(
+        rtm: RtData, nperiods_past, r_top, max_width,
+):
+    &#34;&#34;&#34;Sorts the ensembles of R(t) values (at each time,
+    independently), gets an interquantile range and then calculates
+    the average over each sorted time series.
+
+    Optionally, values are also filtered by its maximum value.
+
+    Returns
+    -------
+    out : np.ndarray
+        A 1D array with the averages of each R(t) sorted curve.
+    &#34;&#34;&#34;
+    mean_vals = rtm.get_sortd().mean(axis=1)[:, -nperiods_past:]
+    i_top = np.searchsorted(mean_vals, r_top)
+    int_width = min(round(rtm.nsamples * max_width), i_top)
+    mean_vals = mean_vals[i_top - int_width:i_top]  # Slices the array
+
+    return mean_vals</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.rt_synthesis.random_normal_synth"><code class="name flex">
+<span>def <span class="ident">random_normal_synth</span></span>(<span>nperiods, nsamples, center=1.0, sigma=0.05, rng=None, out=None, logger=&lt;Logger rtrend.rtrend_forecast.rt_synthesis (Level 15)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate constant R(t) series from a normal distribution with
+given parameters.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>nperiods</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of forward periods to generate for.</dd>
+<dt><strong><code>nsamples</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of samples to generate.</dd>
+<dt><strong><code>center</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>Central value of the normal distribution.</dd>
+<dt><strong><code>sigma</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>Standard deviation of the normal distribution.</dd>
+<dt><strong><code>rng</code></strong> :&ensp;<code>int, np.random.Generator</code> or <code>None</code>, optional</dt>
+<dd>Random generator to be used. If an integer is passed, creates
+a default random generator with <code>rng</code> as seed. If None, a
+time-seeded generator is created.</dd>
+<dt><strong><code>logger</code></strong> :&ensp;<code>logging.Loger</code>, optional</dt>
+<dd>Alternative logger object. Defaults to module's logger.</dd>
+<dt><strong><code>out</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Output array to write the synthesized R(t) values on.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>out</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Array with synthesized R(t) values.
+Signature: out[i_sample, i_t]</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def random_normal_synth(
+        nperiods, nsamples, center=1.0, sigma=0.05, rng=None, out=None,
+        logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;Generate constant R(t) series from a normal distribution with
+    given parameters.
+
+    Parameters
+    ----------
+    nperiods : int
+        Number of forward periods to generate for.
+    nsamples : int
+        Number of samples to generate.
+    center : float, optional
+        Central value of the normal distribution.
+    sigma : float, optional
+        Standard deviation of the normal distribution.
+    rng : int, np.random.Generator or None, optional
+        Random generator to be used. If an integer is passed, creates
+        a default random generator with `rng` as seed. If None, a
+        time-seeded generator is created.
+    logger : logging.Loger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+    out : np.ndarray
+        Output array to write the synthesized R(t) values on.
+
+    Returns
+    -------
+    out : np.ndarray
+        Array with synthesized R(t) values.
+        Signature: out[i_sample, i_t]
+    &#34;&#34;&#34;
+    if out is None:
+        out = np.empty((nsamples, nperiods), dtype=float)
+
+    # Sample normal values
+    rng = get_or_seed_rng(rng)
+    vals = rng.normal(center, sigma, nsamples)
+    vals[vals &lt; 0] = 0  # Filter negatives
+
+    # Repeat values over time
+    # out[:] = np.tile(vals[:, np.newaxis], (1, nperiods))  # Slower!
+    for i in range(nperiods):
+        out[:, i] = vals
+
+    return out</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.rt_synthesis.static_ramp_avg_synth"><code class="name flex">
+<span>def <span class="ident">static_ramp_avg_synth</span></span>(<span>nperiods_fore, rtm: <a title="rtrend_forecast.structs.RtData" href="structs.html#rtrend_forecast.structs.RtData">RtData</a>, nperiods_past, k_start, k_end, q_low=0.0, q_hig=1.0, r_max=None, logger=&lt;Logger rtrend.rtrend_forecast.rt_synthesis (Level 15)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a linear R(t) series based on the averages of estimated
+values from the past.</p>
+<p>Each time series is generated from a sample value of R, which
+is multiplied by k_start at the beginning of the fore time series
+and by k_end at the end. Values in between are linearly
+interpolated.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>nperiods_fore</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of forward periods to generate for.</dd>
+<dt><strong><code>rtm</code></strong> :&ensp;<code>RtData</code></dt>
+<dd>Object with the past R(t) estimation ensemble.</dd>
+<dt><strong><code>nperiods_past</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of backward periods up to which the average is taken.</dd>
+<dt><strong><code>q_low</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>Lower boundary of the interquantile range to filter by.</dd>
+<dt><strong><code>q_hig</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>Upper boundary of the interquantile range to filter by.
+Default takes the entire sample.</dd>
+<dt><strong><code>k_start</code></strong> :&ensp;<code>float</code></dt>
+<dd>Ramp coefficient to apply at the start of the future R(t)
+time series.</dd>
+<dt><strong><code>k_end</code></strong> :&ensp;<code>float</code></dt>
+<dd>Ramp coefficient to apply at the end of the future R(t)
+time series.</dd>
+<dt><strong><code>r_max</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>Maximum value of the R average accepted. The ensemble is
+truncated up to this point.
+Defaults to None, which causes no truncation.</dd>
+<dt><strong><code>logger</code></strong> :&ensp;<code>logging.Loger</code>, optional</dt>
+<dd>Alternative logger object. Defaults to module's logger.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>out</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Array with synthesized R(t) values.
+Signature: out[i_sample, i_t]</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def static_ramp_avg_synth(
+        nperiods_fore, rtm: RtData, nperiods_past,
+        k_start, k_end,
+        q_low=0.0, q_hig=1.0, r_max=None, logger=_LOGGER,
+        **kwargs
+):
+    &#34;&#34;&#34;Generate a linear R(t) series based on the averages of estimated
+    values from the past.
+
+    Each time series is generated from a sample value of R, which
+    is multiplied by k_start at the beginning of the fore time series
+    and by k_end at the end. Values in between are linearly
+    interpolated.
+
+    Parameters
+    ----------
+    nperiods_fore : int
+        Number of forward periods to generate for.
+    rtm : RtData
+        Object with the past R(t) estimation ensemble.
+    nperiods_past : int
+        Number of backward periods up to which the average is taken.
+    q_low : float, optional
+        Lower boundary of the interquantile range to filter by.
+    q_hig : float, optional
+        Upper boundary of the interquantile range to filter by.
+        Default takes the entire sample.
+    k_start : float
+        Ramp coefficient to apply at the start of the future R(t)
+        time series.
+    k_end : float
+        Ramp coefficient to apply at the end of the future R(t)
+        time series.
+    r_max : float, optional
+        Maximum value of the R average accepted. The ensemble is
+        truncated up to this point.
+        Defaults to None, which causes no truncation.
+    logger : logging.Loger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    out : np.ndarray
+        Array with synthesized R(t) values.
+        Signature: out[i_sample, i_t]
+    &#34;&#34;&#34;
+    out = flat_avg_synth(
+        nperiods_fore, rtm, nperiods_past, q_low, q_hig, r_max, logger)
+
+    apply_static_ramp_inplace(out, k_start, k_end, nperiods_fore)
+
+    return out</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.rt_synthesis.static_ramp_valbased_avg_synth"><code class="name flex">
+<span>def <span class="ident">static_ramp_valbased_avg_synth</span></span>(<span>nperiods_fore, rtm: <a title="rtrend_forecast.structs.RtData" href="structs.html#rtrend_forecast.structs.RtData">RtData</a>, nperiods_past, k_start, k_end, r_top, max_width, logger=&lt;Logger rtrend.rtrend_forecast.rt_synthesis (Level 15)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a linear R(t) series based on the averages of estimated
+values from the past.</p>
+<p>Instead of filering by a given interquantile range, the ensemble of
+averages is filtered up to a given value (<code>rmean_top</code>), then
+selected to span at most an interquantile width given by
+<code>max_width</code>. If less than <code>max_width</code> lies under <code>rmean_top</code>, then
+all values from the minimum to <code>rmean_top</code> are taken.</p>
+<p>Each time series is generated from a sample value of R, which
+is multiplied by k_start at the beginning of the fore time series
+and by k_end at the end. Values in between are linearly
+interpolated.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>nperiods_fore</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of forward periods to generate for.</dd>
+<dt><strong><code>rtm</code></strong> :&ensp;<code>RtData</code></dt>
+<dd>Object with the past R(t) estimation ensemble.</dd>
+<dt><strong><code>nperiods_past</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of backward periods up to which the average is taken.</dd>
+<dt><strong><code>r_top</code></strong> :&ensp;<code>float</code></dt>
+<dd>Maximum value of average R that can be accepted. It is also
+the top value of the returned ensemble.</dd>
+<dt><strong><code>max_width</code></strong> :&ensp;<code>float</code></dt>
+<dd>Interquantile width of the average R ensemble under r_top
+to use. If the sample has a shorter width, this is used
+instead.</dd>
+<dt><strong><code>k_start</code></strong> :&ensp;<code>float</code></dt>
+<dd>Ramp coefficient to apply at the start of the future R(t)
+time series.</dd>
+<dt><strong><code>k_end</code></strong> :&ensp;<code>float</code></dt>
+<dd>Ramp coefficient to apply at the end of the future R(t)
+time series.</dd>
+<dt><strong><code>logger</code></strong> :&ensp;<code>logging.Loger</code>, optional</dt>
+<dd>Alternative logger object. Defaults to module's logger.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>out</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Array with synthesized R(t) values.
+Signature: out[i_sample, i_t]</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def static_ramp_valbased_avg_synth(
+        nperiods_fore, rtm: RtData, nperiods_past,
+        k_start, k_end, r_top, max_width, logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;Generate a linear R(t) series based on the averages of estimated
+    values from the past.
+
+    Instead of filering by a given interquantile range, the ensemble of
+    averages is filtered up to a given value (`rmean_top`), then
+    selected to span at most an interquantile width given by
+    `max_width`. If less than `max_width` lies under `rmean_top`, then
+    all values from the minimum to `rmean_top` are taken.
+
+    Each time series is generated from a sample value of R, which
+    is multiplied by k_start at the beginning of the fore time series
+    and by k_end at the end. Values in between are linearly
+    interpolated.
+
+    Parameters
+    ----------
+    nperiods_fore : int
+        Number of forward periods to generate for.
+    rtm : RtData
+        Object with the past R(t) estimation ensemble.
+    nperiods_past : int
+        Number of backward periods up to which the average is taken.
+    r_top : float
+        Maximum value of average R that can be accepted. It is also
+        the top value of the returned ensemble.
+    max_width : float
+        Interquantile width of the average R ensemble under r_top
+        to use. If the sample has a shorter width, this is used
+        instead.
+    k_start : float
+        Ramp coefficient to apply at the start of the future R(t)
+        time series.
+    k_end : float
+        Ramp coefficient to apply at the end of the future R(t)
+        time series.
+    logger : logging.Loger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    out : np.ndarray
+        Array with synthesized R(t) values.
+        Signature: out[i_sample, i_t]
+    &#34;&#34;&#34;
+    mean_vals = get_sorted_mean_ensemble_rtop(
+        rtm, nperiods_past, r_top, max_width)
+
+    inspect_avg_r_ensemble()  # TODO fill params
+
+    out = extend_1darray_repeat(mean_vals, nperiods_fore)
+    apply_static_ramp_inplace(out, k_start, k_end, nperiods_fore)
+
+    return out</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rtrend_forecast" href="index.html">rtrend_forecast</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="rtrend_forecast.rt_synthesis.apply_dynamic_ramp_inplace" href="#rtrend_forecast.rt_synthesis.apply_dynamic_ramp_inplace">apply_dynamic_ramp_inplace</a></code></li>
+<li><code><a title="rtrend_forecast.rt_synthesis.apply_static_ramp_inplace" href="#rtrend_forecast.rt_synthesis.apply_static_ramp_inplace">apply_static_ramp_inplace</a></code></li>
+<li><code><a title="rtrend_forecast.rt_synthesis.apply_static_ramp_to" href="#rtrend_forecast.rt_synthesis.apply_static_ramp_to">apply_static_ramp_to</a></code></li>
+<li><code><a title="rtrend_forecast.rt_synthesis.drift_rw_synth_reconstruct" href="#rtrend_forecast.rt_synthesis.drift_rw_synth_reconstruct">drift_rw_synth_reconstruct</a></code></li>
+<li><code><a title="rtrend_forecast.rt_synthesis.dynamic_ramp_avg_synth" href="#rtrend_forecast.rt_synthesis.dynamic_ramp_avg_synth">dynamic_ramp_avg_synth</a></code></li>
+<li><code><a title="rtrend_forecast.rt_synthesis.extend_1darray_repeat" href="#rtrend_forecast.rt_synthesis.extend_1darray_repeat">extend_1darray_repeat</a></code></li>
+<li><code><a title="rtrend_forecast.rt_synthesis.flat_avg_synth" href="#rtrend_forecast.rt_synthesis.flat_avg_synth">flat_avg_synth</a></code></li>
+<li><code><a title="rtrend_forecast.rt_synthesis.get_sorted_mean_ensemble" href="#rtrend_forecast.rt_synthesis.get_sorted_mean_ensemble">get_sorted_mean_ensemble</a></code></li>
+<li><code><a title="rtrend_forecast.rt_synthesis.get_sorted_mean_ensemble_rtop" href="#rtrend_forecast.rt_synthesis.get_sorted_mean_ensemble_rtop">get_sorted_mean_ensemble_rtop</a></code></li>
+<li><code><a title="rtrend_forecast.rt_synthesis.random_normal_synth" href="#rtrend_forecast.rt_synthesis.random_normal_synth">random_normal_synth</a></code></li>
+<li><code><a title="rtrend_forecast.rt_synthesis.static_ramp_avg_synth" href="#rtrend_forecast.rt_synthesis.static_ramp_avg_synth">static_ramp_avg_synth</a></code></li>
+<li><code><a title="rtrend_forecast.rt_synthesis.static_ramp_valbased_avg_synth" href="#rtrend_forecast.rt_synthesis.static_ramp_valbased_avg_synth">static_ramp_valbased_avg_synth</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

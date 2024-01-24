@@ -1,0 +1,2181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>rtrend_forecast.preprocessing API documentation</title>
+<meta name="description" content="This module contains common procedures that can be applied to the
+data before the estimation of R(t) and remaining forecast steps." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rtrend_forecast.preprocessing</code></h1>
+</header>
+<section id="section-intro">
+<p>This module contains common procedures that can be applied to the
+data before the estimation of R(t) and remaining forecast steps.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;This module contains common procedures that can be applied to the
+data before the estimation of R(t) and remaining forecast steps.
+&#34;&#34;&#34;
+import warnings
+from typing import Union
+
+import numpy as np
+import pandas as pd
+from scipy.interpolate import UnivariateSpline
+from scipy.signal import butter, filtfilt
+import logging
+
+from rtrend_forecast.errchecking import RtrendWarning
+from rtrend_forecast.utils import dateindex_to_floatrange, WEEKLEN, \
+    dateindex_is_regular, get_time_bins
+
+_LOGGER = logging.getLogger(__name__)
+
+
+#
+#
+# =====================================================================
+# SIGNAL DENOISING
+# =====================================================================
+#
+#
+
+
+# ---------------------------------------------------------------------
+# Lowpass filter
+# ---------------------------------------------------------------------
+
+
+# noinspection PyUnusedLocal
+def apply_lowpass_filter_nparray(
+        signal_array: np.ndarray, cutoff=0.4, order=2, ff_kwargs=None,
+        logger=_LOGGER, **kwargs
+):
+    &#34;&#34;&#34;Denoises a signal by applying a lowpass filter.
+
+    This function applies to a pandas.Series object, returning another
+    Series with the same index as the input series.
+
+    Parameters
+    ----------
+    signal_array : np.ndarray
+        Input signal as a numpy array.
+    cutoff : float, optional
+        Lowpass cutoff filter, in units of the Nyquist frequency. Must
+        be between 0 and 1, with lower numbers representing a lower
+        cutoff frequency (thus a more aggressive filter).
+    order : int, optional
+        Order of the filter. Using 2 ensures better stability.
+    ff_kwargs : dict, optional
+        Extra arguments to the scipy.signal.filtfilt functions.
+    logger : logging.Logger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    filtered_array : np.ndarray
+        The lowpass-filtered signal as a new array.
+
+    Notes
+    -----
+    The sampling rate of the signal is assumed as constant, thus
+    missing points are not handled by this method.
+
+    &#34;&#34;&#34;
+    if ff_kwargs is None:
+        ff_kwargs = dict(method=&#34;gust&#34;)
+
+    if len(signal_array.shape) &gt; 1:
+        logger.warning(
+            f&#34;Hey, a {len(signal_array.shape):d}D array/df was &#34;
+            f&#34;passed to &#39;apply_lowpass_filter&#39;, but 1D is &#34;
+            f&#34;expected. The filtered data may be silently wrong.&#34;,
+            RtrendWarning)
+        # ^ ^ To be replaced by a wrapper that handles this better
+
+    # noinspection PyTupleAssignmentBalance
+    butter_b, butter_a = butter(
+        order, cutoff, btype=&#39;lowpass&#39;, analog=False)
+    return filtfilt(butter_b, butter_a, signal_array, **ff_kwargs)
+    # Note: the recommended sosfilter does not give reasonable results.
+
+
+def apply_lowpass_filter_pdseries(
+        signal_series: pd.Series, cutoff=0.4, order=2, ff_kwargs=None,
+        logger=_LOGGER, **kwargs
+):
+    &#34;&#34;&#34;Denoises a signal by applying a lowpass filter.
+
+    This function applies to a pandas.Series object, returning another
+    Series with the same index as the input series.
+
+    Parameters
+    ----------
+    signal_series : pd.Series
+        Input signal as a pandas Series object.
+    cutoff : float
+        Lowpass cutoff filter, in units of the Nyquist frequency. Must
+        be between 0 and 1, with lower numbers representing a lower
+        cutoff frequency (thus a more aggressive filter).
+    order : int
+        Order of the filter. Using 2 ensures better stability.
+    ff_kwargs : dict
+        Extra arguments to the scipy.signal.filtfilt functions.
+    logger : logging.Logger
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    filtered_series : pd.Series
+            The lowpass-filtered signal as a new pandas.Series.
+
+    Notes
+    -----
+    The sampling rate of the signal is assumed as constant, thus
+    missing points are not handled by this method.
+    &#34;&#34;&#34;
+
+    return pd.Series(
+        apply_lowpass_filter_nparray(
+            signal_series.values, cutoff=cutoff, order=order,
+            ff_kwargs=ff_kwargs, logger=logger),
+        index=signal_series.index)
+
+
+# ---------------------------------------------------------------------
+# Polynomial fitting
+# ---------------------------------------------------------------------
+
+
+# noinspection PyUnusedLocal
+def apply_polyfit(signal_array: np.ndarray, t_array=None, order=3,
+                  logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;Denoises a signal by fitting a polynomial and sampling it in
+    data points.
+
+    Parameters
+    ----------
+    signal_array : np.ndarray
+        Input signal as a numpy array.
+    t_array : np.ndarray, optional
+        Signal time coordinates, as floats or integers
+        (datetime formats are not accepted). Inform this if the data is
+        not regularly sampled; otherwise, a regular grid is assumed.
+    order : int, optional
+        Degree of the polynomial to fit. Defaults to 3 (cubic).
+    logger : logging.Logger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    fittered_array : np.ndarray
+        The polynomially-fitted points as a new array, with the same
+        shape as the input signal array.
+    &#34;&#34;&#34;
+    if t_array is None:
+        t_array = np.arange(signal_array.shape[0])
+
+    # TODO: wrap warnings (about convergence and etc.)
+    poly_coef, poly_resid = np.polyfit(
+        t_array, signal_array, deg=order, full=True)[0:2]
+
+    poly_f = np.poly1d(poly_coef)
+    return poly_f(t_array)
+
+
+def apply_polyfit_pdseries(signal_series: pd.Series, degree=3,
+                           logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;Denoises a signal by fitting a polynomial and sampling it in
+    data points.
+
+    This function applies to a pandas.Series object, returning another
+    Series with the same index as the input.
+
+    The index of `signal_series` is assumed as the time-domain array
+    of points. If the index is in datetime format (pd.DatetimeIndex),
+    it is first converted to a normalized float range (though the
+    output series still holds the original index).
+
+    Parameters
+    ----------
+    signal_series : pd.Series
+        Input signal as a numpy array.
+    degree : int, optional
+        Degree of the polynomial to fit. Defaults to 3 (cubic).
+    logger : logging.Logger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    fittered_array : np.ndarray
+        The polynomially-fitted points as a new array, with the same
+        shape as the input signal array.
+    &#34;&#34;&#34;
+    t_array = signal_series.index
+
+    if isinstance(t_array, pd.DatetimeIndex):
+        t_array = dateindex_to_floatrange(t_array)
+
+    return pd.Series(
+        apply_polyfit(
+            signal_series.values, t_array=t_array, order=degree,
+            logger=logger),
+        signal_series.index)
+
+
+# ---------------------------------------------------------------------
+# Generic callable
+# ---------------------------------------------------------------------
+
+def denoise_series(
+        signal_series: pd.Series, method=&#34;lowpass&#34;, logger=_LOGGER,
+        **kwargs):
+    &#34;&#34;&#34;Removes noise from a time series, using a given denoising
+    method.
+
+    This function is a wrapper to other denoising method callables,
+    such as `lowpass` (a lowpass filter) and `polyfit` (a polynomial
+    fitting). The returned pandas Series has the same shape as the
+    input `signal_series`. Changes are not made in place.
+
+    Parameters
+    ----------
+    signal_series : pd.Series
+        Input series, from which noise is removed.
+    method : str, optional
+        Name of the denoising method.
+        Currently accepted:
+
+        * &#34;lowpass&#34;: lowpass filter.
+        * &#34;polyfit&#34;: polynomial fit.
+    logger : logging.Logger, optional.
+        Custom logger object to use. Defaults to module-level logger.
+    cutoff : float, optional
+        For &#34;lowpass&#34; method, this is the filter cutoff (in units of
+        the nyquist frequency). Must be between 0 and 1, with lowe
+        values implying in a stricter filter.
+    order : int, optional.
+        For &#34;lowpass&#34; method, this is the order of the filter.
+    degree : int, optional
+        For &#34;polyfit&#34; method, this is the degree of the polynomial.
+
+    Returns
+    -------
+    denoised : pd.Series
+        Denoised version of `signal_series`, with same index and
+        shape, but possibly a different data type.
+
+    See Also
+    --------
+    `apply_lowpass_filter_pdseries`
+
+    `apply_polyfit_pdseries`
+    &#34;&#34;&#34;
+
+    callable_dict = dict(
+        lowpass=apply_lowpass_filter_pdseries,
+        polyfit=apply_polyfit_pdseries,
+        none=lambda s, *args, **kwargs: s.copy(),
+    )
+
+    if method not in callable_dict:
+        # logger.error(
+        raise KeyError(
+            f&#34;Hey, method &#39;{method}&#39; for denoising is not recognized.&#34;
+            f&#34;\nCurrently accepted values:&#34;
+            f&#34;\n{list(callable_dict.keys())}&#34;
+        )
+
+    return callable_dict[method](signal_series, logger=logger,
+                                 **kwargs)
+
+
+#
+#
+# =====================================================================
+# NOISE FITTING/GENERATING MODELS
+# =====================================================================
+#
+#
+
+# ---------------------------------------------------------------------
+# Error and state checking
+# ---------------------------------------------------------------------
+
+
+def _check_for_noisefit(
+        data: pd.Series, denoised: pd.Series, logger=_LOGGER):
+    &#34;&#34;&#34;Checks data consistency before noise fitting.&#34;&#34;&#34;
+    data_shape = data.shape
+    deno_shape = denoised.shape
+
+    # Check dimensionality
+    if len(data_shape) != len(deno_shape):
+        raise ValueError(
+            &#34;Hey, the `data` and `denoised` series must have the same&#34;
+            f&#34; shape structure for denoising,&#34;
+            f&#34; but `data` has {len(data_shape)} dimension(s)&#34;
+            f&#34; and `denoised` has {len(deno_shape)} dimension(s).&#34;
+        )
+
+    # Check shape equality
+    if data_shape != deno_shape:
+        raise ValueError(
+            &#34;Hey, the `data` and `denoised` series must have the same&#34;
+            f&#34; shape for denoising, &#34;
+            f&#34; but `data` is {data_shape} and `denoised` is &#34;
+            f&#34;{deno_shape}.&#34;
+        )
+
+
+def _check_relnoise_reasonability(reldiff, logger, thres=50.0):
+    &#34;&#34;&#34;Check if denoised series or dataframes have exceedingly high
+    values, which are most likely caused by low incidence values and
+    would cause exceedingly high noise.
+    &#34;&#34;&#34;
+    if isinstance(reldiff, pd.DataFrame):
+        # Get recursive maximum
+        dmax = reldiff.max().max()
+    else:
+        dmax = reldiff.max()
+
+    # Warns if values exceed maximum
+    if dmax &gt; thres:
+        logger.warning(
+            f&#34;Noise fit: relative difference between data and&#34;
+            f&#34; denoised has values above {thres} (max = {dmax}).&#34;
+        )
+
+
+class AbstractNoise:
+
+    def __init__(self, logger=_LOGGER, **kwargs):
+        self._logger = logger
+
+    def denoise_and_fit(self, data: pd.Series, **kwargs):
+        &#34;&#34;&#34;Apply a selected denoising procedure to `data`, then
+        fit internal parameters to the noise pattern obtained.
+
+        Parameters
+        ----------
+        data : pd.Series
+            Raw data, assumed to contain noise or fluctuations.
+
+        method : str, optional
+            Denoising method name. Please refer to `denoise_series`
+            to check available methods.
+
+        Other keywords are applied to the `denoise_series` function,
+        specifying method-specific parameters.
+
+        Returns
+        -------
+        denoised : pd.Series
+            Denoised version of `signal_series`, with same index and
+            shape, but possibly a different data type.
+
+        Notes
+        -----
+        This method, implemented in the base class, can be overriden
+        by subclasses that use an entangled denoise-fit procedure.
+        &#34;&#34;&#34;
+        denoised = denoise_series(
+            data, logger=self._logger, **kwargs
+        )
+
+        self.fit(data, denoised)
+        return denoised
+
+    def fit(self, data: pd.Series, denoised: pd.Series):
+        pass
+
+    def generate(self, new_denoised):
+        &#34;&#34;&#34;Incorporates noise into a new denoised series, returning
+        the resulting series.
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+
+class NoneNoise(AbstractNoise):
+    &#34;&#34;&#34;Does not perform denoising&#34;&#34;&#34;
+    def generate(self, new_denoised):
+        pass
+
+
+class NormalAddrelNoise(AbstractNoise):
+    &#34;&#34;&#34;
+    Properties:
+
+    * Distribution: normal (Gaussian)
+    * Incorporation: additive/relative
+    * Time setting: constant
+    &#34;&#34;&#34;
+
+    def __init__(self, seed=None, coef=1.0, **kwargs):
+        super().__init__(**kwargs)
+        self._rng = np.random.default_rng(seed)
+        self.coef = coef
+        self.mean: float = None
+        self.std: float = None
+
+    def fit(self, data: pd.Series, denoised: pd.Series):
+        &#34;&#34;&#34;Fit a data/denoised pair of series to a normal
+        additive/relative model by calculating mean and standard
+        deviation.
+        &#34;&#34;&#34;
+        _check_for_noisefit(data, denoised, self._logger)
+        reldev = (data - denoised) / denoised
+        _check_relnoise_reasonability(reldev, self._logger)
+        self.mean = reldev.mean()
+        self.std = reldev.std()  # -()- Use doubled std
+        # self.std = reldev.std() / 2.  # -()- Use appropriate std
+
+        # Fit health check
+        # -()- Clamp mean to +-0.5
+        # self.mean = np.sign(self.mean) * min(abs(self.mean), 0.5)
+        # -()- Raise warning for large values
+        if abs(self.mean) &gt;= 1.0:
+            self._logger.warning(
+                f&#34;Hey, NormalAddrelNoise fitted a mean&#34;
+                f&#34; = {self.mean:0.4e}, greater than 1.&#34;
+                &#34; This could mean that the filtered data has overly&#34;
+                &#34; small values, and the generated noise may have&#34;
+                &#34; unreasonable results.&#34;
+            )
+
+    def generate(
+            self, new_denoised:
+            Union[pd.DataFrame, pd.Series, np.ndarray]):
+        &#34;&#34;&#34;TODO DOCS&#34;&#34;&#34;
+        # Make add/rel noise shaped as , clamped above -1
+        noise = np.maximum(
+            self.coef * self._rng.normal(
+                self.mean, self.std, size=new_denoised.shape),
+            -1.)
+        result = new_denoised * (1. + noise)
+
+        # Return same input type
+        if isinstance(new_denoised, (pd.DataFrame, pd.Series)):
+            return type(new_denoised)(result, index=new_denoised.index)
+        else:
+            return result
+
+
+class NormalAddrelPeriodicNoise(AbstractNoise):
+    &#34;&#34;&#34;
+    Periodic fitting of a Gaussian noise.
+    The timeline is divided into regular bins, then periodically
+    classified. Noise is fitted and generated separately for each
+    class of such bins.
+
+    Properties:
+
+    * Distribution: normal (Gaussian)
+    * Incorporation: additive/relative
+    * Time setting: periodic
+    &#34;&#34;&#34;
+
+    def __init__(self, nperiods, seed=None, coef=1.0,
+                 period_dt: Union[str, pd.Timedelta] = None,
+                 time_0: Union[str, pd.Timestamp]=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self._rng = np.random.default_rng(seed)
+
+        # Series of parameters, indexed by bin index
+        self.mean_sr: pd.Series = None
+        self.std_sr: pd.Series = None
+
+        # Parameters of the periodic bins in time.
+        self.nperiods = nperiods
+        self.period_dt = (pd.Timedelta(period_dt)
+                          if period_dt is not None else None)
+        self.time_0 = (pd.Timestamp(time_0)
+                       if time_0 is not None else None)
+
+        self.coef = coef
+
+    def fit(self, data: pd.Series, denoised: pd.Series):
+        _check_for_noisefit(data, denoised, self._logger)
+
+        # --- Extract periodicity parameters, if not informed at init
+        self.time_0 = (data.index[0] if self.time_0 is None
+                       else self.time_0)
+
+        if self.period_dt is None:
+            self.period_dt = data.index[1] - data.index[0]
+            if not dateindex_is_regular(data.index):
+                self._logger.warning(
+                    f&#34;Hey, data sent to {self.__class__.__name__} is&#34;
+                    f&#34; not regular. This can create an inconsistent&#34;
+                    f&#34; guess for period_dt.&#34;)
+
+        # --- Calculate per-bin statistics
+        reldiff: pd.Series = (data - denoised) / denoised
+        _check_relnoise_reasonability(reldiff, self._logger)
+        gp = reldiff.groupby(
+            lambda t: get_time_bins(
+                t, self.time_0, self.period_dt, self.nperiods))
+
+        self.mean_sr = gp.mean()
+        self.std_sr = gp.std()
+
+    def generate(self, new_denoised: pd.DataFrame, t_axis=1):
+        &#34;&#34;&#34;
+        Incorporates periodic noise into a denoised ensemble of
+        time series.
+
+        Parameters
+        ----------
+        new_denoised : pd.DataFrame
+            The denoised ensemble of series, to which noise is
+            incorporated.
+            Expected signature:
+
+            * `a.loc[i_sample, tlabel]` if t_axis=1 (default)
+            * `a.loc[tlabel, i_sample]` if t_axis=0
+
+        t_axis : int, optional
+            Index of the time labels axis in `new_denoised`.
+            Defaults to 1, which means that the columns contains
+            time data, while 0 means that time data is at index.
+        &#34;&#34;&#34;
+        # --- Checks
+        if t_axis not in [0, 1]:
+            raise ValueError(
+                f&#34;Hey, `t_axis` must be 0 or 1, but {t_axis} was given&#34;
+                f&#34;.&#34;)
+
+        if not isinstance(new_denoised, pd.DataFrame):
+            raise NotImplementedError(
+                f&#34;Hey, {self.__class__.__name__}.generate() is only&#34;
+                f&#34; implemented for a pandas.DataFrame.&#34;)
+
+        # --- Get parameters over time based on bins
+        tlabels = new_denoised.axes[t_axis]
+        i_bins = get_time_bins(
+            tlabels, self.time_0, self.period_dt, self.nperiods)
+        # Parameters (mean and std) for each timestamp in future
+        mean_tseries = self.mean_sr.loc[i_bins]
+        std_tseries = self.std_sr.loc[i_bins]
+
+        # --- Create a noise matrix with bin-specific parameters
+        noise = np.maximum(
+            self._rng.normal(
+                mean_tseries.values, std_tseries.values,
+                size=new_denoised.shape),
+            -1.0)
+
+        result = new_denoised * (1. + noise)
+
+        return result
+
+
+class MultGammaPeriodicNoise(AbstractNoise):
+    &#34;&#34;&#34;FOR FUTURE ATTEMPT&#34;&#34;&#34;
+    pass
+
+# class SpectralNoise(AbstractNoise):
+#     pass
+#
+#     def __init__(self):
+#         raise NotImplementedError
+
+
+NOISE_CLASSES = dict(
+    normal=NormalAddrelNoise,
+    normal_periodic=NormalAddrelPeriodicNoise,
+    # gamma_periodic=MultGammaPeriodicNoise,
+)
+
+
+#
+#
+# =====================================================================
+# INTERPOLATION AND AGGREGATION
+# =====================================================================
+#
+#
+
+
+# ---------------------------------------------------------------------
+# Missing data handling
+# ---------------------------------------------------------------------
+
+# Option: Should points after missing be treated as containing the previous
+# missing data?
+
+
+# ---------------------------------------------------------------------
+# Interpolation – Auxiliary methods
+# ---------------------------------------------------------------------
+
+
+def _interpolation_preamble(agg_array, t_array, agg_period):
+    agg_len = agg_array.shape[0]
+
+    # Check inputs
+    if len(agg_array.shape) != 1:
+        # logger.error()
+        raise ValueError(
+            &#34;Hey, agg_array must be a one-dimensional array, but&#34;
+            f&#34; it has {len(agg_array.shape)} dimensions.&#34;)
+
+    # Create aggregated and granular time points.
+    if t_array is None:
+        t_array = np.arange(0, agg_len * agg_period, agg_period)
+    else:
+        # TODO: check whether it represents a
+        pass
+
+    gran_t_array = np.arange((agg_len - 1) * agg_period)
+
+    return agg_len, t_array, gran_t_array
+
+
+def fix_negative_interpolation():
+    pass
+
+
+# ---------------------------------------------------------------------
+# Interpolation – from aggregated to granular data
+# ---------------------------------------------------------------------
+
+# noinspection PyUnusedLocal
+def interpolate_direct(
+    agg_array: np.ndarray, t_array=None, smooth=0.01, degree=3,
+    agg_period=WEEKLEN, fix_negatives=True, logger=_LOGGER,
+        **kwargs
+):
+    &#34;&#34;&#34;TODO docs&#34;&#34;&#34;
+    agg_len, t_array, gran_t_array = \
+        _interpolation_preamble(agg_array, t_array, agg_period)
+
+    # Run interpolation procedure
+    # TODO: wrap warnings or use splrep function
+    spline = UnivariateSpline(t_array, agg_array, s=agg_len * smooth,
+                              k=degree)
+    gran_array = spline(gran_t_array)
+
+    # TODO: posts and checking
+    # -- Negatives handling
+    gran_array /= agg_period
+
+    if fix_negatives:
+        pass
+
+    return gran_array
+
+
+# noinspection PyUnusedLocal
+def interpolate_cumulative(
+        agg_array: np.ndarray, t_array=None, smooth=0.01, degree=3,
+        agg_period=WEEKLEN, fix_negatives=True, logger=_LOGGER,
+        **kwargs):
+    &#34;&#34;&#34;&#34;&#34;&#34;
+    agg_len, t_array, gran_t_array = \
+        _interpolation_preamble(agg_array, t_array, agg_period)
+
+    # --- Get cumulative cases array (with prepended zero)
+    cum_agg_array = np.insert(np.cumsum(agg_array), 0, 0)
+    cum_t_array = np.insert(t_array, 0, t_array[0] - agg_period)
+
+    # --- Interpolate cumulative
+    spline = UnivariateSpline(
+        cum_t_array, cum_agg_array, s=(agg_len + 1) * smooth, k=degree)
+    cum_gran_array = spline(gran_t_array)  # Lacks the last point
+    last = spline(t_array[-1])
+
+    # --- Reconstruct the incidence array from interpolated cumulative
+    gran_array = np.empty_like(gran_t_array, dtype=float)
+    gran_array[:-1] = cum_gran_array[1:] - cum_gran_array[:-1]
+    gran_array[-1] = last - cum_gran_array[-1]
+    # ^ ^ Builds last point separated
+
+    # TODO: negative handling (with method selection?)
+
+    return gran_array
+
+
+def interpolate_smooth_pycno(
+        agg_array: np.ndarray, t_array=None,
+        agg_period=WEEKLEN, logger=_LOGGER, relax=0.0, max_iters=100,
+        zero_eps=1E-5, smooth_len=6,
+        **kwargs
+):
+    &#34;&#34;&#34;Iterative pycnophylactic interpolation. Attempts to construct
+    an interpolation that preserves the sum in each aggregated period
+    and avoids negative values.
+
+    TODO docs
+
+    DEVNOTE: explain that zero_eps does not have to be the machine
+    epsilon here. It&#39;s used to avoid unreasonable steps.
+    `smooth_len` = number of neighbors (at each side) to use for smoothing
+    &#34;&#34;&#34;
+
+    # Default value
+    smooth_len = int(agg_period/2) if smooth_len is None \
+        else smooth_len
+
+    if (smooth_len &lt;= 0
+            or smooth_len &gt; agg_array.shape[0] * agg_period / 2):
+        raise ValueError(
+            f&#34;Hey, invalid value for `smooth_len` = {smooth_len}.&#34;
+            f&#34; Must be greater than zero and smaller than half&#34;
+            f&#34; the size of the interpolated array.&#34;
+        )
+
+    # Name alias
+    sl = smooth_len
+
+    if relax &gt;= 1.0 - zero_eps or relax &lt; 0.0:
+        raise ValueError(
+            f&#34;Hey, parameter `relax` (given as {relax:f}) cannot be&#34;
+            f&#34; under zero or greater than one (included).&#34;)
+
+    # TODO: other consistency checks, like, if t_array is regular. Check shape.
+    #    Do... we really need &#39;t_array&#39;?? Maybe JUST for optmization.
+
+    # Starts with uniformly distributed incidence
+    gran_array = interpolate_uniform(
+        agg_array, t_array=t_array, agg_period=agg_period, logger=logger
+    )
+
+    # Prepare arrays for the smoothing convolution process
+    # Extends the array by repeating the edges once
+    padded = np.pad(gran_array, sl, mode=&#34;edge&#34;).astype(float)
+    new_padded = np.empty_like(padded)  # For the next step
+
+    # Smoothing kernel around neighbors
+    # # -()- Uniform weight to neighbors
+    # neigh_coef = (1. - relax) / 2 / sl
+    # kernel = neigh_coef * np.ones(2 * sl + 1)
+    # kernel[sl] = relax  # Central point
+
+    # -()- Exponential weights
+    kernel = np.exp(-2.0 * np.arange(1, sl + 1) / sl)
+    kernel = np.concatenate((kernel[::-1], [1.0], kernel))  # Create symmetric
+    kernel /= kernel.sum()
+
+    # Array with indexes of agg periods, but sized as granular periods
+    repeat_mask = np.repeat(np.arange(agg_array.shape[0]), agg_period)
+
+    # MAIN LOOP - SMOOTHING
+    for i_iter in range(max_iters):
+        new_padded = np.convolve(padded, kernel, mode=&#34;same&#34;)
+
+        # Sum over each aggregated period
+        current_sum = sum(new_padded[sl+i:-sl:agg_period]
+                          for i in range(agg_period))
+
+        # Fix potential zeros by adding an epsilon.
+        # Obs: the if prevents unnecessary calculations
+        if current_sum.min() &lt; zero_eps:
+            mask = current_sum &lt; zero_eps
+            new_padded[sl:-sl] += (zero_eps * mask)[repeat_mask]
+            current_sum[mask] = agg_period * zero_eps
+
+        new_padded[sl:-sl] *= (agg_array / current_sum)[repeat_mask]
+
+    return new_padded[sl + agg_period:-sl]
+
+
+# noinspection PyUnusedLocal
+def interpolate_uniform(
+    agg_array: np.ndarray, t_array=None,
+    agg_period=WEEKLEN, logger=_LOGGER,
+    **kwargs
+):
+    &#34;&#34;&#34;
+    TODO docs
+
+    Parameters
+    ----------
+    agg_array
+    t_array
+    agg_period
+    logger
+    kwargs
+
+    Returns
+    -------
+
+    &#34;&#34;&#34;
+    return np.repeat(agg_array, agg_period) / agg_period
+
+
+#
+#
+# =====================================================================
+# MISCELLANEOUS
+# =====================================================================
+#
+#</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="rtrend_forecast.preprocessing.apply_lowpass_filter_nparray"><code class="name flex">
+<span>def <span class="ident">apply_lowpass_filter_nparray</span></span>(<span>signal_array: numpy.ndarray, cutoff=0.4, order=2, ff_kwargs=None, logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Denoises a signal by applying a lowpass filter.</p>
+<p>This function applies to a pandas.Series object, returning another
+Series with the same index as the input series.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>signal_array</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Input signal as a numpy array.</dd>
+<dt><strong><code>cutoff</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>Lowpass cutoff filter, in units of the Nyquist frequency. Must
+be between 0 and 1, with lower numbers representing a lower
+cutoff frequency (thus a more aggressive filter).</dd>
+<dt><strong><code>order</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Order of the filter. Using 2 ensures better stability.</dd>
+<dt><strong><code>ff_kwargs</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>Extra arguments to the scipy.signal.filtfilt functions.</dd>
+<dt><strong><code>logger</code></strong> :&ensp;<code>logging.Logger</code>, optional</dt>
+<dd>Alternative logger object. Defaults to module's logger.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>filtered_array</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>The lowpass-filtered signal as a new array.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>The sampling rate of the signal is assumed as constant, thus
+missing points are not handled by this method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_lowpass_filter_nparray(
+        signal_array: np.ndarray, cutoff=0.4, order=2, ff_kwargs=None,
+        logger=_LOGGER, **kwargs
+):
+    &#34;&#34;&#34;Denoises a signal by applying a lowpass filter.
+
+    This function applies to a pandas.Series object, returning another
+    Series with the same index as the input series.
+
+    Parameters
+    ----------
+    signal_array : np.ndarray
+        Input signal as a numpy array.
+    cutoff : float, optional
+        Lowpass cutoff filter, in units of the Nyquist frequency. Must
+        be between 0 and 1, with lower numbers representing a lower
+        cutoff frequency (thus a more aggressive filter).
+    order : int, optional
+        Order of the filter. Using 2 ensures better stability.
+    ff_kwargs : dict, optional
+        Extra arguments to the scipy.signal.filtfilt functions.
+    logger : logging.Logger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    filtered_array : np.ndarray
+        The lowpass-filtered signal as a new array.
+
+    Notes
+    -----
+    The sampling rate of the signal is assumed as constant, thus
+    missing points are not handled by this method.
+
+    &#34;&#34;&#34;
+    if ff_kwargs is None:
+        ff_kwargs = dict(method=&#34;gust&#34;)
+
+    if len(signal_array.shape) &gt; 1:
+        logger.warning(
+            f&#34;Hey, a {len(signal_array.shape):d}D array/df was &#34;
+            f&#34;passed to &#39;apply_lowpass_filter&#39;, but 1D is &#34;
+            f&#34;expected. The filtered data may be silently wrong.&#34;,
+            RtrendWarning)
+        # ^ ^ To be replaced by a wrapper that handles this better
+
+    # noinspection PyTupleAssignmentBalance
+    butter_b, butter_a = butter(
+        order, cutoff, btype=&#39;lowpass&#39;, analog=False)
+    return filtfilt(butter_b, butter_a, signal_array, **ff_kwargs)
+    # Note: the recommended sosfilter does not give reasonable results.</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.apply_lowpass_filter_pdseries"><code class="name flex">
+<span>def <span class="ident">apply_lowpass_filter_pdseries</span></span>(<span>signal_series: pandas.core.series.Series, cutoff=0.4, order=2, ff_kwargs=None, logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Denoises a signal by applying a lowpass filter.</p>
+<p>This function applies to a pandas.Series object, returning another
+Series with the same index as the input series.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>signal_series</code></strong> :&ensp;<code>pd.Series</code></dt>
+<dd>Input signal as a pandas Series object.</dd>
+<dt><strong><code>cutoff</code></strong> :&ensp;<code>float</code></dt>
+<dd>Lowpass cutoff filter, in units of the Nyquist frequency. Must
+be between 0 and 1, with lower numbers representing a lower
+cutoff frequency (thus a more aggressive filter).</dd>
+<dt><strong><code>order</code></strong> :&ensp;<code>int</code></dt>
+<dd>Order of the filter. Using 2 ensures better stability.</dd>
+<dt><strong><code>ff_kwargs</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Extra arguments to the scipy.signal.filtfilt functions.</dd>
+<dt><strong><code>logger</code></strong> :&ensp;<code>logging.Logger</code></dt>
+<dd>Alternative logger object. Defaults to module's logger.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>filtered_series</code></strong> :&ensp;<code>pd.Series</code></dt>
+<dd>The lowpass-filtered signal as a new pandas.Series.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>The sampling rate of the signal is assumed as constant, thus
+missing points are not handled by this method.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_lowpass_filter_pdseries(
+        signal_series: pd.Series, cutoff=0.4, order=2, ff_kwargs=None,
+        logger=_LOGGER, **kwargs
+):
+    &#34;&#34;&#34;Denoises a signal by applying a lowpass filter.
+
+    This function applies to a pandas.Series object, returning another
+    Series with the same index as the input series.
+
+    Parameters
+    ----------
+    signal_series : pd.Series
+        Input signal as a pandas Series object.
+    cutoff : float
+        Lowpass cutoff filter, in units of the Nyquist frequency. Must
+        be between 0 and 1, with lower numbers representing a lower
+        cutoff frequency (thus a more aggressive filter).
+    order : int
+        Order of the filter. Using 2 ensures better stability.
+    ff_kwargs : dict
+        Extra arguments to the scipy.signal.filtfilt functions.
+    logger : logging.Logger
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    filtered_series : pd.Series
+            The lowpass-filtered signal as a new pandas.Series.
+
+    Notes
+    -----
+    The sampling rate of the signal is assumed as constant, thus
+    missing points are not handled by this method.
+    &#34;&#34;&#34;
+
+    return pd.Series(
+        apply_lowpass_filter_nparray(
+            signal_series.values, cutoff=cutoff, order=order,
+            ff_kwargs=ff_kwargs, logger=logger),
+        index=signal_series.index)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.apply_polyfit"><code class="name flex">
+<span>def <span class="ident">apply_polyfit</span></span>(<span>signal_array: numpy.ndarray, t_array=None, order=3, logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Denoises a signal by fitting a polynomial and sampling it in
+data points.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>signal_array</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>Input signal as a numpy array.</dd>
+<dt><strong><code>t_array</code></strong> :&ensp;<code>np.ndarray</code>, optional</dt>
+<dd>Signal time coordinates, as floats or integers
+(datetime formats are not accepted). Inform this if the data is
+not regularly sampled; otherwise, a regular grid is assumed.</dd>
+<dt><strong><code>order</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Degree of the polynomial to fit. Defaults to 3 (cubic).</dd>
+<dt><strong><code>logger</code></strong> :&ensp;<code>logging.Logger</code>, optional</dt>
+<dd>Alternative logger object. Defaults to module's logger.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>fittered_array</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>The polynomially-fitted points as a new array, with the same
+shape as the input signal array.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_polyfit(signal_array: np.ndarray, t_array=None, order=3,
+                  logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;Denoises a signal by fitting a polynomial and sampling it in
+    data points.
+
+    Parameters
+    ----------
+    signal_array : np.ndarray
+        Input signal as a numpy array.
+    t_array : np.ndarray, optional
+        Signal time coordinates, as floats or integers
+        (datetime formats are not accepted). Inform this if the data is
+        not regularly sampled; otherwise, a regular grid is assumed.
+    order : int, optional
+        Degree of the polynomial to fit. Defaults to 3 (cubic).
+    logger : logging.Logger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    fittered_array : np.ndarray
+        The polynomially-fitted points as a new array, with the same
+        shape as the input signal array.
+    &#34;&#34;&#34;
+    if t_array is None:
+        t_array = np.arange(signal_array.shape[0])
+
+    # TODO: wrap warnings (about convergence and etc.)
+    poly_coef, poly_resid = np.polyfit(
+        t_array, signal_array, deg=order, full=True)[0:2]
+
+    poly_f = np.poly1d(poly_coef)
+    return poly_f(t_array)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.apply_polyfit_pdseries"><code class="name flex">
+<span>def <span class="ident">apply_polyfit_pdseries</span></span>(<span>signal_series: pandas.core.series.Series, degree=3, logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Denoises a signal by fitting a polynomial and sampling it in
+data points.</p>
+<p>This function applies to a pandas.Series object, returning another
+Series with the same index as the input.</p>
+<p>The index of <code>signal_series</code> is assumed as the time-domain array
+of points. If the index is in datetime format (pd.DatetimeIndex),
+it is first converted to a normalized float range (though the
+output series still holds the original index).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>signal_series</code></strong> :&ensp;<code>pd.Series</code></dt>
+<dd>Input signal as a numpy array.</dd>
+<dt><strong><code>degree</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Degree of the polynomial to fit. Defaults to 3 (cubic).</dd>
+<dt><strong><code>logger</code></strong> :&ensp;<code>logging.Logger</code>, optional</dt>
+<dd>Alternative logger object. Defaults to module's logger.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>fittered_array</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>The polynomially-fitted points as a new array, with the same
+shape as the input signal array.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_polyfit_pdseries(signal_series: pd.Series, degree=3,
+                           logger=_LOGGER, **kwargs):
+    &#34;&#34;&#34;Denoises a signal by fitting a polynomial and sampling it in
+    data points.
+
+    This function applies to a pandas.Series object, returning another
+    Series with the same index as the input.
+
+    The index of `signal_series` is assumed as the time-domain array
+    of points. If the index is in datetime format (pd.DatetimeIndex),
+    it is first converted to a normalized float range (though the
+    output series still holds the original index).
+
+    Parameters
+    ----------
+    signal_series : pd.Series
+        Input signal as a numpy array.
+    degree : int, optional
+        Degree of the polynomial to fit. Defaults to 3 (cubic).
+    logger : logging.Logger, optional
+        Alternative logger object. Defaults to module&#39;s logger.
+
+    Returns
+    -------
+    fittered_array : np.ndarray
+        The polynomially-fitted points as a new array, with the same
+        shape as the input signal array.
+    &#34;&#34;&#34;
+    t_array = signal_series.index
+
+    if isinstance(t_array, pd.DatetimeIndex):
+        t_array = dateindex_to_floatrange(t_array)
+
+    return pd.Series(
+        apply_polyfit(
+            signal_series.values, t_array=t_array, order=degree,
+            logger=logger),
+        signal_series.index)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.denoise_series"><code class="name flex">
+<span>def <span class="ident">denoise_series</span></span>(<span>signal_series: pandas.core.series.Series, method='lowpass', logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes noise from a time series, using a given denoising
+method.</p>
+<p>This function is a wrapper to other denoising method callables,
+such as <code>lowpass</code> (a lowpass filter) and <code>polyfit</code> (a polynomial
+fitting). The returned pandas Series has the same shape as the
+input <code>signal_series</code>. Changes are not made in place.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>signal_series</code></strong> :&ensp;<code>pd.Series</code></dt>
+<dd>Input series, from which noise is removed.</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>
+<p>Name of the denoising method.
+Currently accepted:</p>
+<ul>
+<li>"lowpass": lowpass filter.</li>
+<li>"polyfit": polynomial fit.</li>
+</ul>
+</dd>
+<dt>logger : logging.Logger, optional.</dt>
+<dt>Custom logger object to use. Defaults to module-level logger.</dt>
+<dt><strong><code>cutoff</code></strong> :&ensp;<code>float</code>, optional</dt>
+<dd>For "lowpass" method, this is the filter cutoff (in units of
+the nyquist frequency). Must be between 0 and 1, with lowe
+values implying in a stricter filter.</dd>
+<dt>order : int, optional.</dt>
+<dt>For "lowpass" method, this is the order of the filter.</dt>
+<dt><strong><code>degree</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>For "polyfit" method, this is the degree of the polynomial.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>denoised</code></strong> :&ensp;<code>pd.Series</code></dt>
+<dd>Denoised version of <code>signal_series</code>, with same index and
+shape, but possibly a different data type.</dd>
+</dl>
+<h2 id="see-also">See Also</h2>
+<p><code><a title="rtrend_forecast.preprocessing.apply_lowpass_filter_pdseries" href="#rtrend_forecast.preprocessing.apply_lowpass_filter_pdseries">apply_lowpass_filter_pdseries()</a></code></p>
+<p><code><a title="rtrend_forecast.preprocessing.apply_polyfit_pdseries" href="#rtrend_forecast.preprocessing.apply_polyfit_pdseries">apply_polyfit_pdseries()</a></code></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def denoise_series(
+        signal_series: pd.Series, method=&#34;lowpass&#34;, logger=_LOGGER,
+        **kwargs):
+    &#34;&#34;&#34;Removes noise from a time series, using a given denoising
+    method.
+
+    This function is a wrapper to other denoising method callables,
+    such as `lowpass` (a lowpass filter) and `polyfit` (a polynomial
+    fitting). The returned pandas Series has the same shape as the
+    input `signal_series`. Changes are not made in place.
+
+    Parameters
+    ----------
+    signal_series : pd.Series
+        Input series, from which noise is removed.
+    method : str, optional
+        Name of the denoising method.
+        Currently accepted:
+
+        * &#34;lowpass&#34;: lowpass filter.
+        * &#34;polyfit&#34;: polynomial fit.
+    logger : logging.Logger, optional.
+        Custom logger object to use. Defaults to module-level logger.
+    cutoff : float, optional
+        For &#34;lowpass&#34; method, this is the filter cutoff (in units of
+        the nyquist frequency). Must be between 0 and 1, with lowe
+        values implying in a stricter filter.
+    order : int, optional.
+        For &#34;lowpass&#34; method, this is the order of the filter.
+    degree : int, optional
+        For &#34;polyfit&#34; method, this is the degree of the polynomial.
+
+    Returns
+    -------
+    denoised : pd.Series
+        Denoised version of `signal_series`, with same index and
+        shape, but possibly a different data type.
+
+    See Also
+    --------
+    `apply_lowpass_filter_pdseries`
+
+    `apply_polyfit_pdseries`
+    &#34;&#34;&#34;
+
+    callable_dict = dict(
+        lowpass=apply_lowpass_filter_pdseries,
+        polyfit=apply_polyfit_pdseries,
+        none=lambda s, *args, **kwargs: s.copy(),
+    )
+
+    if method not in callable_dict:
+        # logger.error(
+        raise KeyError(
+            f&#34;Hey, method &#39;{method}&#39; for denoising is not recognized.&#34;
+            f&#34;\nCurrently accepted values:&#34;
+            f&#34;\n{list(callable_dict.keys())}&#34;
+        )
+
+    return callable_dict[method](signal_series, logger=logger,
+                                 **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.fix_negative_interpolation"><code class="name flex">
+<span>def <span class="ident">fix_negative_interpolation</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fix_negative_interpolation():
+    pass</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.interpolate_cumulative"><code class="name flex">
+<span>def <span class="ident">interpolate_cumulative</span></span>(<span>agg_array: numpy.ndarray, t_array=None, smooth=0.01, degree=3, agg_period=7, fix_negatives=True, logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_cumulative(
+        agg_array: np.ndarray, t_array=None, smooth=0.01, degree=3,
+        agg_period=WEEKLEN, fix_negatives=True, logger=_LOGGER,
+        **kwargs):
+    &#34;&#34;&#34;&#34;&#34;&#34;
+    agg_len, t_array, gran_t_array = \
+        _interpolation_preamble(agg_array, t_array, agg_period)
+
+    # --- Get cumulative cases array (with prepended zero)
+    cum_agg_array = np.insert(np.cumsum(agg_array), 0, 0)
+    cum_t_array = np.insert(t_array, 0, t_array[0] - agg_period)
+
+    # --- Interpolate cumulative
+    spline = UnivariateSpline(
+        cum_t_array, cum_agg_array, s=(agg_len + 1) * smooth, k=degree)
+    cum_gran_array = spline(gran_t_array)  # Lacks the last point
+    last = spline(t_array[-1])
+
+    # --- Reconstruct the incidence array from interpolated cumulative
+    gran_array = np.empty_like(gran_t_array, dtype=float)
+    gran_array[:-1] = cum_gran_array[1:] - cum_gran_array[:-1]
+    gran_array[-1] = last - cum_gran_array[-1]
+    # ^ ^ Builds last point separated
+
+    # TODO: negative handling (with method selection?)
+
+    return gran_array</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.interpolate_direct"><code class="name flex">
+<span>def <span class="ident">interpolate_direct</span></span>(<span>agg_array: numpy.ndarray, t_array=None, smooth=0.01, degree=3, agg_period=7, fix_negatives=True, logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO docs</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_direct(
+    agg_array: np.ndarray, t_array=None, smooth=0.01, degree=3,
+    agg_period=WEEKLEN, fix_negatives=True, logger=_LOGGER,
+        **kwargs
+):
+    &#34;&#34;&#34;TODO docs&#34;&#34;&#34;
+    agg_len, t_array, gran_t_array = \
+        _interpolation_preamble(agg_array, t_array, agg_period)
+
+    # Run interpolation procedure
+    # TODO: wrap warnings or use splrep function
+    spline = UnivariateSpline(t_array, agg_array, s=agg_len * smooth,
+                              k=degree)
+    gran_array = spline(gran_t_array)
+
+    # TODO: posts and checking
+    # -- Negatives handling
+    gran_array /= agg_period
+
+    if fix_negatives:
+        pass
+
+    return gran_array</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.interpolate_smooth_pycno"><code class="name flex">
+<span>def <span class="ident">interpolate_smooth_pycno</span></span>(<span>agg_array: numpy.ndarray, t_array=None, agg_period=7, logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, relax=0.0, max_iters=100, zero_eps=1e-05, smooth_len=6, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Iterative pycnophylactic interpolation. Attempts to construct
+an interpolation that preserves the sum in each aggregated period
+and avoids negative values.</p>
+<p>TODO docs</p>
+<p>DEVNOTE: explain that zero_eps does not have to be the machine
+epsilon here. It's used to avoid unreasonable steps.
+<code>smooth_len</code> = number of neighbors (at each side) to use for smoothing</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_smooth_pycno(
+        agg_array: np.ndarray, t_array=None,
+        agg_period=WEEKLEN, logger=_LOGGER, relax=0.0, max_iters=100,
+        zero_eps=1E-5, smooth_len=6,
+        **kwargs
+):
+    &#34;&#34;&#34;Iterative pycnophylactic interpolation. Attempts to construct
+    an interpolation that preserves the sum in each aggregated period
+    and avoids negative values.
+
+    TODO docs
+
+    DEVNOTE: explain that zero_eps does not have to be the machine
+    epsilon here. It&#39;s used to avoid unreasonable steps.
+    `smooth_len` = number of neighbors (at each side) to use for smoothing
+    &#34;&#34;&#34;
+
+    # Default value
+    smooth_len = int(agg_period/2) if smooth_len is None \
+        else smooth_len
+
+    if (smooth_len &lt;= 0
+            or smooth_len &gt; agg_array.shape[0] * agg_period / 2):
+        raise ValueError(
+            f&#34;Hey, invalid value for `smooth_len` = {smooth_len}.&#34;
+            f&#34; Must be greater than zero and smaller than half&#34;
+            f&#34; the size of the interpolated array.&#34;
+        )
+
+    # Name alias
+    sl = smooth_len
+
+    if relax &gt;= 1.0 - zero_eps or relax &lt; 0.0:
+        raise ValueError(
+            f&#34;Hey, parameter `relax` (given as {relax:f}) cannot be&#34;
+            f&#34; under zero or greater than one (included).&#34;)
+
+    # TODO: other consistency checks, like, if t_array is regular. Check shape.
+    #    Do... we really need &#39;t_array&#39;?? Maybe JUST for optmization.
+
+    # Starts with uniformly distributed incidence
+    gran_array = interpolate_uniform(
+        agg_array, t_array=t_array, agg_period=agg_period, logger=logger
+    )
+
+    # Prepare arrays for the smoothing convolution process
+    # Extends the array by repeating the edges once
+    padded = np.pad(gran_array, sl, mode=&#34;edge&#34;).astype(float)
+    new_padded = np.empty_like(padded)  # For the next step
+
+    # Smoothing kernel around neighbors
+    # # -()- Uniform weight to neighbors
+    # neigh_coef = (1. - relax) / 2 / sl
+    # kernel = neigh_coef * np.ones(2 * sl + 1)
+    # kernel[sl] = relax  # Central point
+
+    # -()- Exponential weights
+    kernel = np.exp(-2.0 * np.arange(1, sl + 1) / sl)
+    kernel = np.concatenate((kernel[::-1], [1.0], kernel))  # Create symmetric
+    kernel /= kernel.sum()
+
+    # Array with indexes of agg periods, but sized as granular periods
+    repeat_mask = np.repeat(np.arange(agg_array.shape[0]), agg_period)
+
+    # MAIN LOOP - SMOOTHING
+    for i_iter in range(max_iters):
+        new_padded = np.convolve(padded, kernel, mode=&#34;same&#34;)
+
+        # Sum over each aggregated period
+        current_sum = sum(new_padded[sl+i:-sl:agg_period]
+                          for i in range(agg_period))
+
+        # Fix potential zeros by adding an epsilon.
+        # Obs: the if prevents unnecessary calculations
+        if current_sum.min() &lt; zero_eps:
+            mask = current_sum &lt; zero_eps
+            new_padded[sl:-sl] += (zero_eps * mask)[repeat_mask]
+            current_sum[mask] = agg_period * zero_eps
+
+        new_padded[sl:-sl] *= (agg_array / current_sum)[repeat_mask]
+
+    return new_padded[sl + agg_period:-sl]</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.interpolate_uniform"><code class="name flex">
+<span>def <span class="ident">interpolate_uniform</span></span>(<span>agg_array: numpy.ndarray, t_array=None, agg_period=7, logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO docs</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>agg_array</code></strong></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>t_array</code></strong></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>agg_period</code></strong></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>logger</code></strong></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>kwargs</code></strong></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interpolate_uniform(
+    agg_array: np.ndarray, t_array=None,
+    agg_period=WEEKLEN, logger=_LOGGER,
+    **kwargs
+):
+    &#34;&#34;&#34;
+    TODO docs
+
+    Parameters
+    ----------
+    agg_array
+    t_array
+    agg_period
+    logger
+    kwargs
+
+    Returns
+    -------
+
+    &#34;&#34;&#34;
+    return np.repeat(agg_array, agg_period) / agg_period</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="rtrend_forecast.preprocessing.AbstractNoise"><code class="flex name class">
+<span>class <span class="ident">AbstractNoise</span></span>
+<span>(</span><span>logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AbstractNoise:
+
+    def __init__(self, logger=_LOGGER, **kwargs):
+        self._logger = logger
+
+    def denoise_and_fit(self, data: pd.Series, **kwargs):
+        &#34;&#34;&#34;Apply a selected denoising procedure to `data`, then
+        fit internal parameters to the noise pattern obtained.
+
+        Parameters
+        ----------
+        data : pd.Series
+            Raw data, assumed to contain noise or fluctuations.
+
+        method : str, optional
+            Denoising method name. Please refer to `denoise_series`
+            to check available methods.
+
+        Other keywords are applied to the `denoise_series` function,
+        specifying method-specific parameters.
+
+        Returns
+        -------
+        denoised : pd.Series
+            Denoised version of `signal_series`, with same index and
+            shape, but possibly a different data type.
+
+        Notes
+        -----
+        This method, implemented in the base class, can be overriden
+        by subclasses that use an entangled denoise-fit procedure.
+        &#34;&#34;&#34;
+        denoised = denoise_series(
+            data, logger=self._logger, **kwargs
+        )
+
+        self.fit(data, denoised)
+        return denoised
+
+    def fit(self, data: pd.Series, denoised: pd.Series):
+        pass
+
+    def generate(self, new_denoised):
+        &#34;&#34;&#34;Incorporates noise into a new denoised series, returning
+        the resulting series.
+        &#34;&#34;&#34;
+        raise NotImplementedError</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="rtrend_forecast.preprocessing.MultGammaPeriodicNoise" href="#rtrend_forecast.preprocessing.MultGammaPeriodicNoise">MultGammaPeriodicNoise</a></li>
+<li><a title="rtrend_forecast.preprocessing.NoneNoise" href="#rtrend_forecast.preprocessing.NoneNoise">NoneNoise</a></li>
+<li><a title="rtrend_forecast.preprocessing.NormalAddrelNoise" href="#rtrend_forecast.preprocessing.NormalAddrelNoise">NormalAddrelNoise</a></li>
+<li><a title="rtrend_forecast.preprocessing.NormalAddrelPeriodicNoise" href="#rtrend_forecast.preprocessing.NormalAddrelPeriodicNoise">NormalAddrelPeriodicNoise</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="rtrend_forecast.preprocessing.AbstractNoise.denoise_and_fit"><code class="name flex">
+<span>def <span class="ident">denoise_and_fit</span></span>(<span>self, data: pandas.core.series.Series, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Apply a selected denoising procedure to <code>data</code>, then
+fit internal parameters to the noise pattern obtained.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>pd.Series</code></dt>
+<dd>Raw data, assumed to contain noise or fluctuations.</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Denoising method name. Please refer to <code><a title="rtrend_forecast.preprocessing.denoise_series" href="#rtrend_forecast.preprocessing.denoise_series">denoise_series()</a></code>
+to check available methods.</dd>
+</dl>
+<p>Other keywords are applied to the <code><a title="rtrend_forecast.preprocessing.denoise_series" href="#rtrend_forecast.preprocessing.denoise_series">denoise_series()</a></code> function,
+specifying method-specific parameters.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>denoised</code></strong> :&ensp;<code>pd.Series</code></dt>
+<dd>Denoised version of <code>signal_series</code>, with same index and
+shape, but possibly a different data type.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>This method, implemented in the base class, can be overriden
+by subclasses that use an entangled denoise-fit procedure.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def denoise_and_fit(self, data: pd.Series, **kwargs):
+    &#34;&#34;&#34;Apply a selected denoising procedure to `data`, then
+    fit internal parameters to the noise pattern obtained.
+
+    Parameters
+    ----------
+    data : pd.Series
+        Raw data, assumed to contain noise or fluctuations.
+
+    method : str, optional
+        Denoising method name. Please refer to `denoise_series`
+        to check available methods.
+
+    Other keywords are applied to the `denoise_series` function,
+    specifying method-specific parameters.
+
+    Returns
+    -------
+    denoised : pd.Series
+        Denoised version of `signal_series`, with same index and
+        shape, but possibly a different data type.
+
+    Notes
+    -----
+    This method, implemented in the base class, can be overriden
+    by subclasses that use an entangled denoise-fit procedure.
+    &#34;&#34;&#34;
+    denoised = denoise_series(
+        data, logger=self._logger, **kwargs
+    )
+
+    self.fit(data, denoised)
+    return denoised</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.AbstractNoise.fit"><code class="name flex">
+<span>def <span class="ident">fit</span></span>(<span>self, data: pandas.core.series.Series, denoised: pandas.core.series.Series)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit(self, data: pd.Series, denoised: pd.Series):
+    pass</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.AbstractNoise.generate"><code class="name flex">
+<span>def <span class="ident">generate</span></span>(<span>self, new_denoised)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Incorporates noise into a new denoised series, returning
+the resulting series.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate(self, new_denoised):
+    &#34;&#34;&#34;Incorporates noise into a new denoised series, returning
+    the resulting series.
+    &#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="rtrend_forecast.preprocessing.MultGammaPeriodicNoise"><code class="flex name class">
+<span>class <span class="ident">MultGammaPeriodicNoise</span></span>
+<span>(</span><span>logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>FOR FUTURE ATTEMPT</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MultGammaPeriodicNoise(AbstractNoise):
+    &#34;&#34;&#34;FOR FUTURE ATTEMPT&#34;&#34;&#34;
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="rtrend_forecast.preprocessing.AbstractNoise" href="#rtrend_forecast.preprocessing.AbstractNoise">AbstractNoise</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="rtrend_forecast.preprocessing.AbstractNoise" href="#rtrend_forecast.preprocessing.AbstractNoise">AbstractNoise</a></b></code>:
+<ul class="hlist">
+<li><code><a title="rtrend_forecast.preprocessing.AbstractNoise.denoise_and_fit" href="#rtrend_forecast.preprocessing.AbstractNoise.denoise_and_fit">denoise_and_fit</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.AbstractNoise.generate" href="#rtrend_forecast.preprocessing.AbstractNoise.generate">generate</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="rtrend_forecast.preprocessing.NoneNoise"><code class="flex name class">
+<span>class <span class="ident">NoneNoise</span></span>
+<span>(</span><span>logger=&lt;Logger rtrend_forecast.preprocessing (WARNING)&gt;, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Does not perform denoising</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NoneNoise(AbstractNoise):
+    &#34;&#34;&#34;Does not perform denoising&#34;&#34;&#34;
+    def generate(self, new_denoised):
+        pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="rtrend_forecast.preprocessing.AbstractNoise" href="#rtrend_forecast.preprocessing.AbstractNoise">AbstractNoise</a></li>
+</ul>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="rtrend_forecast.preprocessing.AbstractNoise" href="#rtrend_forecast.preprocessing.AbstractNoise">AbstractNoise</a></b></code>:
+<ul class="hlist">
+<li><code><a title="rtrend_forecast.preprocessing.AbstractNoise.denoise_and_fit" href="#rtrend_forecast.preprocessing.AbstractNoise.denoise_and_fit">denoise_and_fit</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.AbstractNoise.generate" href="#rtrend_forecast.preprocessing.AbstractNoise.generate">generate</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="rtrend_forecast.preprocessing.NormalAddrelNoise"><code class="flex name class">
+<span>class <span class="ident">NormalAddrelNoise</span></span>
+<span>(</span><span>seed=None, coef=1.0, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Properties:</p>
+<ul>
+<li>Distribution: normal (Gaussian)</li>
+<li>Incorporation: additive/relative</li>
+<li>Time setting: constant</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NormalAddrelNoise(AbstractNoise):
+    &#34;&#34;&#34;
+    Properties:
+
+    * Distribution: normal (Gaussian)
+    * Incorporation: additive/relative
+    * Time setting: constant
+    &#34;&#34;&#34;
+
+    def __init__(self, seed=None, coef=1.0, **kwargs):
+        super().__init__(**kwargs)
+        self._rng = np.random.default_rng(seed)
+        self.coef = coef
+        self.mean: float = None
+        self.std: float = None
+
+    def fit(self, data: pd.Series, denoised: pd.Series):
+        &#34;&#34;&#34;Fit a data/denoised pair of series to a normal
+        additive/relative model by calculating mean and standard
+        deviation.
+        &#34;&#34;&#34;
+        _check_for_noisefit(data, denoised, self._logger)
+        reldev = (data - denoised) / denoised
+        _check_relnoise_reasonability(reldev, self._logger)
+        self.mean = reldev.mean()
+        self.std = reldev.std()  # -()- Use doubled std
+        # self.std = reldev.std() / 2.  # -()- Use appropriate std
+
+        # Fit health check
+        # -()- Clamp mean to +-0.5
+        # self.mean = np.sign(self.mean) * min(abs(self.mean), 0.5)
+        # -()- Raise warning for large values
+        if abs(self.mean) &gt;= 1.0:
+            self._logger.warning(
+                f&#34;Hey, NormalAddrelNoise fitted a mean&#34;
+                f&#34; = {self.mean:0.4e}, greater than 1.&#34;
+                &#34; This could mean that the filtered data has overly&#34;
+                &#34; small values, and the generated noise may have&#34;
+                &#34; unreasonable results.&#34;
+            )
+
+    def generate(
+            self, new_denoised:
+            Union[pd.DataFrame, pd.Series, np.ndarray]):
+        &#34;&#34;&#34;TODO DOCS&#34;&#34;&#34;
+        # Make add/rel noise shaped as , clamped above -1
+        noise = np.maximum(
+            self.coef * self._rng.normal(
+                self.mean, self.std, size=new_denoised.shape),
+            -1.)
+        result = new_denoised * (1. + noise)
+
+        # Return same input type
+        if isinstance(new_denoised, (pd.DataFrame, pd.Series)):
+            return type(new_denoised)(result, index=new_denoised.index)
+        else:
+            return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="rtrend_forecast.preprocessing.AbstractNoise" href="#rtrend_forecast.preprocessing.AbstractNoise">AbstractNoise</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="rtrend_forecast.preprocessing.NormalAddrelNoise.fit"><code class="name flex">
+<span>def <span class="ident">fit</span></span>(<span>self, data: pandas.core.series.Series, denoised: pandas.core.series.Series)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fit a data/denoised pair of series to a normal
+additive/relative model by calculating mean and standard
+deviation.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit(self, data: pd.Series, denoised: pd.Series):
+    &#34;&#34;&#34;Fit a data/denoised pair of series to a normal
+    additive/relative model by calculating mean and standard
+    deviation.
+    &#34;&#34;&#34;
+    _check_for_noisefit(data, denoised, self._logger)
+    reldev = (data - denoised) / denoised
+    _check_relnoise_reasonability(reldev, self._logger)
+    self.mean = reldev.mean()
+    self.std = reldev.std()  # -()- Use doubled std
+    # self.std = reldev.std() / 2.  # -()- Use appropriate std
+
+    # Fit health check
+    # -()- Clamp mean to +-0.5
+    # self.mean = np.sign(self.mean) * min(abs(self.mean), 0.5)
+    # -()- Raise warning for large values
+    if abs(self.mean) &gt;= 1.0:
+        self._logger.warning(
+            f&#34;Hey, NormalAddrelNoise fitted a mean&#34;
+            f&#34; = {self.mean:0.4e}, greater than 1.&#34;
+            &#34; This could mean that the filtered data has overly&#34;
+            &#34; small values, and the generated noise may have&#34;
+            &#34; unreasonable results.&#34;
+        )</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.NormalAddrelNoise.generate"><code class="name flex">
+<span>def <span class="ident">generate</span></span>(<span>self, new_denoised: Union[pandas.core.frame.DataFrame, pandas.core.series.Series, numpy.ndarray])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO DOCS</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate(
+        self, new_denoised:
+        Union[pd.DataFrame, pd.Series, np.ndarray]):
+    &#34;&#34;&#34;TODO DOCS&#34;&#34;&#34;
+    # Make add/rel noise shaped as , clamped above -1
+    noise = np.maximum(
+        self.coef * self._rng.normal(
+            self.mean, self.std, size=new_denoised.shape),
+        -1.)
+    result = new_denoised * (1. + noise)
+
+    # Return same input type
+    if isinstance(new_denoised, (pd.DataFrame, pd.Series)):
+        return type(new_denoised)(result, index=new_denoised.index)
+    else:
+        return result</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="rtrend_forecast.preprocessing.AbstractNoise" href="#rtrend_forecast.preprocessing.AbstractNoise">AbstractNoise</a></b></code>:
+<ul class="hlist">
+<li><code><a title="rtrend_forecast.preprocessing.AbstractNoise.denoise_and_fit" href="#rtrend_forecast.preprocessing.AbstractNoise.denoise_and_fit">denoise_and_fit</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="rtrend_forecast.preprocessing.NormalAddrelPeriodicNoise"><code class="flex name class">
+<span>class <span class="ident">NormalAddrelPeriodicNoise</span></span>
+<span>(</span><span>nperiods, seed=None, coef=1.0, period_dt: Union[str, pandas._libs.tslibs.timedeltas.Timedelta] = None, time_0: Union[str, pandas._libs.tslibs.timestamps.Timestamp] = None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Periodic fitting of a Gaussian noise.
+The timeline is divided into regular bins, then periodically
+classified. Noise is fitted and generated separately for each
+class of such bins.</p>
+<p>Properties:</p>
+<ul>
+<li>Distribution: normal (Gaussian)</li>
+<li>Incorporation: additive/relative</li>
+<li>Time setting: periodic</li>
+</ul></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class NormalAddrelPeriodicNoise(AbstractNoise):
+    &#34;&#34;&#34;
+    Periodic fitting of a Gaussian noise.
+    The timeline is divided into regular bins, then periodically
+    classified. Noise is fitted and generated separately for each
+    class of such bins.
+
+    Properties:
+
+    * Distribution: normal (Gaussian)
+    * Incorporation: additive/relative
+    * Time setting: periodic
+    &#34;&#34;&#34;
+
+    def __init__(self, nperiods, seed=None, coef=1.0,
+                 period_dt: Union[str, pd.Timedelta] = None,
+                 time_0: Union[str, pd.Timestamp]=None,
+                 **kwargs):
+        super().__init__(**kwargs)
+        self._rng = np.random.default_rng(seed)
+
+        # Series of parameters, indexed by bin index
+        self.mean_sr: pd.Series = None
+        self.std_sr: pd.Series = None
+
+        # Parameters of the periodic bins in time.
+        self.nperiods = nperiods
+        self.period_dt = (pd.Timedelta(period_dt)
+                          if period_dt is not None else None)
+        self.time_0 = (pd.Timestamp(time_0)
+                       if time_0 is not None else None)
+
+        self.coef = coef
+
+    def fit(self, data: pd.Series, denoised: pd.Series):
+        _check_for_noisefit(data, denoised, self._logger)
+
+        # --- Extract periodicity parameters, if not informed at init
+        self.time_0 = (data.index[0] if self.time_0 is None
+                       else self.time_0)
+
+        if self.period_dt is None:
+            self.period_dt = data.index[1] - data.index[0]
+            if not dateindex_is_regular(data.index):
+                self._logger.warning(
+                    f&#34;Hey, data sent to {self.__class__.__name__} is&#34;
+                    f&#34; not regular. This can create an inconsistent&#34;
+                    f&#34; guess for period_dt.&#34;)
+
+        # --- Calculate per-bin statistics
+        reldiff: pd.Series = (data - denoised) / denoised
+        _check_relnoise_reasonability(reldiff, self._logger)
+        gp = reldiff.groupby(
+            lambda t: get_time_bins(
+                t, self.time_0, self.period_dt, self.nperiods))
+
+        self.mean_sr = gp.mean()
+        self.std_sr = gp.std()
+
+    def generate(self, new_denoised: pd.DataFrame, t_axis=1):
+        &#34;&#34;&#34;
+        Incorporates periodic noise into a denoised ensemble of
+        time series.
+
+        Parameters
+        ----------
+        new_denoised : pd.DataFrame
+            The denoised ensemble of series, to which noise is
+            incorporated.
+            Expected signature:
+
+            * `a.loc[i_sample, tlabel]` if t_axis=1 (default)
+            * `a.loc[tlabel, i_sample]` if t_axis=0
+
+        t_axis : int, optional
+            Index of the time labels axis in `new_denoised`.
+            Defaults to 1, which means that the columns contains
+            time data, while 0 means that time data is at index.
+        &#34;&#34;&#34;
+        # --- Checks
+        if t_axis not in [0, 1]:
+            raise ValueError(
+                f&#34;Hey, `t_axis` must be 0 or 1, but {t_axis} was given&#34;
+                f&#34;.&#34;)
+
+        if not isinstance(new_denoised, pd.DataFrame):
+            raise NotImplementedError(
+                f&#34;Hey, {self.__class__.__name__}.generate() is only&#34;
+                f&#34; implemented for a pandas.DataFrame.&#34;)
+
+        # --- Get parameters over time based on bins
+        tlabels = new_denoised.axes[t_axis]
+        i_bins = get_time_bins(
+            tlabels, self.time_0, self.period_dt, self.nperiods)
+        # Parameters (mean and std) for each timestamp in future
+        mean_tseries = self.mean_sr.loc[i_bins]
+        std_tseries = self.std_sr.loc[i_bins]
+
+        # --- Create a noise matrix with bin-specific parameters
+        noise = np.maximum(
+            self._rng.normal(
+                mean_tseries.values, std_tseries.values,
+                size=new_denoised.shape),
+            -1.0)
+
+        result = new_denoised * (1. + noise)
+
+        return result</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="rtrend_forecast.preprocessing.AbstractNoise" href="#rtrend_forecast.preprocessing.AbstractNoise">AbstractNoise</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="rtrend_forecast.preprocessing.NormalAddrelPeriodicNoise.fit"><code class="name flex">
+<span>def <span class="ident">fit</span></span>(<span>self, data: pandas.core.series.Series, denoised: pandas.core.series.Series)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit(self, data: pd.Series, denoised: pd.Series):
+    _check_for_noisefit(data, denoised, self._logger)
+
+    # --- Extract periodicity parameters, if not informed at init
+    self.time_0 = (data.index[0] if self.time_0 is None
+                   else self.time_0)
+
+    if self.period_dt is None:
+        self.period_dt = data.index[1] - data.index[0]
+        if not dateindex_is_regular(data.index):
+            self._logger.warning(
+                f&#34;Hey, data sent to {self.__class__.__name__} is&#34;
+                f&#34; not regular. This can create an inconsistent&#34;
+                f&#34; guess for period_dt.&#34;)
+
+    # --- Calculate per-bin statistics
+    reldiff: pd.Series = (data - denoised) / denoised
+    _check_relnoise_reasonability(reldiff, self._logger)
+    gp = reldiff.groupby(
+        lambda t: get_time_bins(
+            t, self.time_0, self.period_dt, self.nperiods))
+
+    self.mean_sr = gp.mean()
+    self.std_sr = gp.std()</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.preprocessing.NormalAddrelPeriodicNoise.generate"><code class="name flex">
+<span>def <span class="ident">generate</span></span>(<span>self, new_denoised: pandas.core.frame.DataFrame, t_axis=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Incorporates periodic noise into a denoised ensemble of
+time series.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>new_denoised</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>
+<p>The denoised ensemble of series, to which noise is
+incorporated.
+Expected signature:</p>
+<ul>
+<li><code>a.loc[i_sample, tlabel]</code> if t_axis=1 (default)</li>
+<li><code>a.loc[tlabel, i_sample]</code> if t_axis=0</li>
+</ul>
+</dd>
+<dt><strong><code>t_axis</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>Index of the time labels axis in <code>new_denoised</code>.
+Defaults to 1, which means that the columns contains
+time data, while 0 means that time data is at index.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def generate(self, new_denoised: pd.DataFrame, t_axis=1):
+    &#34;&#34;&#34;
+    Incorporates periodic noise into a denoised ensemble of
+    time series.
+
+    Parameters
+    ----------
+    new_denoised : pd.DataFrame
+        The denoised ensemble of series, to which noise is
+        incorporated.
+        Expected signature:
+
+        * `a.loc[i_sample, tlabel]` if t_axis=1 (default)
+        * `a.loc[tlabel, i_sample]` if t_axis=0
+
+    t_axis : int, optional
+        Index of the time labels axis in `new_denoised`.
+        Defaults to 1, which means that the columns contains
+        time data, while 0 means that time data is at index.
+    &#34;&#34;&#34;
+    # --- Checks
+    if t_axis not in [0, 1]:
+        raise ValueError(
+            f&#34;Hey, `t_axis` must be 0 or 1, but {t_axis} was given&#34;
+            f&#34;.&#34;)
+
+    if not isinstance(new_denoised, pd.DataFrame):
+        raise NotImplementedError(
+            f&#34;Hey, {self.__class__.__name__}.generate() is only&#34;
+            f&#34; implemented for a pandas.DataFrame.&#34;)
+
+    # --- Get parameters over time based on bins
+    tlabels = new_denoised.axes[t_axis]
+    i_bins = get_time_bins(
+        tlabels, self.time_0, self.period_dt, self.nperiods)
+    # Parameters (mean and std) for each timestamp in future
+    mean_tseries = self.mean_sr.loc[i_bins]
+    std_tseries = self.std_sr.loc[i_bins]
+
+    # --- Create a noise matrix with bin-specific parameters
+    noise = np.maximum(
+        self._rng.normal(
+            mean_tseries.values, std_tseries.values,
+            size=new_denoised.shape),
+        -1.0)
+
+    result = new_denoised * (1. + noise)
+
+    return result</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="rtrend_forecast.preprocessing.AbstractNoise" href="#rtrend_forecast.preprocessing.AbstractNoise">AbstractNoise</a></b></code>:
+<ul class="hlist">
+<li><code><a title="rtrend_forecast.preprocessing.AbstractNoise.denoise_and_fit" href="#rtrend_forecast.preprocessing.AbstractNoise.denoise_and_fit">denoise_and_fit</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rtrend_forecast" href="index.html">rtrend_forecast</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="rtrend_forecast.preprocessing.apply_lowpass_filter_nparray" href="#rtrend_forecast.preprocessing.apply_lowpass_filter_nparray">apply_lowpass_filter_nparray</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.apply_lowpass_filter_pdseries" href="#rtrend_forecast.preprocessing.apply_lowpass_filter_pdseries">apply_lowpass_filter_pdseries</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.apply_polyfit" href="#rtrend_forecast.preprocessing.apply_polyfit">apply_polyfit</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.apply_polyfit_pdseries" href="#rtrend_forecast.preprocessing.apply_polyfit_pdseries">apply_polyfit_pdseries</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.denoise_series" href="#rtrend_forecast.preprocessing.denoise_series">denoise_series</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.fix_negative_interpolation" href="#rtrend_forecast.preprocessing.fix_negative_interpolation">fix_negative_interpolation</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.interpolate_cumulative" href="#rtrend_forecast.preprocessing.interpolate_cumulative">interpolate_cumulative</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.interpolate_direct" href="#rtrend_forecast.preprocessing.interpolate_direct">interpolate_direct</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.interpolate_smooth_pycno" href="#rtrend_forecast.preprocessing.interpolate_smooth_pycno">interpolate_smooth_pycno</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.interpolate_uniform" href="#rtrend_forecast.preprocessing.interpolate_uniform">interpolate_uniform</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="rtrend_forecast.preprocessing.AbstractNoise" href="#rtrend_forecast.preprocessing.AbstractNoise">AbstractNoise</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.preprocessing.AbstractNoise.denoise_and_fit" href="#rtrend_forecast.preprocessing.AbstractNoise.denoise_and_fit">denoise_and_fit</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.AbstractNoise.fit" href="#rtrend_forecast.preprocessing.AbstractNoise.fit">fit</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.AbstractNoise.generate" href="#rtrend_forecast.preprocessing.AbstractNoise.generate">generate</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.preprocessing.MultGammaPeriodicNoise" href="#rtrend_forecast.preprocessing.MultGammaPeriodicNoise">MultGammaPeriodicNoise</a></code></h4>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.preprocessing.NoneNoise" href="#rtrend_forecast.preprocessing.NoneNoise">NoneNoise</a></code></h4>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.preprocessing.NormalAddrelNoise" href="#rtrend_forecast.preprocessing.NormalAddrelNoise">NormalAddrelNoise</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.preprocessing.NormalAddrelNoise.fit" href="#rtrend_forecast.preprocessing.NormalAddrelNoise.fit">fit</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.NormalAddrelNoise.generate" href="#rtrend_forecast.preprocessing.NormalAddrelNoise.generate">generate</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.preprocessing.NormalAddrelPeriodicNoise" href="#rtrend_forecast.preprocessing.NormalAddrelPeriodicNoise">NormalAddrelPeriodicNoise</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.preprocessing.NormalAddrelPeriodicNoise.fit" href="#rtrend_forecast.preprocessing.NormalAddrelPeriodicNoise.fit">fit</a></code></li>
+<li><code><a title="rtrend_forecast.preprocessing.NormalAddrelPeriodicNoise.generate" href="#rtrend_forecast.preprocessing.NormalAddrelPeriodicNoise.generate">generate</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

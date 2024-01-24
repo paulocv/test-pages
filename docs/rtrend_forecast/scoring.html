@@ -1,0 +1,1065 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>rtrend_forecast.scoring API documentation</title>
+<meta name="description" content="This module contains multiple tools to evaluate forecast results, both
+interval-based and point forecasts." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rtrend_forecast.scoring</code></h1>
+</header>
+<section id="section-intro">
+<p>This module contains multiple tools to evaluate forecast results, both
+interval-based and point forecasts.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+This module contains multiple tools to evaluate forecast results, both
+interval-based and point forecasts.
+&#34;&#34;&#34;
+
+import numpy as np
+
+
+def covered_score(
+        observations,
+        alpha,
+        q_dict=None,
+        q_left=None,
+        q_right=None,
+        check_consistency=True,
+        return_type=None
+):
+    &#34;&#34;&#34;
+    Calculates the boolean &#34;coverage&#34; of an interval forecast for a
+    given alpha value (where IQR = 1-alpha = the forecast quantile).
+    For each data in the `observations` array and respective quantiles
+    (q_dict), returns True if the observation
+    falls inside the range and False otherwise.
+
+    Parameters
+    ----------
+    observations : array_like
+        Ground truth observations.
+    alpha : numeric
+        Alpha level for (1-alpha) interval.
+    q_dict : dict, optional
+        Dictionary with predicted quantiles for all instances in
+        `observations`.
+    q_left : array_like, optional
+        Predicted (alpha/2)-quantiles for all instances in
+        `observations`.
+    q_right : array_like, optional
+        Predicted (1-(alpha/2))-quantiles for all instances in
+        `observations`.
+    check_consistency : bool, optional
+        If `True`, quantiles in `q_dict` are checked for consistency.
+        Default is `True`.
+    return_type : any, optional
+        Numerical type of the returned array elements. Can be `bool`,
+        `int`, `float`. Returns booleans as default.
+
+    Returns
+    -------
+    coverage : array_like
+        Array with the coverage score for each forecast/observation pair.
+
+    &#34;&#34;&#34;
+    # Preliminaries – Check and manage inputs
+    # ---------------------------------------
+    if q_dict is None:
+        if q_left is None or q_right is None:
+            raise ValueError(
+                &#34;Either quantile dictionary or left and right quantile must be supplied.&#34;
+            )
+    else:
+        if q_left is not None or q_right is not None:
+            raise ValueError(
+                &#34;Either quantile dictionary OR left and right quantile must be supplied, not both.&#34;
+            )
+        q_left = q_dict.get(alpha / 2)
+        if q_left is None:
+            raise ValueError(f&#34;Quantile dictionary does not include {alpha/2}-quantile&#34;)
+
+        q_right = q_dict.get(1 - (alpha / 2))
+        if q_right is None:
+            raise ValueError(
+                f&#34;Quantile dictionary does not include {1-(alpha/2)}-quantile&#34;
+            )
+
+    if check_consistency and np.any(q_left &gt; q_right):
+        raise ValueError(&#34;Left quantile must be smaller than right quantile.&#34;)
+
+    # Calculations
+    # ------------------------------------------
+    result: np.ndarray = np.logical_and(observations &gt;= q_left, observations &lt;= q_right)
+
+    if return_type:
+        result = result.astype(return_type)
+
+    return result
+
+
+def interval_score(
+        observations,
+        alpha,
+        q_dict=None,
+        q_left=None,
+        q_right=None,
+        percent=False,
+        check_consistency=True,
+):
+    &#34;&#34;&#34;
+    Compute interval scores (1) for an array of observations and
+    predicted intervals.
+
+    Either a dictionary with the respective (alpha/2) and (1-(alpha/2))
+    quantiles via q_dict needs to be
+    specified or the quantiles need to be specified via q_left and q_right.
+
+    This function was extracted from:
+    https://github.com/adrian-lison/interval-scoring
+
+    - Accessed on 2023-02-02.
+    - No license information available as of the retrieval date.
+    - May be modified from the original version.
+
+    Parameters
+    ----------
+    observations : array_like
+        Ground truth observations.
+    alpha : numeric
+        Alpha level for (1-alpha) interval.
+    q_dict : dict, optional
+        Dictionary with predicted quantiles for all instances
+        in `observations`.
+    q_left : array_like, optional
+        Predicted (alpha/2)-quantiles for all instances
+        in `observations`.
+    q_right : array_like, optional
+        Predicted (1-(alpha/2))-quantiles for all instances
+        in `observations`.
+    percent: bool, optional
+        If `True`, score is scaled by absolute value of observations
+        to yield a percentage error. Default is `False`.
+    check_consistency: bool, optional
+        If `True`, quantiles in `q_dict` are checked for consistency.
+        Default is `True`.
+
+    Returns
+    -------
+    total : array_like
+        Total interval scores.
+    sharpness : array_like
+        Sharpness component of interval scores.
+    calibration : array_like
+        Calibration component of interval scores.
+
+    (1) Gneiting, T. and A. E. Raftery (2007). Strictly proper scoring
+    rules, prediction, and estimation. Journal of the American
+    Statistical Association 102(477), 359–378.
+    &#34;&#34;&#34;
+
+    if q_dict is None:
+        if q_left is None or q_right is None:
+            raise ValueError(
+                &#34;Either quantile dictionary or left and right quantile must be supplied.&#34;
+            )
+    else:
+        if q_left is not None or q_right is not None:
+            raise ValueError(
+                &#34;Either quantile dictionary OR left and right quantile must be supplied, not both.&#34;
+            )
+        q_left = q_dict.get(alpha / 2)
+        if q_left is None:
+            raise ValueError(f&#34;Quantile dictionary does not include {alpha / 2}-quantile&#34;)
+
+        q_right = q_dict.get(1 - (alpha / 2))
+        if q_right is None:
+            raise ValueError(
+                f&#34;Quantile dictionary does not include {1 - (alpha / 2)}-quantile&#34;
+            )
+
+    if check_consistency and np.any(q_left &gt; q_right):
+        raise ValueError(&#34;Left quantile must be smaller than right quantile.&#34;)
+
+    sharpness = q_right - q_left
+    calibration = (
+            (
+                    np.clip(q_left - observations, a_min=0, a_max=None)
+                    + np.clip(observations - q_right, a_min=0, a_max=None)
+            )
+            * 2
+            / alpha
+    )
+    if percent:
+        sharpness = sharpness / np.abs(observations)
+        calibration = calibration / np.abs(observations)
+    total = sharpness + calibration
+    return total, sharpness, calibration
+
+
+def weighted_interval_score(
+        observations, alphas, q_dict, weights=None, percent=False,
+        check_consistency=True
+):
+    &#34;&#34;&#34;
+    Compute weighted interval scores for an array of observations and a
+    number of different predicted intervals.
+
+    This function implements the WIS-score (2). A dictionary with the
+    respective (alpha/2) and (1-(alpha/2)) quantiles for all alpha
+    levels given in `alphas` needs to be specified.
+
+    This function was extracted from:
+    https://github.com/adrian-lison/interval-scoring
+
+    - Accessed on 2023-02-02.
+    - No license information available as of the retrieval date.
+    - May be modified from the original version.
+
+    Parameters
+    ----------
+    observations : array_like
+        Ground truth observations.
+    alphas : iterable
+        Alpha levels for (1-alpha) intervals.
+    q_dict : dict
+        Dictionary with predicted quantiles for all instances
+        in `observations`.
+    weights : iterable, optional
+        Corresponding weights for each interval. If `None`, `weights`
+        is set to `alphas`, yielding the WIS^alpha-score.
+    percent: bool, optional
+        If `True`, score is scaled by absolute value of observations
+        to yield the double absolute percentage error. Default is `False`.
+    check_consistency: bool, optional
+        If `True`, quantiles in `q_dict` are checked for consistency.
+        Default is `True`.
+
+    Returns
+    -------
+    total : array_like
+        Total weighted interval scores.
+    sharpness : array_like
+        Sharpness component of weighted interval scores.
+    calibration : array_like
+        Calibration component of weighted interval scores.
+
+    (2) Bracher, J., Ray, E. L., Gneiting, T., &amp; Reich, N. G. (2020).
+    Evaluating epidemic forecasts in an interval format.
+    arXiv preprint arXiv:2005.12881.
+    &#34;&#34;&#34;
+    if weights is None:
+        weights = np.array(alphas) / 2
+
+    def weigh_scores(tuple_in, weight):
+        return tuple_in[0] * weight, tuple_in[1] * weight, tuple_in[2] * weight
+
+    interval_scores = [
+        i
+        for i in zip(
+            *[
+                weigh_scores(
+                    interval_score(
+                        observations,
+                        alpha,
+                        q_dict=q_dict,
+                        percent=percent,
+                        check_consistency=check_consistency,
+                    ),
+                    weight,
+                )
+                for alpha, weight in zip(alphas, weights)
+            ]
+        )
+    ]
+
+    total = np.sum(np.vstack(interval_scores[0]), axis=0) / sum(weights)
+    sharpness = np.sum(np.vstack(interval_scores[1]), axis=0) / sum(weights)
+    calibration = np.sum(np.vstack(interval_scores[2]), axis=0) / sum(weights)
+
+    return total, sharpness, calibration
+
+
+def weighted_interval_score_fast(
+        observations, alphas, q_dict, weights=None,
+        percent=False, check_consistency=True
+):
+    &#34;&#34;&#34;
+    Compute weighted interval scores for an array of observations and
+    a number of different predicted intervals.
+
+    This function implements the WIS-score (2). A dictionary with the
+    respective (alpha/2) and (1-(alpha/2)) quantiles for all alpha
+    levels given in `alphas` needs to be specified.
+
+    This is a more efficient implementation using array operations
+    instead of repeated calls of `interval_score`.
+
+    This function was extracted from:
+    https://github.com/adrian-lison/interval-scoring
+
+    - Accessed on 2023-02-02.
+    - No license information available as of the retrieval date.
+    - May be modified from the original version.
+
+    Parameters
+    ----------
+    observations : array_like
+        Ground truth observations.
+    alphas : iterable
+        Alpha levels for (1-alpha) intervals.
+    q_dict : dict
+        Dictionary with predicted quantiles for all instances in
+        `observations`.
+    weights : iterable, optional
+        Corresponding weights for each interval. If `None`, `weights`
+        is set to `alphas`, yielding the WIS^alpha-score.
+    percent: bool, optional
+        If `True`, score is scaled by absolute value of observations
+        to yield a percentage error. Default is `False`.
+    check_consistency: bool, optional
+        If `True`, quantiles in `q_dict` are checked for consistency.
+        Default is `True`.
+
+    Returns
+    -------
+    total : array_like
+        Total weighted interval scores.
+    sharpness : array_like
+        Sharpness component of weighted interval scores.
+    calibration : array_like
+        Calibration component of weighted interval scores.
+
+    (2) Bracher, J., Ray, E. L., Gneiting, T., &amp; Reich, N. G. (2020).
+    Evaluating epidemic forecasts in an interval format.
+    arXiv preprint arXiv:2005.12881.
+    &#34;&#34;&#34;
+    if weights is None:
+        weights = np.array(alphas) / 2
+
+    if not all(alphas[i] &lt;= alphas[i + 1] for i in range(len(alphas) - 1)):
+        raise ValueError(&#34;Alpha values must be sorted in ascending order.&#34;)
+
+    reversed_weights = list(reversed(weights))
+
+    lower_quantiles = [q_dict.get(alpha / 2) for alpha in alphas]
+    upper_quantiles = [q_dict.get(1 - (alpha / 2)) for alpha in reversed(alphas)]
+    if any(q is None for q in lower_quantiles) or any(
+            q is None for q in upper_quantiles
+    ):
+        raise ValueError(
+            f&#34;Quantile dictionary does not include all necessary quantiles.&#34;
+        )
+
+    lower_quantiles = np.vstack(lower_quantiles)
+    upper_quantiles = np.vstack(upper_quantiles)
+
+    # Check for consistency
+    if check_consistency and np.any(
+            np.diff(np.vstack((lower_quantiles, upper_quantiles)), axis=0) &lt; 0
+    ):
+        raise ValueError(&#34;Quantiles are not consistent.&#34;)
+
+    lower_q_alphas = (2 / np.array(alphas)).reshape((-1, 1))
+    upper_q_alphas = (2 / np.array(list(reversed(alphas)))).reshape((-1, 1))
+
+    # compute score components for all intervals
+    sharpnesses = np.flip(upper_quantiles, axis=0) - lower_quantiles
+
+    lower_calibrations = (
+            np.clip(lower_quantiles - observations, a_min=0, a_max=None) * lower_q_alphas
+    )
+    upper_calibrations = (
+            np.clip(observations - upper_quantiles, a_min=0, a_max=None) * upper_q_alphas
+    )
+    calibrations = lower_calibrations + np.flip(upper_calibrations, axis=0)
+
+    # scale to percentage absolute error
+    if percent:
+        sharpnesses = sharpnesses / np.abs(observations)
+        calibrations = calibrations / np.abs(observations)
+
+    totals = sharpnesses + calibrations
+
+    # weigh scores
+    weights = np.array(weights).reshape((-1, 1))
+
+    sharpnesses_weighted = sharpnesses * weights
+    calibrations_weighted = calibrations * weights
+    totals_weighted = totals * weights
+
+    # normalize and aggregate all interval scores
+    weights_sum = np.sum(weights)
+
+    sharpnesses_final = np.sum(sharpnesses_weighted, axis=0) / weights_sum
+    calibrations_final = np.sum(calibrations_weighted, axis=0) / weights_sum
+    totals_final = np.sum(totals_weighted, axis=0) / weights_sum
+
+    return totals_final, sharpnesses_final, calibrations_final
+
+
+#
+#
+# =====================================================================
+# POINT FORECAST METRICS
+# =====================================================================
+#
+#
+
+
+def mape_score(observations, point_forecasts):
+    &#34;&#34;&#34;TODO: docstrings&#34;&#34;&#34;
+    return 100 * np.abs(point_forecasts - observations) / np.abs(observations)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="rtrend_forecast.scoring.covered_score"><code class="name flex">
+<span>def <span class="ident">covered_score</span></span>(<span>observations, alpha, q_dict=None, q_left=None, q_right=None, check_consistency=True, return_type=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculates the boolean "coverage" of an interval forecast for a
+given alpha value (where IQR = 1-alpha = the forecast quantile).
+For each data in the <code>observations</code> array and respective quantiles
+(q_dict), returns True if the observation
+falls inside the range and False otherwise.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>observations</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Ground truth observations.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>numeric</code></dt>
+<dd>Alpha level for (1-alpha) interval.</dd>
+<dt><strong><code>q_dict</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>Dictionary with predicted quantiles for all instances in
+<code>observations</code>.</dd>
+<dt><strong><code>q_left</code></strong> :&ensp;<code>array_like</code>, optional</dt>
+<dd>Predicted (alpha/2)-quantiles for all instances in
+<code>observations</code>.</dd>
+<dt><strong><code>q_right</code></strong> :&ensp;<code>array_like</code>, optional</dt>
+<dd>Predicted (1-(alpha/2))-quantiles for all instances in
+<code>observations</code>.</dd>
+<dt><strong><code>check_consistency</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If <code>True</code>, quantiles in <code>q_dict</code> are checked for consistency.
+Default is <code>True</code>.</dd>
+<dt><strong><code>return_type</code></strong> :&ensp;<code>any</code>, optional</dt>
+<dd>Numerical type of the returned array elements. Can be <code>bool</code>,
+<code>int</code>, <code>float</code>. Returns booleans as default.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>coverage</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Array with the coverage score for each forecast/observation pair.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def covered_score(
+        observations,
+        alpha,
+        q_dict=None,
+        q_left=None,
+        q_right=None,
+        check_consistency=True,
+        return_type=None
+):
+    &#34;&#34;&#34;
+    Calculates the boolean &#34;coverage&#34; of an interval forecast for a
+    given alpha value (where IQR = 1-alpha = the forecast quantile).
+    For each data in the `observations` array and respective quantiles
+    (q_dict), returns True if the observation
+    falls inside the range and False otherwise.
+
+    Parameters
+    ----------
+    observations : array_like
+        Ground truth observations.
+    alpha : numeric
+        Alpha level for (1-alpha) interval.
+    q_dict : dict, optional
+        Dictionary with predicted quantiles for all instances in
+        `observations`.
+    q_left : array_like, optional
+        Predicted (alpha/2)-quantiles for all instances in
+        `observations`.
+    q_right : array_like, optional
+        Predicted (1-(alpha/2))-quantiles for all instances in
+        `observations`.
+    check_consistency : bool, optional
+        If `True`, quantiles in `q_dict` are checked for consistency.
+        Default is `True`.
+    return_type : any, optional
+        Numerical type of the returned array elements. Can be `bool`,
+        `int`, `float`. Returns booleans as default.
+
+    Returns
+    -------
+    coverage : array_like
+        Array with the coverage score for each forecast/observation pair.
+
+    &#34;&#34;&#34;
+    # Preliminaries – Check and manage inputs
+    # ---------------------------------------
+    if q_dict is None:
+        if q_left is None or q_right is None:
+            raise ValueError(
+                &#34;Either quantile dictionary or left and right quantile must be supplied.&#34;
+            )
+    else:
+        if q_left is not None or q_right is not None:
+            raise ValueError(
+                &#34;Either quantile dictionary OR left and right quantile must be supplied, not both.&#34;
+            )
+        q_left = q_dict.get(alpha / 2)
+        if q_left is None:
+            raise ValueError(f&#34;Quantile dictionary does not include {alpha/2}-quantile&#34;)
+
+        q_right = q_dict.get(1 - (alpha / 2))
+        if q_right is None:
+            raise ValueError(
+                f&#34;Quantile dictionary does not include {1-(alpha/2)}-quantile&#34;
+            )
+
+    if check_consistency and np.any(q_left &gt; q_right):
+        raise ValueError(&#34;Left quantile must be smaller than right quantile.&#34;)
+
+    # Calculations
+    # ------------------------------------------
+    result: np.ndarray = np.logical_and(observations &gt;= q_left, observations &lt;= q_right)
+
+    if return_type:
+        result = result.astype(return_type)
+
+    return result</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.scoring.interval_score"><code class="name flex">
+<span>def <span class="ident">interval_score</span></span>(<span>observations, alpha, q_dict=None, q_left=None, q_right=None, percent=False, check_consistency=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute interval scores (1) for an array of observations and
+predicted intervals.</p>
+<p>Either a dictionary with the respective (alpha/2) and (1-(alpha/2))
+quantiles via q_dict needs to be
+specified or the quantiles need to be specified via q_left and q_right.</p>
+<p>This function was extracted from:
+<a href="https://github.com/adrian-lison/interval-scoring">https://github.com/adrian-lison/interval-scoring</a></p>
+<ul>
+<li>Accessed on 2023-02-02.</li>
+<li>No license information available as of the retrieval date.</li>
+<li>May be modified from the original version.</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>observations</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Ground truth observations.</dd>
+<dt><strong><code>alpha</code></strong> :&ensp;<code>numeric</code></dt>
+<dd>Alpha level for (1-alpha) interval.</dd>
+<dt><strong><code>q_dict</code></strong> :&ensp;<code>dict</code>, optional</dt>
+<dd>Dictionary with predicted quantiles for all instances
+in <code>observations</code>.</dd>
+<dt><strong><code>q_left</code></strong> :&ensp;<code>array_like</code>, optional</dt>
+<dd>Predicted (alpha/2)-quantiles for all instances
+in <code>observations</code>.</dd>
+<dt><strong><code>q_right</code></strong> :&ensp;<code>array_like</code>, optional</dt>
+<dd>Predicted (1-(alpha/2))-quantiles for all instances
+in <code>observations</code>.</dd>
+<dt><strong><code>percent</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If <code>True</code>, score is scaled by absolute value of observations
+to yield a percentage error. Default is <code>False</code>.</dd>
+<dt><strong><code>check_consistency</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If <code>True</code>, quantiles in <code>q_dict</code> are checked for consistency.
+Default is <code>True</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>total</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Total interval scores.</dd>
+<dt><strong><code>sharpness</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Sharpness component of interval scores.</dd>
+<dt><strong><code>calibration</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Calibration component of interval scores.</dd>
+<dt>(1) Gneiting, T. and A. E. Raftery (2007). Strictly proper scoring</dt>
+<dt><code>rules, prediction, and estimation. Journal</code> of <code>the American</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<p>Statistical Association 102(477), 359–378.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def interval_score(
+        observations,
+        alpha,
+        q_dict=None,
+        q_left=None,
+        q_right=None,
+        percent=False,
+        check_consistency=True,
+):
+    &#34;&#34;&#34;
+    Compute interval scores (1) for an array of observations and
+    predicted intervals.
+
+    Either a dictionary with the respective (alpha/2) and (1-(alpha/2))
+    quantiles via q_dict needs to be
+    specified or the quantiles need to be specified via q_left and q_right.
+
+    This function was extracted from:
+    https://github.com/adrian-lison/interval-scoring
+
+    - Accessed on 2023-02-02.
+    - No license information available as of the retrieval date.
+    - May be modified from the original version.
+
+    Parameters
+    ----------
+    observations : array_like
+        Ground truth observations.
+    alpha : numeric
+        Alpha level for (1-alpha) interval.
+    q_dict : dict, optional
+        Dictionary with predicted quantiles for all instances
+        in `observations`.
+    q_left : array_like, optional
+        Predicted (alpha/2)-quantiles for all instances
+        in `observations`.
+    q_right : array_like, optional
+        Predicted (1-(alpha/2))-quantiles for all instances
+        in `observations`.
+    percent: bool, optional
+        If `True`, score is scaled by absolute value of observations
+        to yield a percentage error. Default is `False`.
+    check_consistency: bool, optional
+        If `True`, quantiles in `q_dict` are checked for consistency.
+        Default is `True`.
+
+    Returns
+    -------
+    total : array_like
+        Total interval scores.
+    sharpness : array_like
+        Sharpness component of interval scores.
+    calibration : array_like
+        Calibration component of interval scores.
+
+    (1) Gneiting, T. and A. E. Raftery (2007). Strictly proper scoring
+    rules, prediction, and estimation. Journal of the American
+    Statistical Association 102(477), 359–378.
+    &#34;&#34;&#34;
+
+    if q_dict is None:
+        if q_left is None or q_right is None:
+            raise ValueError(
+                &#34;Either quantile dictionary or left and right quantile must be supplied.&#34;
+            )
+    else:
+        if q_left is not None or q_right is not None:
+            raise ValueError(
+                &#34;Either quantile dictionary OR left and right quantile must be supplied, not both.&#34;
+            )
+        q_left = q_dict.get(alpha / 2)
+        if q_left is None:
+            raise ValueError(f&#34;Quantile dictionary does not include {alpha / 2}-quantile&#34;)
+
+        q_right = q_dict.get(1 - (alpha / 2))
+        if q_right is None:
+            raise ValueError(
+                f&#34;Quantile dictionary does not include {1 - (alpha / 2)}-quantile&#34;
+            )
+
+    if check_consistency and np.any(q_left &gt; q_right):
+        raise ValueError(&#34;Left quantile must be smaller than right quantile.&#34;)
+
+    sharpness = q_right - q_left
+    calibration = (
+            (
+                    np.clip(q_left - observations, a_min=0, a_max=None)
+                    + np.clip(observations - q_right, a_min=0, a_max=None)
+            )
+            * 2
+            / alpha
+    )
+    if percent:
+        sharpness = sharpness / np.abs(observations)
+        calibration = calibration / np.abs(observations)
+    total = sharpness + calibration
+    return total, sharpness, calibration</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.scoring.mape_score"><code class="name flex">
+<span>def <span class="ident">mape_score</span></span>(<span>observations, point_forecasts)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>TODO: docstrings</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def mape_score(observations, point_forecasts):
+    &#34;&#34;&#34;TODO: docstrings&#34;&#34;&#34;
+    return 100 * np.abs(point_forecasts - observations) / np.abs(observations)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.scoring.weighted_interval_score"><code class="name flex">
+<span>def <span class="ident">weighted_interval_score</span></span>(<span>observations, alphas, q_dict, weights=None, percent=False, check_consistency=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute weighted interval scores for an array of observations and a
+number of different predicted intervals.</p>
+<p>This function implements the WIS-score (2). A dictionary with the
+respective (alpha/2) and (1-(alpha/2)) quantiles for all alpha
+levels given in <code>alphas</code> needs to be specified.</p>
+<p>This function was extracted from:
+<a href="https://github.com/adrian-lison/interval-scoring">https://github.com/adrian-lison/interval-scoring</a></p>
+<ul>
+<li>Accessed on 2023-02-02.</li>
+<li>No license information available as of the retrieval date.</li>
+<li>May be modified from the original version.</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>observations</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Ground truth observations.</dd>
+<dt><strong><code>alphas</code></strong> :&ensp;<code>iterable</code></dt>
+<dd>Alpha levels for (1-alpha) intervals.</dd>
+<dt><strong><code>q_dict</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary with predicted quantiles for all instances
+in <code>observations</code>.</dd>
+<dt><strong><code>weights</code></strong> :&ensp;<code>iterable</code>, optional</dt>
+<dd>Corresponding weights for each interval. If <code>None</code>, <code>weights</code>
+is set to <code>alphas</code>, yielding the WIS^alpha-score.</dd>
+<dt><strong><code>percent</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If <code>True</code>, score is scaled by absolute value of observations
+to yield the double absolute percentage error. Default is <code>False</code>.</dd>
+<dt><strong><code>check_consistency</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If <code>True</code>, quantiles in <code>q_dict</code> are checked for consistency.
+Default is <code>True</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>total</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Total weighted interval scores.</dd>
+<dt><strong><code>sharpness</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Sharpness component of weighted interval scores.</dd>
+<dt><strong><code>calibration</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Calibration component of weighted interval scores.</dd>
+</dl>
+<p>(2) Bracher, J., Ray, E. L., Gneiting, T., &amp; Reich, N. G. (2020).
+Evaluating epidemic forecasts in an interval format.
+arXiv preprint arXiv:2005.12881.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def weighted_interval_score(
+        observations, alphas, q_dict, weights=None, percent=False,
+        check_consistency=True
+):
+    &#34;&#34;&#34;
+    Compute weighted interval scores for an array of observations and a
+    number of different predicted intervals.
+
+    This function implements the WIS-score (2). A dictionary with the
+    respective (alpha/2) and (1-(alpha/2)) quantiles for all alpha
+    levels given in `alphas` needs to be specified.
+
+    This function was extracted from:
+    https://github.com/adrian-lison/interval-scoring
+
+    - Accessed on 2023-02-02.
+    - No license information available as of the retrieval date.
+    - May be modified from the original version.
+
+    Parameters
+    ----------
+    observations : array_like
+        Ground truth observations.
+    alphas : iterable
+        Alpha levels for (1-alpha) intervals.
+    q_dict : dict
+        Dictionary with predicted quantiles for all instances
+        in `observations`.
+    weights : iterable, optional
+        Corresponding weights for each interval. If `None`, `weights`
+        is set to `alphas`, yielding the WIS^alpha-score.
+    percent: bool, optional
+        If `True`, score is scaled by absolute value of observations
+        to yield the double absolute percentage error. Default is `False`.
+    check_consistency: bool, optional
+        If `True`, quantiles in `q_dict` are checked for consistency.
+        Default is `True`.
+
+    Returns
+    -------
+    total : array_like
+        Total weighted interval scores.
+    sharpness : array_like
+        Sharpness component of weighted interval scores.
+    calibration : array_like
+        Calibration component of weighted interval scores.
+
+    (2) Bracher, J., Ray, E. L., Gneiting, T., &amp; Reich, N. G. (2020).
+    Evaluating epidemic forecasts in an interval format.
+    arXiv preprint arXiv:2005.12881.
+    &#34;&#34;&#34;
+    if weights is None:
+        weights = np.array(alphas) / 2
+
+    def weigh_scores(tuple_in, weight):
+        return tuple_in[0] * weight, tuple_in[1] * weight, tuple_in[2] * weight
+
+    interval_scores = [
+        i
+        for i in zip(
+            *[
+                weigh_scores(
+                    interval_score(
+                        observations,
+                        alpha,
+                        q_dict=q_dict,
+                        percent=percent,
+                        check_consistency=check_consistency,
+                    ),
+                    weight,
+                )
+                for alpha, weight in zip(alphas, weights)
+            ]
+        )
+    ]
+
+    total = np.sum(np.vstack(interval_scores[0]), axis=0) / sum(weights)
+    sharpness = np.sum(np.vstack(interval_scores[1]), axis=0) / sum(weights)
+    calibration = np.sum(np.vstack(interval_scores[2]), axis=0) / sum(weights)
+
+    return total, sharpness, calibration</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.scoring.weighted_interval_score_fast"><code class="name flex">
+<span>def <span class="ident">weighted_interval_score_fast</span></span>(<span>observations, alphas, q_dict, weights=None, percent=False, check_consistency=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute weighted interval scores for an array of observations and
+a number of different predicted intervals.</p>
+<p>This function implements the WIS-score (2). A dictionary with the
+respective (alpha/2) and (1-(alpha/2)) quantiles for all alpha
+levels given in <code>alphas</code> needs to be specified.</p>
+<p>This is a more efficient implementation using array operations
+instead of repeated calls of <code><a title="rtrend_forecast.scoring.interval_score" href="#rtrend_forecast.scoring.interval_score">interval_score()</a></code>.</p>
+<p>This function was extracted from:
+<a href="https://github.com/adrian-lison/interval-scoring">https://github.com/adrian-lison/interval-scoring</a></p>
+<ul>
+<li>Accessed on 2023-02-02.</li>
+<li>No license information available as of the retrieval date.</li>
+<li>May be modified from the original version.</li>
+</ul>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>observations</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Ground truth observations.</dd>
+<dt><strong><code>alphas</code></strong> :&ensp;<code>iterable</code></dt>
+<dd>Alpha levels for (1-alpha) intervals.</dd>
+<dt><strong><code>q_dict</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Dictionary with predicted quantiles for all instances in
+<code>observations</code>.</dd>
+<dt><strong><code>weights</code></strong> :&ensp;<code>iterable</code>, optional</dt>
+<dd>Corresponding weights for each interval. If <code>None</code>, <code>weights</code>
+is set to <code>alphas</code>, yielding the WIS^alpha-score.</dd>
+<dt><strong><code>percent</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If <code>True</code>, score is scaled by absolute value of observations
+to yield a percentage error. Default is <code>False</code>.</dd>
+<dt><strong><code>check_consistency</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If <code>True</code>, quantiles in <code>q_dict</code> are checked for consistency.
+Default is <code>True</code>.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>total</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Total weighted interval scores.</dd>
+<dt><strong><code>sharpness</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Sharpness component of weighted interval scores.</dd>
+<dt><strong><code>calibration</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>Calibration component of weighted interval scores.</dd>
+</dl>
+<p>(2) Bracher, J., Ray, E. L., Gneiting, T., &amp; Reich, N. G. (2020).
+Evaluating epidemic forecasts in an interval format.
+arXiv preprint arXiv:2005.12881.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def weighted_interval_score_fast(
+        observations, alphas, q_dict, weights=None,
+        percent=False, check_consistency=True
+):
+    &#34;&#34;&#34;
+    Compute weighted interval scores for an array of observations and
+    a number of different predicted intervals.
+
+    This function implements the WIS-score (2). A dictionary with the
+    respective (alpha/2) and (1-(alpha/2)) quantiles for all alpha
+    levels given in `alphas` needs to be specified.
+
+    This is a more efficient implementation using array operations
+    instead of repeated calls of `interval_score`.
+
+    This function was extracted from:
+    https://github.com/adrian-lison/interval-scoring
+
+    - Accessed on 2023-02-02.
+    - No license information available as of the retrieval date.
+    - May be modified from the original version.
+
+    Parameters
+    ----------
+    observations : array_like
+        Ground truth observations.
+    alphas : iterable
+        Alpha levels for (1-alpha) intervals.
+    q_dict : dict
+        Dictionary with predicted quantiles for all instances in
+        `observations`.
+    weights : iterable, optional
+        Corresponding weights for each interval. If `None`, `weights`
+        is set to `alphas`, yielding the WIS^alpha-score.
+    percent: bool, optional
+        If `True`, score is scaled by absolute value of observations
+        to yield a percentage error. Default is `False`.
+    check_consistency: bool, optional
+        If `True`, quantiles in `q_dict` are checked for consistency.
+        Default is `True`.
+
+    Returns
+    -------
+    total : array_like
+        Total weighted interval scores.
+    sharpness : array_like
+        Sharpness component of weighted interval scores.
+    calibration : array_like
+        Calibration component of weighted interval scores.
+
+    (2) Bracher, J., Ray, E. L., Gneiting, T., &amp; Reich, N. G. (2020).
+    Evaluating epidemic forecasts in an interval format.
+    arXiv preprint arXiv:2005.12881.
+    &#34;&#34;&#34;
+    if weights is None:
+        weights = np.array(alphas) / 2
+
+    if not all(alphas[i] &lt;= alphas[i + 1] for i in range(len(alphas) - 1)):
+        raise ValueError(&#34;Alpha values must be sorted in ascending order.&#34;)
+
+    reversed_weights = list(reversed(weights))
+
+    lower_quantiles = [q_dict.get(alpha / 2) for alpha in alphas]
+    upper_quantiles = [q_dict.get(1 - (alpha / 2)) for alpha in reversed(alphas)]
+    if any(q is None for q in lower_quantiles) or any(
+            q is None for q in upper_quantiles
+    ):
+        raise ValueError(
+            f&#34;Quantile dictionary does not include all necessary quantiles.&#34;
+        )
+
+    lower_quantiles = np.vstack(lower_quantiles)
+    upper_quantiles = np.vstack(upper_quantiles)
+
+    # Check for consistency
+    if check_consistency and np.any(
+            np.diff(np.vstack((lower_quantiles, upper_quantiles)), axis=0) &lt; 0
+    ):
+        raise ValueError(&#34;Quantiles are not consistent.&#34;)
+
+    lower_q_alphas = (2 / np.array(alphas)).reshape((-1, 1))
+    upper_q_alphas = (2 / np.array(list(reversed(alphas)))).reshape((-1, 1))
+
+    # compute score components for all intervals
+    sharpnesses = np.flip(upper_quantiles, axis=0) - lower_quantiles
+
+    lower_calibrations = (
+            np.clip(lower_quantiles - observations, a_min=0, a_max=None) * lower_q_alphas
+    )
+    upper_calibrations = (
+            np.clip(observations - upper_quantiles, a_min=0, a_max=None) * upper_q_alphas
+    )
+    calibrations = lower_calibrations + np.flip(upper_calibrations, axis=0)
+
+    # scale to percentage absolute error
+    if percent:
+        sharpnesses = sharpnesses / np.abs(observations)
+        calibrations = calibrations / np.abs(observations)
+
+    totals = sharpnesses + calibrations
+
+    # weigh scores
+    weights = np.array(weights).reshape((-1, 1))
+
+    sharpnesses_weighted = sharpnesses * weights
+    calibrations_weighted = calibrations * weights
+    totals_weighted = totals * weights
+
+    # normalize and aggregate all interval scores
+    weights_sum = np.sum(weights)
+
+    sharpnesses_final = np.sum(sharpnesses_weighted, axis=0) / weights_sum
+    calibrations_final = np.sum(calibrations_weighted, axis=0) / weights_sum
+    totals_final = np.sum(totals_weighted, axis=0) / weights_sum
+
+    return totals_final, sharpnesses_final, calibrations_final</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rtrend_forecast" href="index.html">rtrend_forecast</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="rtrend_forecast.scoring.covered_score" href="#rtrend_forecast.scoring.covered_score">covered_score</a></code></li>
+<li><code><a title="rtrend_forecast.scoring.interval_score" href="#rtrend_forecast.scoring.interval_score">interval_score</a></code></li>
+<li><code><a title="rtrend_forecast.scoring.mape_score" href="#rtrend_forecast.scoring.mape_score">mape_score</a></code></li>
+<li><code><a title="rtrend_forecast.scoring.weighted_interval_score" href="#rtrend_forecast.scoring.weighted_interval_score">weighted_interval_score</a></code></li>
+<li><code><a title="rtrend_forecast.scoring.weighted_interval_score_fast" href="#rtrend_forecast.scoring.weighted_interval_score_fast">weighted_interval_score_fast</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

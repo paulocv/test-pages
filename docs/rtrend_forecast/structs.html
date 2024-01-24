@@ -1,0 +1,2074 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>rtrend_forecast.structs API documentation</title>
+<meta name="description" content="General data structures and classes used throughout the Rtrend project." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rtrend_forecast.structs</code></h1>
+</header>
+<section id="section-intro">
+<p>General data structures and classes used throughout the Rtrend project.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+General data structures and classes used throughout the Rtrend project.
+&#34;&#34;&#34;
+import math
+import datetime
+
+# Compatibility import of TypedDict
+try:
+    from typing import TypedDict
+except ImportError:
+    TypedDict = dict
+
+import numpy as np
+import pandas as pd
+import scipy
+
+from rtrend_forecast.utils import WEEKLEN
+
+
+# ---------------------------------------------------------------------
+# Parameter containers
+# ---------------------------------------------------------------------
+
+class InputParams:
+    pass
+
+
+class ParamDictBase:
+    &#34;&#34;&#34;Simple generic dictionary that stores &#34;&#34;&#34;
+    a = None
+    b = None
+
+    def __getitem__(self, item):
+        return self.__getattribute__(item)
+
+    def __setitem__(self, key, value):
+        self.__setattr__(key, value)
+
+
+class PreprocParams(TypedDict):
+    interp_method: str
+    interp_smooth: float
+
+    # scale_factor: float
+    negative_method: str
+
+
+class RtEstimationParams(TypedDict):
+    engine: str
+    seed: int
+    roi_len: int
+
+    # MCMC parameters
+    nsim: int
+    sigma: float
+
+    use_tmp: bool
+
+    scale_method: str
+    scale_roi_len: int
+    scale_power: float
+    scale_factor: float
+    scale_ref_inc: float
+
+
+class RtSynthesisParams(TypedDict):
+    synth_method: str  #
+    tg_synth_method: str  # ??
+
+    # Common parameters
+    q_low: float  # Sorted ensemble: low quantile
+    q_hig: float  # Sorted ensemble: high quantile
+    nperiods_past: int  # Number of days (backwards) to consider in synthesis.
+    r_max: float  # Clamp up to these R values (for the average)
+
+    # Static ramp
+    k_start: float  # Ramp method: starting coefficient
+    k_end: float  # Ramp method: ending coefficient
+    i_saturate: int  # Ramp method: saturate ramp at this number of days. Use -1 to deactivate.
+
+    # Dynamic ramp
+    r1_start: float
+    r2_start: float
+    r1_end: float  # 1.5 # R_new Value to which R :  1 is converted
+    r2_end: float  # 0.9 # R_new Value to which R = 2 is converted
+
+    # Drift/RW method
+    drift_pop_coef: float
+    drift_coef: float
+    rw_coef: float
+    bias: float
+    population: int  # Population size to consider for rescaling
+
+
+class IncReconstructionParams(TypedDict):
+    method: str
+    gen_noise: bool
+    seed: int
+
+
+class PostprocParams(TypedDict):
+    inc_quantiles: list
+    aggr_ref_tlabel: datetime.datetime
+    use_aggr_level: str
+
+
+# ---------------------------------------------------------------------
+# Generation time (Tg) containers
+# ---------------------------------------------------------------------
+
+
+class TgBase:
+    &#34;&#34;&#34;DOCS TO BE BUILT
+
+    Notes
+    -----
+    The values of the generation time are measured in units of the
+    granular dt.
+
+    &#34;&#34;&#34;
+    is_const: bool
+    params: list
+    nparams: int
+
+    def __init__(self, tmax=None):
+        self.tmax = tmax
+
+    def get_param_arrays_byindex(
+            self, start=None, stop=None):
+        &#34;&#34;&#34;&#34;&#34;&#34;
+        raise NotImplementedError
+
+    def get_param_arrays_bysize(self, size):
+        &#34;&#34;&#34;&#34;&#34;&#34;
+        raise NotImplementedError
+
+    def get_pmf_array(self, idx=None):
+        &#34;&#34;&#34;Return a probability mass function (PMF) of the generation
+        time for primary cases reported at time given by `idx`.
+
+        This PMF is a sequence of size `self.max`, where the i-th
+        element is the probability that a secondary case created
+        from a primary one at time `idx` will be reported at `i`periods
+        after time `idx`.
+        In this sense, the function returns the Tg distribution for 
+        primary cases at time &#39;idx&#39;.
+
+        The first entry of the PMF array is dummy, as same-period
+        generations are not considered in the Rtrend model. Thus,
+        the PMF array is normalized such that `sum(pmf[1:]) = 1`.
+
+        Parameters
+        ----------
+        TODO
+
+        Returns
+        -------
+        TODO
+
+        Notes
+        -----
+        Parameter `idx` is optional for constant tg distributions
+        (i.e., with self.is_const = True). It is required if the
+        distribution is variable.
+
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+
+class ConstGammaTg(TgBase):
+    &#34;&#34;&#34;Gamma-distributed generation time with constant parameters.&#34;&#34;&#34;
+    is_const = True
+    params = [&#34;shape&#34;, &#34;rate&#34;]
+    nparams = 2
+
+    def __init__(self, shape, rate, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # TODO: assert values (&gt;0)
+
+        self.shape = shape
+        self.rate = rate
+
+        self.avg = shape / rate
+        self.std = math.sqrt(shape) / rate
+
+        if self.tmax is None:
+            # Take a sufficiently high truncation point
+            # devnote: could use CDF &gt; high value
+            self.tmax = math.ceil(self.avg + 10 * self.std)
+
+        # Pre-build the normalized P(Tg) array once.
+        self._pmf = scipy.stats.gamma.pdf(
+            np.arange(self.tmax), a=self.shape, scale=1. / self.rate)
+        self._pmf /= self._pmf[1:].sum()
+
+    def get_param_arrays_byindex(
+            self, start=None, stop=None):
+        raise ValueError(
+            f&#34;Hey, class {self.__class__.__name__} cannot get a&#34;
+            f&#34; parameter array by index because it is constant.&#34;)
+
+    def get_param_arrays_bysize(self, size):
+
+        return np.repeat(np.array([[self.shape, self.rate]]),
+                         size, axis=0)
+
+    def get_pmf_array(self, idx=None):
+        return self._pmf
+
+
+class VarGammaTg(TgBase):
+    is_const = False
+    params = [&#34;shape&#34;, &#34;rate&#34;]
+    nparams = 2
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        raise NotImplementedError()
+
+
+class ConstArbitrTg(TgBase):
+    &#34;&#34;&#34;Arbitrary probability distribution of Tg, constant in time.&#34;&#34;&#34;
+    is_const = True
+    params = None
+    nparams = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        raise NotImplementedError()
+
+
+# --- REGISTRY OF TG OBJECTS
+
+
+def get_tg_object(model, **kwargs) -&gt; TgBase:
+    &#34;&#34;&#34;Returns an instantiated generation time object specified
+    as the string `model` and using keywords as in `params.general`
+    dict.
+    &#34;&#34;&#34;
+
+    if model in [&#34;gamma&#34;, &#34;const_gamma&#34;]:
+        # --- Gamma constant generation time
+        return ConstGammaTg(
+            kwargs[&#34;tg_shape&#34;],
+            kwargs[&#34;tg_rate&#34;],
+            tmax=kwargs[&#34;tg_max&#34;]
+        )
+
+    else:
+        raise ValueError(
+            f&#34;Hey, the generation time model \&#34;{model}\&#34;&#34;
+            f&#34; was not recognized.&#34;)
+
+
+# tg_class_dict = dict(  # Meh, can&#39;t handle different call signatures
+#     const_gamma=ConstGammaTg,
+#     var_gamma=VarGammaTg,
+#     const_arbitrary=ConstArbitrTg,
+# )
+
+
+# ---------------------------------------------------------------------
+# MCMC for R(t) estimation
+# ---------------------------------------------------------------------
+
+
+class RtData:
+    &#34;&#34;&#34;An ensemble of R(t) time series.
+
+    Exposes methods to calculate commonly used statistics over the
+    ensemble.
+
+    Attributes
+    ----------
+    array : np.ndarray
+        2D array with the R(t) data.
+        Signature: array[i_sample, i_period]
+    df : pd.DataFrame
+        Pandas data frame with the R(t) data. Linked to `array`.
+        Signature: df.loc[i_sample, i_period]
+
+    Notes
+    -----
+    Calculation uses smart getters, avoiding repeated calculations.
+
+    &#34;&#34;&#34;
+
+    def __init__(self, array: np.ndarray, file_path=None):
+
+        # Main containers
+        self.array: np.ndarray = array  # Expected signature: a[exec][i_t]
+        self.nperiods = array.shape[1]  # Number of time stamps in the dataset
+        self.nsamples = array.shape[0]  # Nr. of iterations from the MCMC process
+
+        self.df = pd.DataFrame(array)  # a[exec][i_t]
+
+        # Default calculation parameters
+        self.rolling_width = WEEKLEN
+        self.quantile_alpha = 0.05
+
+        # Attributes that can be calculated with smart getters.
+        self._avg = None  # Average time series. Np array.  | a[i_t]
+        self._rolling_mean = None  # Rolling average ensemble  | a[exec][i_t]
+        self._rolling_mean_avg = None  # Mean of the individual rolling averages  | a[i_t]
+        self._median: np.ndarray = None  # Median time series  |  a[i_t]
+        self._median_pd: pd.Series = None
+        self._loquant = None  # Lower quantiles  | a[i_t]
+        self._hiquant = None  # Upper quantiles  | a[i_t]
+        self._loquant_pd: pd.Series = None  # Lower quantiles  | a[i_t]
+        self._hiquant_pd: pd.Series = None  # Upper quantiles  | a[i_t]
+        self._roll_loquant = None  # Lower quantile of the rolling average  | a[i_t]
+        self._roll_upquant = None
+        self._sortd: np.ndarray = None  # Iteration-sorted R(t) for each t  | a[exec][i_t]
+
+        # Etc
+        self.file_path = file_path
+
+    def get_avg(self, force_calc=False):
+        &#34;&#34;&#34;Return the average time series (average over ensemble of MCMC iterations).&#34;&#34;&#34;
+        if self._avg is None or force_calc:
+            self._avg = np.average(self.array, axis=0)
+        return self._avg
+
+    def get_median(self, force_calc=False):
+        if self._median is None or force_calc:
+            self._median = np.median(self.array, axis=0)
+        return self._median
+
+    def get_median_pd(self, force_calc=False):
+        &#34;&#34;&#34;Use the pandas interface and returns as a series.&#34;&#34;&#34;
+        if self._median_pd is None or force_calc:
+            self._median_pd = self.df.median(axis=0)
+        return self._median_pd
+
+    def get_quantiles(self, alpha=None, force_calc=False):
+        &#34;&#34;&#34;Return the lower and upper quantiles for the raw data (as time series).&#34;&#34;&#34;
+        if alpha is not None and alpha != self.quantile_alpha:
+            self.quantile_alpha = alpha
+            force_calc = True
+
+        if self._loquant is None or self._hiquant is None or force_calc:
+            self._loquant = np.quantile(
+                self.array, self.quantile_alpha / 2, axis=0)
+            self._hiquant = np.quantile(
+                self.array, 1.0 - self.quantile_alpha / 2, axis=0)
+        return self._loquant, self._hiquant
+
+    def get_quantiles_pd(self, alpha=None, force_calc=False):
+        &#34;&#34;&#34;Return the lower and upper quantiles for the raw data (as pandas time series).&#34;&#34;&#34;
+        if alpha is not None and alpha != self.quantile_alpha:
+            self.quantile_alpha = alpha
+            force_calc = True
+
+        if self._loquant_pd is None or self._hiquant_pd is None or force_calc:
+            self._loquant_pd = self.df.quantile(
+                self.quantile_alpha / 2, axis=0
+            )
+            self._hiquant_pd = self.df.quantile(
+                1.0 - self.quantile_alpha / 2, axis=0
+            )
+            # self._hiquant_pd = np.quantile(
+            #     self.array, 1.0 - self.quantile_alpha / 2, axis=0)
+        return self._loquant_pd, self._hiquant_pd
+
+    def get_rolling_mean(self, width=None, force_calc=False):
+        &#34;&#34;&#34;
+        Return the INDIVIDUAL rolling average of each MCMC iteration.
+        Signature: a[exec][i_t] (DataFrame)
+        &#34;&#34;&#34;
+        if width is not None and width != self.rolling_width:
+            self.rolling_width = width
+            force_calc = True
+
+        if self._rolling_mean is None or force_calc:
+            self._rolling_mean = self.df.rolling(
+                self.rolling_width, center=False, axis=1
+            ).mean()
+
+        return self._rolling_mean
+
+    def get_rolling_mean_avg(self, width=None, force_calc=False):
+        &#34;&#34;&#34;
+        Get the AVERAGE time series of the rolling means.
+        Signature: a[i_t] (DataFrame)
+        &#34;&#34;&#34;
+        if width is not None and width != self.rolling_width:
+            self.rolling_width = width
+            force_calc = True
+
+        if self._rolling_mean_avg is None or force_calc:
+            roll = self.get_rolling_mean(width=width, force_calc=force_calc)
+            self._rolling_mean_avg = roll.mean(axis=0)
+
+        return self._rolling_mean_avg
+
+    def get_rolling_quantiles(self, alpha=None, width=None, force_calc=False):
+        &#34;&#34;&#34;Return the quantiles of the individual rolling averages.&#34;&#34;&#34;
+        if alpha is not None and alpha != self.quantile_alpha:
+            self.quantile_alpha = alpha
+            force_calc = True
+
+        if width is not None and width != self.rolling_width:
+            self.rolling_width = width
+            force_calc = True
+
+        if (self._roll_loquant is None or self._roll_upquant is None
+                or force_calc):
+            roll = self.get_rolling_mean(force_calc)
+            self._roll_loquant = roll.quantile(
+                q=self.quantile_alpha/2, axis=0)
+            self._roll_upquant = roll.quantile(
+                q=1.0 - self.quantile_alpha/2, axis=0)
+
+        return self._roll_loquant, self._roll_upquant
+
+    def get_sortd(self):
+        &#34;&#34;&#34;Return the iteration-sorted R(t) ensemble for each time step. This is, for each t, the ensemble of R(t)
+        values (iterations) is sorted.
+        &#34;&#34;&#34;
+        if self._sortd is None:
+            self._sortd = np.sort(self.array, axis=0)
+
+        return self._sortd
+
+
+# ---------------------------------------------------------------------
+# Data containers for a single forecast
+# ---------------------------------------------------------------------
+
+
+class IncidenceData:
+    &#34;&#34;&#34;Holds past and future incidence data to be used throughout
+    the forecast process.
+
+    TODO : name refactoring to assume that the instance is called &#39;inc&#39;
+
+    Attributes
+    ----------
+    raw_incid_sr : pd.Series
+        Time series of the truth incidence data, with past and possibly future incidence.
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.raw_sr: pd.Series = None
+
+        # Past data (ROI) used through the forecast pipeline.
+        self.past_aggr_sr: pd.Series = None
+        self.past_gran_sr: pd.Series = None
+        self.fore_aggr_df: pd.DataFrame = None  # Signature: a.loc[i_sample, tlabel]
+        self.fore_gran_df: pd.DataFrame = None  # Signature: a.loc[sample, tlabel]
+
+        # Forecast quantiles
+        self.aggr_quantiles: pd.DataFrame = None  # a.loc[q, tlabel]
+        self.gran_quantiles: pd.DataFrame = None  # a.loc[q, tlabel]
+
+        # Configuration parameters
+        self.is_aggr: bool = None  # Whether the raw data is aggregated (True) or granular (False)
+        self.has_future_data: bool = None
+
+
+class TimeData:
+    &#34;&#34;&#34;Time-related indexes, labels and sizes (len).
+    &#34;Past&#34; objects refer to the main ROI.
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.is_aggr: bool = None
+        # ^^ Whether the raw data is aggregated (True) or granular (False)
+
+        # Index objects
+        self.raw_idx: pd.Index = None
+        self.past_aggr_idx: pd.DatetimeIndex = None
+        self.past_gran_idx: pd.DatetimeIndex = None
+        self.fore_aggr_idx: pd.DatetimeIndex = None
+        self.fore_gran_idx: pd.DatetimeIndex = None
+
+        # Limit time labels (all last ones are _included_ on index)
+        self.pa0: pd.Timestamp = None  # Past-aggregated-first
+        self.pa1: pd.Timestamp = None  # Past-aggregated-last
+        self.pg0: pd.Timestamp = None  # Past-granular-first
+        self.pg1: pd.Timestamp = None  # Past-granular-last
+        self.fa0: pd.Timestamp = None  # Fore-aggregated-first
+        self.fa1: pd.Timestamp = None  # Fore-aggregated-last
+        self.fg0: pd.Timestamp = None  # Fore-granular-last
+        self.fg1: pd.Timestamp = None  # Fore-granular-last
+
+        self.pres: pd.Timestamp = None  # Present stamp = pa1
+
+        # Sizes/lengths of the regions of interest
+        self.pa_len: int = None  # Past-aggregated series len
+        self.pg_len: int = None  # Past-granular series len
+        self.fa_len: int = None  # Fore-aggregated series len
+        self.fg_len: int = None  # Fore-granular series len
+
+
+# The very-wished noinspection for unused arguments:
+# # noinspection PyUnusedLocal
+
+#
+#
+# =====================================================================
+# MAIN SCOPE SECTION LEVEL 1
+# =====================================================================
+#
+#
+
+
+# ---------------------------------------------------------------------
+# Main scope section – Level 2
+# ---------------------------------------------------------------------
+
+
+# ----------------------------
+# Main scope section – Level 3
+
+    #
+    # ----------------------------------------------------------------
+    # WITHIN-SCOPE SECTION LEVEL 1
+    # ----------------------------------------------------------------
+    #
+
+    # ----------------------------
+    # Within-scope section level 2
+    # ----------------------------
+
+    # Within-scope section level 3
+    # ----------------------------</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="rtrend_forecast.structs.get_tg_object"><code class="name flex">
+<span>def <span class="ident">get_tg_object</span></span>(<span>model, **kwargs) ‑> <a title="rtrend_forecast.structs.TgBase" href="#rtrend_forecast.structs.TgBase">TgBase</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns an instantiated generation time object specified
+as the string <code>model</code> and using keywords as in <code>params.general</code>
+dict.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_tg_object(model, **kwargs) -&gt; TgBase:
+    &#34;&#34;&#34;Returns an instantiated generation time object specified
+    as the string `model` and using keywords as in `params.general`
+    dict.
+    &#34;&#34;&#34;
+
+    if model in [&#34;gamma&#34;, &#34;const_gamma&#34;]:
+        # --- Gamma constant generation time
+        return ConstGammaTg(
+            kwargs[&#34;tg_shape&#34;],
+            kwargs[&#34;tg_rate&#34;],
+            tmax=kwargs[&#34;tg_max&#34;]
+        )
+
+    else:
+        raise ValueError(
+            f&#34;Hey, the generation time model \&#34;{model}\&#34;&#34;
+            f&#34; was not recognized.&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="rtrend_forecast.structs.ConstArbitrTg"><code class="flex name class">
+<span>class <span class="ident">ConstArbitrTg</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Arbitrary probability distribution of Tg, constant in time.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ConstArbitrTg(TgBase):
+    &#34;&#34;&#34;Arbitrary probability distribution of Tg, constant in time.&#34;&#34;&#34;
+    is_const = True
+    params = None
+    nparams = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        raise NotImplementedError()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="rtrend_forecast.structs.TgBase" href="#rtrend_forecast.structs.TgBase">TgBase</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="rtrend_forecast.structs.ConstArbitrTg.is_const"><code class="name">var <span class="ident">is_const</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.ConstArbitrTg.nparams"><code class="name">var <span class="ident">nparams</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.ConstArbitrTg.params"><code class="name">var <span class="ident">params</span> : list</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="rtrend_forecast.structs.TgBase" href="#rtrend_forecast.structs.TgBase">TgBase</a></b></code>:
+<ul class="hlist">
+<li><code><a title="rtrend_forecast.structs.TgBase.get_pmf_array" href="#rtrend_forecast.structs.TgBase.get_pmf_array">get_pmf_array</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="rtrend_forecast.structs.ConstGammaTg"><code class="flex name class">
+<span>class <span class="ident">ConstGammaTg</span></span>
+<span>(</span><span>shape, rate, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Gamma-distributed generation time with constant parameters.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ConstGammaTg(TgBase):
+    &#34;&#34;&#34;Gamma-distributed generation time with constant parameters.&#34;&#34;&#34;
+    is_const = True
+    params = [&#34;shape&#34;, &#34;rate&#34;]
+    nparams = 2
+
+    def __init__(self, shape, rate, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # TODO: assert values (&gt;0)
+
+        self.shape = shape
+        self.rate = rate
+
+        self.avg = shape / rate
+        self.std = math.sqrt(shape) / rate
+
+        if self.tmax is None:
+            # Take a sufficiently high truncation point
+            # devnote: could use CDF &gt; high value
+            self.tmax = math.ceil(self.avg + 10 * self.std)
+
+        # Pre-build the normalized P(Tg) array once.
+        self._pmf = scipy.stats.gamma.pdf(
+            np.arange(self.tmax), a=self.shape, scale=1. / self.rate)
+        self._pmf /= self._pmf[1:].sum()
+
+    def get_param_arrays_byindex(
+            self, start=None, stop=None):
+        raise ValueError(
+            f&#34;Hey, class {self.__class__.__name__} cannot get a&#34;
+            f&#34; parameter array by index because it is constant.&#34;)
+
+    def get_param_arrays_bysize(self, size):
+
+        return np.repeat(np.array([[self.shape, self.rate]]),
+                         size, axis=0)
+
+    def get_pmf_array(self, idx=None):
+        return self._pmf</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="rtrend_forecast.structs.TgBase" href="#rtrend_forecast.structs.TgBase">TgBase</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="rtrend_forecast.structs.ConstGammaTg.is_const"><code class="name">var <span class="ident">is_const</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.ConstGammaTg.nparams"><code class="name">var <span class="ident">nparams</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.ConstGammaTg.params"><code class="name">var <span class="ident">params</span> : list</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="rtrend_forecast.structs.ConstGammaTg.get_param_arrays_byindex"><code class="name flex">
+<span>def <span class="ident">get_param_arrays_byindex</span></span>(<span>self, start=None, stop=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_param_arrays_byindex(
+        self, start=None, stop=None):
+    raise ValueError(
+        f&#34;Hey, class {self.__class__.__name__} cannot get a&#34;
+        f&#34; parameter array by index because it is constant.&#34;)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.ConstGammaTg.get_param_arrays_bysize"><code class="name flex">
+<span>def <span class="ident">get_param_arrays_bysize</span></span>(<span>self, size)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_param_arrays_bysize(self, size):
+
+    return np.repeat(np.array([[self.shape, self.rate]]),
+                     size, axis=0)</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="rtrend_forecast.structs.TgBase" href="#rtrend_forecast.structs.TgBase">TgBase</a></b></code>:
+<ul class="hlist">
+<li><code><a title="rtrend_forecast.structs.TgBase.get_pmf_array" href="#rtrend_forecast.structs.TgBase.get_pmf_array">get_pmf_array</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="rtrend_forecast.structs.IncReconstructionParams"><code class="flex name class">
+<span>class <span class="ident">IncReconstructionParams</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>dict() -&gt; new empty dictionary
+dict(mapping) -&gt; new dictionary initialized from a mapping object's
+(key, value) pairs
+dict(iterable) -&gt; new dictionary initialized as if via:
+d = {}
+for k, v in iterable:
+d[k] = v
+dict(**kwargs) -&gt; new dictionary initialized with the name=value pairs
+in the keyword argument list.
+For example:
+dict(one=1, two=2)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class IncReconstructionParams(TypedDict):
+    method: str
+    gen_noise: bool
+    seed: int</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.dict</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="rtrend_forecast.structs.IncReconstructionParams.gen_noise"><code class="name">var <span class="ident">gen_noise</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.IncReconstructionParams.method"><code class="name">var <span class="ident">method</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.IncReconstructionParams.seed"><code class="name">var <span class="ident">seed</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="rtrend_forecast.structs.IncidenceData"><code class="flex name class">
+<span>class <span class="ident">IncidenceData</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Holds past and future incidence data to be used throughout
+the forecast process.</p>
+<p>TODO : name refactoring to assume that the instance is called 'inc'</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>raw_incid_sr</code></strong> :&ensp;<code>pd.Series</code></dt>
+<dd>Time series of the truth incidence data, with past and possibly future incidence.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class IncidenceData:
+    &#34;&#34;&#34;Holds past and future incidence data to be used throughout
+    the forecast process.
+
+    TODO : name refactoring to assume that the instance is called &#39;inc&#39;
+
+    Attributes
+    ----------
+    raw_incid_sr : pd.Series
+        Time series of the truth incidence data, with past and possibly future incidence.
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.raw_sr: pd.Series = None
+
+        # Past data (ROI) used through the forecast pipeline.
+        self.past_aggr_sr: pd.Series = None
+        self.past_gran_sr: pd.Series = None
+        self.fore_aggr_df: pd.DataFrame = None  # Signature: a.loc[i_sample, tlabel]
+        self.fore_gran_df: pd.DataFrame = None  # Signature: a.loc[sample, tlabel]
+
+        # Forecast quantiles
+        self.aggr_quantiles: pd.DataFrame = None  # a.loc[q, tlabel]
+        self.gran_quantiles: pd.DataFrame = None  # a.loc[q, tlabel]
+
+        # Configuration parameters
+        self.is_aggr: bool = None  # Whether the raw data is aggregated (True) or granular (False)
+        self.has_future_data: bool = None</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.InputParams"><code class="flex name class">
+<span>class <span class="ident">InputParams</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class InputParams:
+    pass</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.ParamDictBase"><code class="flex name class">
+<span>class <span class="ident">ParamDictBase</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Simple generic dictionary that stores</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ParamDictBase:
+    &#34;&#34;&#34;Simple generic dictionary that stores &#34;&#34;&#34;
+    a = None
+    b = None
+
+    def __getitem__(self, item):
+        return self.__getattribute__(item)
+
+    def __setitem__(self, key, value):
+        self.__setattr__(key, value)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="rtrend_forecast.structs.ParamDictBase.a"><code class="name">var <span class="ident">a</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.ParamDictBase.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="rtrend_forecast.structs.PostprocParams"><code class="flex name class">
+<span>class <span class="ident">PostprocParams</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>dict() -&gt; new empty dictionary
+dict(mapping) -&gt; new dictionary initialized from a mapping object's
+(key, value) pairs
+dict(iterable) -&gt; new dictionary initialized as if via:
+d = {}
+for k, v in iterable:
+d[k] = v
+dict(**kwargs) -&gt; new dictionary initialized with the name=value pairs
+in the keyword argument list.
+For example:
+dict(one=1, two=2)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PostprocParams(TypedDict):
+    inc_quantiles: list
+    aggr_ref_tlabel: datetime.datetime
+    use_aggr_level: str</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.dict</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="rtrend_forecast.structs.PostprocParams.aggr_ref_tlabel"><code class="name">var <span class="ident">aggr_ref_tlabel</span> : datetime.datetime</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.PostprocParams.inc_quantiles"><code class="name">var <span class="ident">inc_quantiles</span> : list</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.PostprocParams.use_aggr_level"><code class="name">var <span class="ident">use_aggr_level</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="rtrend_forecast.structs.PreprocParams"><code class="flex name class">
+<span>class <span class="ident">PreprocParams</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>dict() -&gt; new empty dictionary
+dict(mapping) -&gt; new dictionary initialized from a mapping object's
+(key, value) pairs
+dict(iterable) -&gt; new dictionary initialized as if via:
+d = {}
+for k, v in iterable:
+d[k] = v
+dict(**kwargs) -&gt; new dictionary initialized with the name=value pairs
+in the keyword argument list.
+For example:
+dict(one=1, two=2)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class PreprocParams(TypedDict):
+    interp_method: str
+    interp_smooth: float
+
+    # scale_factor: float
+    negative_method: str</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.dict</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="rtrend_forecast.structs.PreprocParams.interp_method"><code class="name">var <span class="ident">interp_method</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.PreprocParams.interp_smooth"><code class="name">var <span class="ident">interp_smooth</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.PreprocParams.negative_method"><code class="name">var <span class="ident">negative_method</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="rtrend_forecast.structs.RtData"><code class="flex name class">
+<span>class <span class="ident">RtData</span></span>
+<span>(</span><span>array: numpy.ndarray, file_path=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An ensemble of R(t) time series.</p>
+<p>Exposes methods to calculate commonly used statistics over the
+ensemble.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>array</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>2D array with the R(t) data.
+Signature: array[i_sample, i_period]</dd>
+<dt><strong><code>df</code></strong> :&ensp;<code>pd.DataFrame</code></dt>
+<dd>Pandas data frame with the R(t) data. Linked to <code>array</code>.
+Signature: df.loc[i_sample, i_period]</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Calculation uses smart getters, avoiding repeated calculations.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RtData:
+    &#34;&#34;&#34;An ensemble of R(t) time series.
+
+    Exposes methods to calculate commonly used statistics over the
+    ensemble.
+
+    Attributes
+    ----------
+    array : np.ndarray
+        2D array with the R(t) data.
+        Signature: array[i_sample, i_period]
+    df : pd.DataFrame
+        Pandas data frame with the R(t) data. Linked to `array`.
+        Signature: df.loc[i_sample, i_period]
+
+    Notes
+    -----
+    Calculation uses smart getters, avoiding repeated calculations.
+
+    &#34;&#34;&#34;
+
+    def __init__(self, array: np.ndarray, file_path=None):
+
+        # Main containers
+        self.array: np.ndarray = array  # Expected signature: a[exec][i_t]
+        self.nperiods = array.shape[1]  # Number of time stamps in the dataset
+        self.nsamples = array.shape[0]  # Nr. of iterations from the MCMC process
+
+        self.df = pd.DataFrame(array)  # a[exec][i_t]
+
+        # Default calculation parameters
+        self.rolling_width = WEEKLEN
+        self.quantile_alpha = 0.05
+
+        # Attributes that can be calculated with smart getters.
+        self._avg = None  # Average time series. Np array.  | a[i_t]
+        self._rolling_mean = None  # Rolling average ensemble  | a[exec][i_t]
+        self._rolling_mean_avg = None  # Mean of the individual rolling averages  | a[i_t]
+        self._median: np.ndarray = None  # Median time series  |  a[i_t]
+        self._median_pd: pd.Series = None
+        self._loquant = None  # Lower quantiles  | a[i_t]
+        self._hiquant = None  # Upper quantiles  | a[i_t]
+        self._loquant_pd: pd.Series = None  # Lower quantiles  | a[i_t]
+        self._hiquant_pd: pd.Series = None  # Upper quantiles  | a[i_t]
+        self._roll_loquant = None  # Lower quantile of the rolling average  | a[i_t]
+        self._roll_upquant = None
+        self._sortd: np.ndarray = None  # Iteration-sorted R(t) for each t  | a[exec][i_t]
+
+        # Etc
+        self.file_path = file_path
+
+    def get_avg(self, force_calc=False):
+        &#34;&#34;&#34;Return the average time series (average over ensemble of MCMC iterations).&#34;&#34;&#34;
+        if self._avg is None or force_calc:
+            self._avg = np.average(self.array, axis=0)
+        return self._avg
+
+    def get_median(self, force_calc=False):
+        if self._median is None or force_calc:
+            self._median = np.median(self.array, axis=0)
+        return self._median
+
+    def get_median_pd(self, force_calc=False):
+        &#34;&#34;&#34;Use the pandas interface and returns as a series.&#34;&#34;&#34;
+        if self._median_pd is None or force_calc:
+            self._median_pd = self.df.median(axis=0)
+        return self._median_pd
+
+    def get_quantiles(self, alpha=None, force_calc=False):
+        &#34;&#34;&#34;Return the lower and upper quantiles for the raw data (as time series).&#34;&#34;&#34;
+        if alpha is not None and alpha != self.quantile_alpha:
+            self.quantile_alpha = alpha
+            force_calc = True
+
+        if self._loquant is None or self._hiquant is None or force_calc:
+            self._loquant = np.quantile(
+                self.array, self.quantile_alpha / 2, axis=0)
+            self._hiquant = np.quantile(
+                self.array, 1.0 - self.quantile_alpha / 2, axis=0)
+        return self._loquant, self._hiquant
+
+    def get_quantiles_pd(self, alpha=None, force_calc=False):
+        &#34;&#34;&#34;Return the lower and upper quantiles for the raw data (as pandas time series).&#34;&#34;&#34;
+        if alpha is not None and alpha != self.quantile_alpha:
+            self.quantile_alpha = alpha
+            force_calc = True
+
+        if self._loquant_pd is None or self._hiquant_pd is None or force_calc:
+            self._loquant_pd = self.df.quantile(
+                self.quantile_alpha / 2, axis=0
+            )
+            self._hiquant_pd = self.df.quantile(
+                1.0 - self.quantile_alpha / 2, axis=0
+            )
+            # self._hiquant_pd = np.quantile(
+            #     self.array, 1.0 - self.quantile_alpha / 2, axis=0)
+        return self._loquant_pd, self._hiquant_pd
+
+    def get_rolling_mean(self, width=None, force_calc=False):
+        &#34;&#34;&#34;
+        Return the INDIVIDUAL rolling average of each MCMC iteration.
+        Signature: a[exec][i_t] (DataFrame)
+        &#34;&#34;&#34;
+        if width is not None and width != self.rolling_width:
+            self.rolling_width = width
+            force_calc = True
+
+        if self._rolling_mean is None or force_calc:
+            self._rolling_mean = self.df.rolling(
+                self.rolling_width, center=False, axis=1
+            ).mean()
+
+        return self._rolling_mean
+
+    def get_rolling_mean_avg(self, width=None, force_calc=False):
+        &#34;&#34;&#34;
+        Get the AVERAGE time series of the rolling means.
+        Signature: a[i_t] (DataFrame)
+        &#34;&#34;&#34;
+        if width is not None and width != self.rolling_width:
+            self.rolling_width = width
+            force_calc = True
+
+        if self._rolling_mean_avg is None or force_calc:
+            roll = self.get_rolling_mean(width=width, force_calc=force_calc)
+            self._rolling_mean_avg = roll.mean(axis=0)
+
+        return self._rolling_mean_avg
+
+    def get_rolling_quantiles(self, alpha=None, width=None, force_calc=False):
+        &#34;&#34;&#34;Return the quantiles of the individual rolling averages.&#34;&#34;&#34;
+        if alpha is not None and alpha != self.quantile_alpha:
+            self.quantile_alpha = alpha
+            force_calc = True
+
+        if width is not None and width != self.rolling_width:
+            self.rolling_width = width
+            force_calc = True
+
+        if (self._roll_loquant is None or self._roll_upquant is None
+                or force_calc):
+            roll = self.get_rolling_mean(force_calc)
+            self._roll_loquant = roll.quantile(
+                q=self.quantile_alpha/2, axis=0)
+            self._roll_upquant = roll.quantile(
+                q=1.0 - self.quantile_alpha/2, axis=0)
+
+        return self._roll_loquant, self._roll_upquant
+
+    def get_sortd(self):
+        &#34;&#34;&#34;Return the iteration-sorted R(t) ensemble for each time step. This is, for each t, the ensemble of R(t)
+        values (iterations) is sorted.
+        &#34;&#34;&#34;
+        if self._sortd is None:
+            self._sortd = np.sort(self.array, axis=0)
+
+        return self._sortd</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="rtrend_forecast.structs.RtData.get_avg"><code class="name flex">
+<span>def <span class="ident">get_avg</span></span>(<span>self, force_calc=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the average time series (average over ensemble of MCMC iterations).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_avg(self, force_calc=False):
+    &#34;&#34;&#34;Return the average time series (average over ensemble of MCMC iterations).&#34;&#34;&#34;
+    if self._avg is None or force_calc:
+        self._avg = np.average(self.array, axis=0)
+    return self._avg</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.RtData.get_median"><code class="name flex">
+<span>def <span class="ident">get_median</span></span>(<span>self, force_calc=False)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_median(self, force_calc=False):
+    if self._median is None or force_calc:
+        self._median = np.median(self.array, axis=0)
+    return self._median</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.RtData.get_median_pd"><code class="name flex">
+<span>def <span class="ident">get_median_pd</span></span>(<span>self, force_calc=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Use the pandas interface and returns as a series.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_median_pd(self, force_calc=False):
+    &#34;&#34;&#34;Use the pandas interface and returns as a series.&#34;&#34;&#34;
+    if self._median_pd is None or force_calc:
+        self._median_pd = self.df.median(axis=0)
+    return self._median_pd</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.RtData.get_quantiles"><code class="name flex">
+<span>def <span class="ident">get_quantiles</span></span>(<span>self, alpha=None, force_calc=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the lower and upper quantiles for the raw data (as time series).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_quantiles(self, alpha=None, force_calc=False):
+    &#34;&#34;&#34;Return the lower and upper quantiles for the raw data (as time series).&#34;&#34;&#34;
+    if alpha is not None and alpha != self.quantile_alpha:
+        self.quantile_alpha = alpha
+        force_calc = True
+
+    if self._loquant is None or self._hiquant is None or force_calc:
+        self._loquant = np.quantile(
+            self.array, self.quantile_alpha / 2, axis=0)
+        self._hiquant = np.quantile(
+            self.array, 1.0 - self.quantile_alpha / 2, axis=0)
+    return self._loquant, self._hiquant</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.RtData.get_quantiles_pd"><code class="name flex">
+<span>def <span class="ident">get_quantiles_pd</span></span>(<span>self, alpha=None, force_calc=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the lower and upper quantiles for the raw data (as pandas time series).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_quantiles_pd(self, alpha=None, force_calc=False):
+    &#34;&#34;&#34;Return the lower and upper quantiles for the raw data (as pandas time series).&#34;&#34;&#34;
+    if alpha is not None and alpha != self.quantile_alpha:
+        self.quantile_alpha = alpha
+        force_calc = True
+
+    if self._loquant_pd is None or self._hiquant_pd is None or force_calc:
+        self._loquant_pd = self.df.quantile(
+            self.quantile_alpha / 2, axis=0
+        )
+        self._hiquant_pd = self.df.quantile(
+            1.0 - self.quantile_alpha / 2, axis=0
+        )
+        # self._hiquant_pd = np.quantile(
+        #     self.array, 1.0 - self.quantile_alpha / 2, axis=0)
+    return self._loquant_pd, self._hiquant_pd</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.RtData.get_rolling_mean"><code class="name flex">
+<span>def <span class="ident">get_rolling_mean</span></span>(<span>self, width=None, force_calc=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the INDIVIDUAL rolling average of each MCMC iteration.
+Signature: a[exec][i_t] (DataFrame)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_rolling_mean(self, width=None, force_calc=False):
+    &#34;&#34;&#34;
+    Return the INDIVIDUAL rolling average of each MCMC iteration.
+    Signature: a[exec][i_t] (DataFrame)
+    &#34;&#34;&#34;
+    if width is not None and width != self.rolling_width:
+        self.rolling_width = width
+        force_calc = True
+
+    if self._rolling_mean is None or force_calc:
+        self._rolling_mean = self.df.rolling(
+            self.rolling_width, center=False, axis=1
+        ).mean()
+
+    return self._rolling_mean</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.RtData.get_rolling_mean_avg"><code class="name flex">
+<span>def <span class="ident">get_rolling_mean_avg</span></span>(<span>self, width=None, force_calc=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get the AVERAGE time series of the rolling means.
+Signature: a[i_t] (DataFrame)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_rolling_mean_avg(self, width=None, force_calc=False):
+    &#34;&#34;&#34;
+    Get the AVERAGE time series of the rolling means.
+    Signature: a[i_t] (DataFrame)
+    &#34;&#34;&#34;
+    if width is not None and width != self.rolling_width:
+        self.rolling_width = width
+        force_calc = True
+
+    if self._rolling_mean_avg is None or force_calc:
+        roll = self.get_rolling_mean(width=width, force_calc=force_calc)
+        self._rolling_mean_avg = roll.mean(axis=0)
+
+    return self._rolling_mean_avg</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.RtData.get_rolling_quantiles"><code class="name flex">
+<span>def <span class="ident">get_rolling_quantiles</span></span>(<span>self, alpha=None, width=None, force_calc=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the quantiles of the individual rolling averages.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_rolling_quantiles(self, alpha=None, width=None, force_calc=False):
+    &#34;&#34;&#34;Return the quantiles of the individual rolling averages.&#34;&#34;&#34;
+    if alpha is not None and alpha != self.quantile_alpha:
+        self.quantile_alpha = alpha
+        force_calc = True
+
+    if width is not None and width != self.rolling_width:
+        self.rolling_width = width
+        force_calc = True
+
+    if (self._roll_loquant is None or self._roll_upquant is None
+            or force_calc):
+        roll = self.get_rolling_mean(force_calc)
+        self._roll_loquant = roll.quantile(
+            q=self.quantile_alpha/2, axis=0)
+        self._roll_upquant = roll.quantile(
+            q=1.0 - self.quantile_alpha/2, axis=0)
+
+    return self._roll_loquant, self._roll_upquant</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.RtData.get_sortd"><code class="name flex">
+<span>def <span class="ident">get_sortd</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return the iteration-sorted R(t) ensemble for each time step. This is, for each t, the ensemble of R(t)
+values (iterations) is sorted.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_sortd(self):
+    &#34;&#34;&#34;Return the iteration-sorted R(t) ensemble for each time step. This is, for each t, the ensemble of R(t)
+    values (iterations) is sorted.
+    &#34;&#34;&#34;
+    if self._sortd is None:
+        self._sortd = np.sort(self.array, axis=0)
+
+    return self._sortd</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="rtrend_forecast.structs.RtEstimationParams"><code class="flex name class">
+<span>class <span class="ident">RtEstimationParams</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>dict() -&gt; new empty dictionary
+dict(mapping) -&gt; new dictionary initialized from a mapping object's
+(key, value) pairs
+dict(iterable) -&gt; new dictionary initialized as if via:
+d = {}
+for k, v in iterable:
+d[k] = v
+dict(**kwargs) -&gt; new dictionary initialized with the name=value pairs
+in the keyword argument list.
+For example:
+dict(one=1, two=2)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RtEstimationParams(TypedDict):
+    engine: str
+    seed: int
+    roi_len: int
+
+    # MCMC parameters
+    nsim: int
+    sigma: float
+
+    use_tmp: bool
+
+    scale_method: str
+    scale_roi_len: int
+    scale_power: float
+    scale_factor: float
+    scale_ref_inc: float</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.dict</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="rtrend_forecast.structs.RtEstimationParams.engine"><code class="name">var <span class="ident">engine</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtEstimationParams.nsim"><code class="name">var <span class="ident">nsim</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtEstimationParams.roi_len"><code class="name">var <span class="ident">roi_len</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtEstimationParams.scale_factor"><code class="name">var <span class="ident">scale_factor</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtEstimationParams.scale_method"><code class="name">var <span class="ident">scale_method</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtEstimationParams.scale_power"><code class="name">var <span class="ident">scale_power</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtEstimationParams.scale_ref_inc"><code class="name">var <span class="ident">scale_ref_inc</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtEstimationParams.scale_roi_len"><code class="name">var <span class="ident">scale_roi_len</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtEstimationParams.seed"><code class="name">var <span class="ident">seed</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtEstimationParams.sigma"><code class="name">var <span class="ident">sigma</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtEstimationParams.use_tmp"><code class="name">var <span class="ident">use_tmp</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams"><code class="flex name class">
+<span>class <span class="ident">RtSynthesisParams</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>dict() -&gt; new empty dictionary
+dict(mapping) -&gt; new dictionary initialized from a mapping object's
+(key, value) pairs
+dict(iterable) -&gt; new dictionary initialized as if via:
+d = {}
+for k, v in iterable:
+d[k] = v
+dict(**kwargs) -&gt; new dictionary initialized with the name=value pairs
+in the keyword argument list.
+For example:
+dict(one=1, two=2)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class RtSynthesisParams(TypedDict):
+    synth_method: str  #
+    tg_synth_method: str  # ??
+
+    # Common parameters
+    q_low: float  # Sorted ensemble: low quantile
+    q_hig: float  # Sorted ensemble: high quantile
+    nperiods_past: int  # Number of days (backwards) to consider in synthesis.
+    r_max: float  # Clamp up to these R values (for the average)
+
+    # Static ramp
+    k_start: float  # Ramp method: starting coefficient
+    k_end: float  # Ramp method: ending coefficient
+    i_saturate: int  # Ramp method: saturate ramp at this number of days. Use -1 to deactivate.
+
+    # Dynamic ramp
+    r1_start: float
+    r2_start: float
+    r1_end: float  # 1.5 # R_new Value to which R :  1 is converted
+    r2_end: float  # 0.9 # R_new Value to which R = 2 is converted
+
+    # Drift/RW method
+    drift_pop_coef: float
+    drift_coef: float
+    rw_coef: float
+    bias: float
+    population: int  # Population size to consider for rescaling</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.dict</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.bias"><code class="name">var <span class="ident">bias</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.drift_coef"><code class="name">var <span class="ident">drift_coef</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.drift_pop_coef"><code class="name">var <span class="ident">drift_pop_coef</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.i_saturate"><code class="name">var <span class="ident">i_saturate</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.k_end"><code class="name">var <span class="ident">k_end</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.k_start"><code class="name">var <span class="ident">k_start</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.nperiods_past"><code class="name">var <span class="ident">nperiods_past</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.population"><code class="name">var <span class="ident">population</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.q_hig"><code class="name">var <span class="ident">q_hig</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.q_low"><code class="name">var <span class="ident">q_low</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.r1_end"><code class="name">var <span class="ident">r1_end</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.r1_start"><code class="name">var <span class="ident">r1_start</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.r2_end"><code class="name">var <span class="ident">r2_end</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.r2_start"><code class="name">var <span class="ident">r2_start</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.r_max"><code class="name">var <span class="ident">r_max</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.rw_coef"><code class="name">var <span class="ident">rw_coef</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.synth_method"><code class="name">var <span class="ident">synth_method</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.RtSynthesisParams.tg_synth_method"><code class="name">var <span class="ident">tg_synth_method</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="rtrend_forecast.structs.TgBase"><code class="flex name class">
+<span>class <span class="ident">TgBase</span></span>
+<span>(</span><span>tmax=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>DOCS TO BE BUILT</p>
+<h2 id="notes">Notes</h2>
+<p>The values of the generation time are measured in units of the
+granular dt.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TgBase:
+    &#34;&#34;&#34;DOCS TO BE BUILT
+
+    Notes
+    -----
+    The values of the generation time are measured in units of the
+    granular dt.
+
+    &#34;&#34;&#34;
+    is_const: bool
+    params: list
+    nparams: int
+
+    def __init__(self, tmax=None):
+        self.tmax = tmax
+
+    def get_param_arrays_byindex(
+            self, start=None, stop=None):
+        &#34;&#34;&#34;&#34;&#34;&#34;
+        raise NotImplementedError
+
+    def get_param_arrays_bysize(self, size):
+        &#34;&#34;&#34;&#34;&#34;&#34;
+        raise NotImplementedError
+
+    def get_pmf_array(self, idx=None):
+        &#34;&#34;&#34;Return a probability mass function (PMF) of the generation
+        time for primary cases reported at time given by `idx`.
+
+        This PMF is a sequence of size `self.max`, where the i-th
+        element is the probability that a secondary case created
+        from a primary one at time `idx` will be reported at `i`periods
+        after time `idx`.
+        In this sense, the function returns the Tg distribution for 
+        primary cases at time &#39;idx&#39;.
+
+        The first entry of the PMF array is dummy, as same-period
+        generations are not considered in the Rtrend model. Thus,
+        the PMF array is normalized such that `sum(pmf[1:]) = 1`.
+
+        Parameters
+        ----------
+        TODO
+
+        Returns
+        -------
+        TODO
+
+        Notes
+        -----
+        Parameter `idx` is optional for constant tg distributions
+        (i.e., with self.is_const = True). It is required if the
+        distribution is variable.
+
+        &#34;&#34;&#34;
+        raise NotImplementedError</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="rtrend_forecast.structs.ConstArbitrTg" href="#rtrend_forecast.structs.ConstArbitrTg">ConstArbitrTg</a></li>
+<li><a title="rtrend_forecast.structs.ConstGammaTg" href="#rtrend_forecast.structs.ConstGammaTg">ConstGammaTg</a></li>
+<li><a title="rtrend_forecast.structs.VarGammaTg" href="#rtrend_forecast.structs.VarGammaTg">VarGammaTg</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="rtrend_forecast.structs.TgBase.is_const"><code class="name">var <span class="ident">is_const</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.TgBase.nparams"><code class="name">var <span class="ident">nparams</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.TgBase.params"><code class="name">var <span class="ident">params</span> : list</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="rtrend_forecast.structs.TgBase.get_param_arrays_byindex"><code class="name flex">
+<span>def <span class="ident">get_param_arrays_byindex</span></span>(<span>self, start=None, stop=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_param_arrays_byindex(
+        self, start=None, stop=None):
+    &#34;&#34;&#34;&#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.TgBase.get_param_arrays_bysize"><code class="name flex">
+<span>def <span class="ident">get_param_arrays_bysize</span></span>(<span>self, size)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_param_arrays_bysize(self, size):
+    &#34;&#34;&#34;&#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.TgBase.get_pmf_array"><code class="name flex">
+<span>def <span class="ident">get_pmf_array</span></span>(<span>self, idx=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a probability mass function (PMF) of the generation
+time for primary cases reported at time given by <code>idx</code>.</p>
+<p>This PMF is a sequence of size <code>self.max</code>, where the i-th
+element is the probability that a secondary case created
+from a primary one at time <code>idx</code> will be reported at <code>i</code>periods
+after time <code>idx</code>.
+In this sense, the function returns the Tg distribution for
+primary cases at time 'idx'.</p>
+<p>The first entry of the PMF array is dummy, as same-period
+generations are not considered in the Rtrend model. Thus,
+the PMF array is normalized such that <code>sum(pmf[1:]) = 1</code>.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>TODO</code></strong></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>TODO</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Parameter <code>idx</code> is optional for constant tg distributions
+(i.e., with self.is_const = True). It is required if the
+distribution is variable.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_pmf_array(self, idx=None):
+    &#34;&#34;&#34;Return a probability mass function (PMF) of the generation
+    time for primary cases reported at time given by `idx`.
+
+    This PMF is a sequence of size `self.max`, where the i-th
+    element is the probability that a secondary case created
+    from a primary one at time `idx` will be reported at `i`periods
+    after time `idx`.
+    In this sense, the function returns the Tg distribution for 
+    primary cases at time &#39;idx&#39;.
+
+    The first entry of the PMF array is dummy, as same-period
+    generations are not considered in the Rtrend model. Thus,
+    the PMF array is normalized such that `sum(pmf[1:]) = 1`.
+
+    Parameters
+    ----------
+    TODO
+
+    Returns
+    -------
+    TODO
+
+    Notes
+    -----
+    Parameter `idx` is optional for constant tg distributions
+    (i.e., with self.is_const = True). It is required if the
+    distribution is variable.
+
+    &#34;&#34;&#34;
+    raise NotImplementedError</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="rtrend_forecast.structs.TimeData"><code class="flex name class">
+<span>class <span class="ident">TimeData</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Time-related indexes, labels and sizes (len).
+"Past" objects refer to the main ROI.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TimeData:
+    &#34;&#34;&#34;Time-related indexes, labels and sizes (len).
+    &#34;Past&#34; objects refer to the main ROI.
+    &#34;&#34;&#34;
+
+    def __init__(self):
+        self.is_aggr: bool = None
+        # ^^ Whether the raw data is aggregated (True) or granular (False)
+
+        # Index objects
+        self.raw_idx: pd.Index = None
+        self.past_aggr_idx: pd.DatetimeIndex = None
+        self.past_gran_idx: pd.DatetimeIndex = None
+        self.fore_aggr_idx: pd.DatetimeIndex = None
+        self.fore_gran_idx: pd.DatetimeIndex = None
+
+        # Limit time labels (all last ones are _included_ on index)
+        self.pa0: pd.Timestamp = None  # Past-aggregated-first
+        self.pa1: pd.Timestamp = None  # Past-aggregated-last
+        self.pg0: pd.Timestamp = None  # Past-granular-first
+        self.pg1: pd.Timestamp = None  # Past-granular-last
+        self.fa0: pd.Timestamp = None  # Fore-aggregated-first
+        self.fa1: pd.Timestamp = None  # Fore-aggregated-last
+        self.fg0: pd.Timestamp = None  # Fore-granular-last
+        self.fg1: pd.Timestamp = None  # Fore-granular-last
+
+        self.pres: pd.Timestamp = None  # Present stamp = pa1
+
+        # Sizes/lengths of the regions of interest
+        self.pa_len: int = None  # Past-aggregated series len
+        self.pg_len: int = None  # Past-granular series len
+        self.fa_len: int = None  # Fore-aggregated series len
+        self.fg_len: int = None  # Fore-granular series len
+
+
+# The very-wished noinspection for unused arguments:
+# # noinspection PyUnusedLocal
+
+#
+#
+# =====================================================================
+# MAIN SCOPE SECTION LEVEL 1
+# =====================================================================
+#
+#
+
+
+# ---------------------------------------------------------------------
+# Main scope section – Level 2
+# ---------------------------------------------------------------------
+
+
+# ----------------------------
+# Main scope section – Level 3
+
+    #
+    # ----------------------------------------------------------------
+    # WITHIN-SCOPE SECTION LEVEL 1
+    # ----------------------------------------------------------------
+    #
+
+    # ----------------------------
+    # Within-scope section level 2
+    # ----------------------------
+
+    # Within-scope section level 3
+    # ----------------------------</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.structs.VarGammaTg"><code class="flex name class">
+<span>class <span class="ident">VarGammaTg</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>DOCS TO BE BUILT</p>
+<h2 id="notes">Notes</h2>
+<p>The values of the generation time are measured in units of the
+granular dt.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class VarGammaTg(TgBase):
+    is_const = False
+    params = [&#34;shape&#34;, &#34;rate&#34;]
+    nparams = 2
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        raise NotImplementedError()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="rtrend_forecast.structs.TgBase" href="#rtrend_forecast.structs.TgBase">TgBase</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="rtrend_forecast.structs.VarGammaTg.is_const"><code class="name">var <span class="ident">is_const</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.VarGammaTg.nparams"><code class="name">var <span class="ident">nparams</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="rtrend_forecast.structs.VarGammaTg.params"><code class="name">var <span class="ident">params</span> : list</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="rtrend_forecast.structs.TgBase" href="#rtrend_forecast.structs.TgBase">TgBase</a></b></code>:
+<ul class="hlist">
+<li><code><a title="rtrend_forecast.structs.TgBase.get_pmf_array" href="#rtrend_forecast.structs.TgBase.get_pmf_array">get_pmf_array</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rtrend_forecast" href="index.html">rtrend_forecast</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="rtrend_forecast.structs.get_tg_object" href="#rtrend_forecast.structs.get_tg_object">get_tg_object</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="rtrend_forecast.structs.ConstArbitrTg" href="#rtrend_forecast.structs.ConstArbitrTg">ConstArbitrTg</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.structs.ConstArbitrTg.is_const" href="#rtrend_forecast.structs.ConstArbitrTg.is_const">is_const</a></code></li>
+<li><code><a title="rtrend_forecast.structs.ConstArbitrTg.nparams" href="#rtrend_forecast.structs.ConstArbitrTg.nparams">nparams</a></code></li>
+<li><code><a title="rtrend_forecast.structs.ConstArbitrTg.params" href="#rtrend_forecast.structs.ConstArbitrTg.params">params</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.ConstGammaTg" href="#rtrend_forecast.structs.ConstGammaTg">ConstGammaTg</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.structs.ConstGammaTg.get_param_arrays_byindex" href="#rtrend_forecast.structs.ConstGammaTg.get_param_arrays_byindex">get_param_arrays_byindex</a></code></li>
+<li><code><a title="rtrend_forecast.structs.ConstGammaTg.get_param_arrays_bysize" href="#rtrend_forecast.structs.ConstGammaTg.get_param_arrays_bysize">get_param_arrays_bysize</a></code></li>
+<li><code><a title="rtrend_forecast.structs.ConstGammaTg.is_const" href="#rtrend_forecast.structs.ConstGammaTg.is_const">is_const</a></code></li>
+<li><code><a title="rtrend_forecast.structs.ConstGammaTg.nparams" href="#rtrend_forecast.structs.ConstGammaTg.nparams">nparams</a></code></li>
+<li><code><a title="rtrend_forecast.structs.ConstGammaTg.params" href="#rtrend_forecast.structs.ConstGammaTg.params">params</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.IncReconstructionParams" href="#rtrend_forecast.structs.IncReconstructionParams">IncReconstructionParams</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.structs.IncReconstructionParams.gen_noise" href="#rtrend_forecast.structs.IncReconstructionParams.gen_noise">gen_noise</a></code></li>
+<li><code><a title="rtrend_forecast.structs.IncReconstructionParams.method" href="#rtrend_forecast.structs.IncReconstructionParams.method">method</a></code></li>
+<li><code><a title="rtrend_forecast.structs.IncReconstructionParams.seed" href="#rtrend_forecast.structs.IncReconstructionParams.seed">seed</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.IncidenceData" href="#rtrend_forecast.structs.IncidenceData">IncidenceData</a></code></h4>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.InputParams" href="#rtrend_forecast.structs.InputParams">InputParams</a></code></h4>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.ParamDictBase" href="#rtrend_forecast.structs.ParamDictBase">ParamDictBase</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.structs.ParamDictBase.a" href="#rtrend_forecast.structs.ParamDictBase.a">a</a></code></li>
+<li><code><a title="rtrend_forecast.structs.ParamDictBase.b" href="#rtrend_forecast.structs.ParamDictBase.b">b</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.PostprocParams" href="#rtrend_forecast.structs.PostprocParams">PostprocParams</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.structs.PostprocParams.aggr_ref_tlabel" href="#rtrend_forecast.structs.PostprocParams.aggr_ref_tlabel">aggr_ref_tlabel</a></code></li>
+<li><code><a title="rtrend_forecast.structs.PostprocParams.inc_quantiles" href="#rtrend_forecast.structs.PostprocParams.inc_quantiles">inc_quantiles</a></code></li>
+<li><code><a title="rtrend_forecast.structs.PostprocParams.use_aggr_level" href="#rtrend_forecast.structs.PostprocParams.use_aggr_level">use_aggr_level</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.PreprocParams" href="#rtrend_forecast.structs.PreprocParams">PreprocParams</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.structs.PreprocParams.interp_method" href="#rtrend_forecast.structs.PreprocParams.interp_method">interp_method</a></code></li>
+<li><code><a title="rtrend_forecast.structs.PreprocParams.interp_smooth" href="#rtrend_forecast.structs.PreprocParams.interp_smooth">interp_smooth</a></code></li>
+<li><code><a title="rtrend_forecast.structs.PreprocParams.negative_method" href="#rtrend_forecast.structs.PreprocParams.negative_method">negative_method</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.RtData" href="#rtrend_forecast.structs.RtData">RtData</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.structs.RtData.get_avg" href="#rtrend_forecast.structs.RtData.get_avg">get_avg</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtData.get_median" href="#rtrend_forecast.structs.RtData.get_median">get_median</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtData.get_median_pd" href="#rtrend_forecast.structs.RtData.get_median_pd">get_median_pd</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtData.get_quantiles" href="#rtrend_forecast.structs.RtData.get_quantiles">get_quantiles</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtData.get_quantiles_pd" href="#rtrend_forecast.structs.RtData.get_quantiles_pd">get_quantiles_pd</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtData.get_rolling_mean" href="#rtrend_forecast.structs.RtData.get_rolling_mean">get_rolling_mean</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtData.get_rolling_mean_avg" href="#rtrend_forecast.structs.RtData.get_rolling_mean_avg">get_rolling_mean_avg</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtData.get_rolling_quantiles" href="#rtrend_forecast.structs.RtData.get_rolling_quantiles">get_rolling_quantiles</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtData.get_sortd" href="#rtrend_forecast.structs.RtData.get_sortd">get_sortd</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.RtEstimationParams" href="#rtrend_forecast.structs.RtEstimationParams">RtEstimationParams</a></code></h4>
+<ul class="two-column">
+<li><code><a title="rtrend_forecast.structs.RtEstimationParams.engine" href="#rtrend_forecast.structs.RtEstimationParams.engine">engine</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtEstimationParams.nsim" href="#rtrend_forecast.structs.RtEstimationParams.nsim">nsim</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtEstimationParams.roi_len" href="#rtrend_forecast.structs.RtEstimationParams.roi_len">roi_len</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtEstimationParams.scale_factor" href="#rtrend_forecast.structs.RtEstimationParams.scale_factor">scale_factor</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtEstimationParams.scale_method" href="#rtrend_forecast.structs.RtEstimationParams.scale_method">scale_method</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtEstimationParams.scale_power" href="#rtrend_forecast.structs.RtEstimationParams.scale_power">scale_power</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtEstimationParams.scale_ref_inc" href="#rtrend_forecast.structs.RtEstimationParams.scale_ref_inc">scale_ref_inc</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtEstimationParams.scale_roi_len" href="#rtrend_forecast.structs.RtEstimationParams.scale_roi_len">scale_roi_len</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtEstimationParams.seed" href="#rtrend_forecast.structs.RtEstimationParams.seed">seed</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtEstimationParams.sigma" href="#rtrend_forecast.structs.RtEstimationParams.sigma">sigma</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtEstimationParams.use_tmp" href="#rtrend_forecast.structs.RtEstimationParams.use_tmp">use_tmp</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.RtSynthesisParams" href="#rtrend_forecast.structs.RtSynthesisParams">RtSynthesisParams</a></code></h4>
+<ul class="two-column">
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.bias" href="#rtrend_forecast.structs.RtSynthesisParams.bias">bias</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.drift_coef" href="#rtrend_forecast.structs.RtSynthesisParams.drift_coef">drift_coef</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.drift_pop_coef" href="#rtrend_forecast.structs.RtSynthesisParams.drift_pop_coef">drift_pop_coef</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.i_saturate" href="#rtrend_forecast.structs.RtSynthesisParams.i_saturate">i_saturate</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.k_end" href="#rtrend_forecast.structs.RtSynthesisParams.k_end">k_end</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.k_start" href="#rtrend_forecast.structs.RtSynthesisParams.k_start">k_start</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.nperiods_past" href="#rtrend_forecast.structs.RtSynthesisParams.nperiods_past">nperiods_past</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.population" href="#rtrend_forecast.structs.RtSynthesisParams.population">population</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.q_hig" href="#rtrend_forecast.structs.RtSynthesisParams.q_hig">q_hig</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.q_low" href="#rtrend_forecast.structs.RtSynthesisParams.q_low">q_low</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.r1_end" href="#rtrend_forecast.structs.RtSynthesisParams.r1_end">r1_end</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.r1_start" href="#rtrend_forecast.structs.RtSynthesisParams.r1_start">r1_start</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.r2_end" href="#rtrend_forecast.structs.RtSynthesisParams.r2_end">r2_end</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.r2_start" href="#rtrend_forecast.structs.RtSynthesisParams.r2_start">r2_start</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.r_max" href="#rtrend_forecast.structs.RtSynthesisParams.r_max">r_max</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.rw_coef" href="#rtrend_forecast.structs.RtSynthesisParams.rw_coef">rw_coef</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.synth_method" href="#rtrend_forecast.structs.RtSynthesisParams.synth_method">synth_method</a></code></li>
+<li><code><a title="rtrend_forecast.structs.RtSynthesisParams.tg_synth_method" href="#rtrend_forecast.structs.RtSynthesisParams.tg_synth_method">tg_synth_method</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.TgBase" href="#rtrend_forecast.structs.TgBase">TgBase</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.structs.TgBase.get_param_arrays_byindex" href="#rtrend_forecast.structs.TgBase.get_param_arrays_byindex">get_param_arrays_byindex</a></code></li>
+<li><code><a title="rtrend_forecast.structs.TgBase.get_param_arrays_bysize" href="#rtrend_forecast.structs.TgBase.get_param_arrays_bysize">get_param_arrays_bysize</a></code></li>
+<li><code><a title="rtrend_forecast.structs.TgBase.get_pmf_array" href="#rtrend_forecast.structs.TgBase.get_pmf_array">get_pmf_array</a></code></li>
+<li><code><a title="rtrend_forecast.structs.TgBase.is_const" href="#rtrend_forecast.structs.TgBase.is_const">is_const</a></code></li>
+<li><code><a title="rtrend_forecast.structs.TgBase.nparams" href="#rtrend_forecast.structs.TgBase.nparams">nparams</a></code></li>
+<li><code><a title="rtrend_forecast.structs.TgBase.params" href="#rtrend_forecast.structs.TgBase.params">params</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.TimeData" href="#rtrend_forecast.structs.TimeData">TimeData</a></code></h4>
+</li>
+<li>
+<h4><code><a title="rtrend_forecast.structs.VarGammaTg" href="#rtrend_forecast.structs.VarGammaTg">VarGammaTg</a></code></h4>
+<ul class="">
+<li><code><a title="rtrend_forecast.structs.VarGammaTg.is_const" href="#rtrend_forecast.structs.VarGammaTg.is_const">is_const</a></code></li>
+<li><code><a title="rtrend_forecast.structs.VarGammaTg.nparams" href="#rtrend_forecast.structs.VarGammaTg.nparams">nparams</a></code></li>
+<li><code><a title="rtrend_forecast.structs.VarGammaTg.params" href="#rtrend_forecast.structs.VarGammaTg.params">params</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>rtrend_forecast.inc_reconstruction API documentation</title>
+<meta name="description" content="Reconstruction of future incidence time series based on" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS_CHTML" integrity="sha256-kZafAc6mZvK3W3v1pHOcUix30OHQN6pU/NO2oFkqZVw=" crossorigin></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>rtrend_forecast.inc_reconstruction</code></h1>
+</header>
+<section id="section-intro">
+<p>Reconstruction of future incidence time series based on</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Reconstruction of future incidence time series based on &#34;&#34;&#34;
+from typing import Union
+
+import numba as nb
+import numpy as np
+import pandas as pd
+import time
+
+from rtrend_forecast.reporting import get_main_exectime_tracker
+
+
+GLOBAL_XTT = get_main_exectime_tracker()
+
+
+# noinspection pyUnusedParameter
+def reconstruct_inc(
+        incid_past: Union[np.ndarray, pd.Series],
+        rt_fore_array: Union[np.ndarray, pd.Series, pd.DataFrame],
+        tg_array, tg_max=None,
+        incid_fore=None, seed=None, **kwargs):
+    &#34;&#34;&#34;Constructs incidence time series with the renewal equation.
+
+    Requires granular data on past incidence, past and future
+    generation time, and future reproduction number. The shape of the
+    output incidence series (`ct_fore`) is based on the shape
+    of the reproduction number array (`rt_fore_array`).
+
+    Parameters
+    ----------
+    incid_past : np.ndarray, pd.Series
+        Incidence time series in the past.
+    rt_fore_array : np.ndarray, pd.Series, pd.DataFrame
+        A time series with \\(R(t)\\) in future periods. It can be a
+        1D or 2D array like, with the following signatures:
+
+        - 1D: `a[i_t]`
+        - 2D: `a[i_sample, i_t]`
+    tg_array : ???
+        Generation time distribution.
+        TODO expand compatibility for time-dependent array
+    incid_fore : optional
+        Output container. Holds the future incidence series.
+        The shape and signature is the same as `rt_fore_array`.
+    tg_max :
+        Truncation value (one past) for generation time.
+    seed : int, optional
+
+    Returns
+    -------
+    incid_fore : np.ndarray
+        An array with the incidence series. The signature and shape are
+        the same as the input \\(R(t)\\) array, `rt_fore_array`.
+    &#34;&#34;&#34;
+    num_steps_fore = rt_fore_array.shape[-1]
+
+    # Input types interpretation
+    # --------------------------
+
+    # --- R(t) input
+    run_mult = False  # Whether to run the reconstruction over multiple R(t) series.
+    if isinstance(rt_fore_array, np.ndarray):  # Numpy array
+        if rt_fore_array.ndim == 2:
+            run_mult = True
+        elif rt_fore_array.ndim &gt; 2:
+            raise ValueError(f&#34;Hey, input R(t) array rt_fore must either be 1D or 2D (ndim = {rt_fore_array.ndim}).&#34;)
+
+    elif isinstance(rt_fore_array, pd.Series):  # Pandas 1D series
+        rt_fore_array = rt_fore_array.to_numpy()
+
+    elif isinstance(rt_fore_array, pd.DataFrame):  # Pandas 2D data frame
+        rt_fore_array = rt_fore_array.to_numpy()
+        run_mult = True
+
+    else:
+        raise TypeError(f&#34;Hey, invalid type for input R(t) rt_fore: {type(rt_fore_array)}&#34;)
+
+    # --- C(t) past array
+    if isinstance(incid_past, pd.Series):
+        incid_past = incid_past.to_numpy()
+
+    # --- Tg(s) array
+    if isinstance(tg_array, pd.Series):
+        tg_array = tg_array.to_numpy()
+
+    # Optional arguments handling
+    # ---------------------------
+
+    if tg_max is None:
+        tg_max = tg_array.shape[0]
+
+    # Output array
+    if incid_fore is None:
+        incid_fore = np.empty_like(rt_fore_array, dtype=int)
+        #     ^  ^ Agnostic to 1D or 2D
+
+    # Time-based seed
+    if seed is None:
+        seed = round(1000 * time.time())
+
+    # Dispatch and run the reconstruction
+    # -----------------------------------
+    if run_mult:
+        return reconstruct_ct_multiple(
+            incid_past, rt_fore_array, tg_array, tg_max, incid_fore,
+            num_steps_fore, seed)
+    else:
+        return reconstruct_ct_single(
+            incid_past, rt_fore_array, tg_array, tg_array, tg_max,
+            incid_fore, num_steps_fore, seed)
+
+
+@nb.njit
+def reconstruct_ct_single(
+        ct_past, rt_fore, tg_past, tg_fore, tg_max, ct_fore,
+        num_steps_fore, seed):
+    &#34;&#34;&#34;DOCSTRINGS TODO
+
+    NOTE: tg is assumed as constant, but different past and fore
+    arrays are accepted.
+    &#34;&#34;&#34;
+
+    np.random.seed(seed)  # Seeds the numba or numpy generator
+
+    # Main loop over future steps
+    for i_t_fut in range(num_steps_fore):  # Loop over future steps
+        lamb = 0.  # Sum of generated cases from past cases
+        # r_curr = rt_fore.iloc[i_t_fut]  # Pandas
+        r_curr = rt_fore[i_t_fut]
+
+        # Future series chunk
+        for st in range(1, min(i_t_fut + 1, tg_max)):
+            lamb += r_curr * tg_fore[st] * ct_fore[i_t_fut - st]
+
+        # Past series chunk
+        for st in range(i_t_fut + 1, tg_max):
+            lamb += r_curr * tg_past[st] * ct_past[-(st - i_t_fut)]
+
+        # Poisson number
+        ct_fore[i_t_fut] = np.random.poisson(lamb)
+
+    return ct_fore
+
+
+@nb.njit
+def reconstruct_ct_multiple(
+        ct_past, rt_fore_2d, tg_past, tg_fore, tg_max, ct_fore_2d,
+        num_steps_fore, seed):
+
+    np.random.seed(seed)  # Seeds the numba or numpy generator
+
+    # Main loop over R(t) samples
+    for rt_fore, ct_fore in zip(rt_fore_2d, ct_fore_2d):
+
+        # Loop over future steps
+        for i_t_fut in range(num_steps_fore):  # Loop over future steps
+            lamb = 0.  # Sum of generated cases from past cases
+            # r_curr = rt_fore.iloc[i_t_fut]  # Pandas
+            r_curr = rt_fore[i_t_fut]
+
+            # Future series chunk
+            for st in range(1, min(i_t_fut + 1, tg_max)):
+                lamb += r_curr * tg_fore[st] * ct_fore[i_t_fut - st]
+
+            # Past series chunk
+            for st in range(i_t_fut + 1, tg_max):
+                lamb += r_curr * tg_past[st] * ct_past[-(st - i_t_fut)]
+
+            # Poisson number
+            ct_fore[i_t_fut] = np.random.poisson(lamb)
+
+    return ct_fore_2d
+
+
+# def reconstruct_ct_tgtable(ct_past, rt_fore, tg: TgData, ct_fore=None, seed=None, **kwargs):
+#     &#34;&#34;&#34;Reconstructs a time series of cases using a time-dependent generation time distribution, given as 2d arrays.&#34;&#34;&#34;
+#
+#     # Optional arguments handling
+#     # ---------------------------
+#     num_steps_fore = rt_fore.shape[-1]
+#     ndays_roi = ct_past.shape[-1]
+#
+#     # Output array
+#     if ct_fore is None:
+#         ct_fore = np.empty_like(rt_fore, dtype=int)  # Agnostic to 1D or 2D
+#
+#     # Time-based seed
+#     if seed is None:
+#         seed = round(1000 * time.time())
+#
+#     # Execution
+#     # ---------
+#     return _reconstruct_ct_tgtable_multiple(ct_past, rt_fore, tg.past_2d_array, tg.fore_2d_array, tg.max, ct_fore,
+#                                             num_steps_fore, ndays_roi, seed)
+
+
+@nb.njit
+def reconstruct_ct_tgtable_multiple(
+        ct_past, rt_fore_2d, tg_2d_past, tg_2d_fore, tg_max, ct_fore_2d,
+        num_steps_fore, ndays_roi, seed):
+
+    np.random.seed(seed)  # Seeds the numba or numpy generator
+
+    # Main loop over R(t) samples
+    for rt_fore, ct_fore in zip(rt_fore_2d, ct_fore_2d):
+
+        # Loop over future steps
+        for i_t_fut in range(num_steps_fore):  # Loop over future steps
+            lamb = 0.  # Sum of generated cases from past cases
+            # r_curr = rt_fore.iloc[i_t_fut]  # Pandas
+            r_curr = rt_fore[i_t_fut]
+
+            # Future series chunk
+            for st in range(1, min(i_t_fut + 1, tg_max)):
+                lamb += (r_curr * tg_2d_fore[i_t_fut - st, st]
+                         * ct_fore[i_t_fut - st])
+
+            # Past series chunk
+            for st in range(i_t_fut + 1, tg_max):
+                lamb += (r_curr * tg_2d_past[-(st - i_t_fut), st]
+                         * ct_past[-(st - i_t_fut)])
+
+            # Check lambda value
+            if lamb &lt; 0:
+                print(lamb)
+                raise ValueError(
+                    &#34;Negative lambda calculated during reconstruction&#34;)
+
+            # Poisson number
+            ct_fore[i_t_fut] = np.random.poisson(lamb)
+
+    return ct_fore_2d
+
+
+@GLOBAL_XTT.track()
+@nb.njit(
+    (nb.int32, nb.float64[:], nb.float64[:, :], nb.float64[:],
+     nb.float64[:], nb.int32, nb.float64[:, :], nb.int32),
+    cache=True
+)
+def step_reconstruct_ct_multiple(
+        i_t_fore, ct_past, rt_fore_2d, tg_past, tg_fore, tg_max,
+        ct_fore_2d, nsamples
+):
+    &#34;&#34;&#34;Single step of the renewal equation c(t) reconstruction.
+    modifies the ct_fore[] array in place, at position i_t_fore
+
+    &#34;&#34;&#34;
+    # np.random.seed(seed + i_t_fore)  # Seeds the numba/numpy generator
+
+    # Main loop over R(t) samples
+    for i_sample in range(nsamples):
+        rt_fore = rt_fore_2d[:, i_sample]
+        ct_fore = ct_fore_2d[:, i_sample]
+
+        lamb = 0.0  # Sum of generated cases from past cases
+        r_curr = rt_fore[i_t_fore]
+
+        # Future series chunk
+        for st in range(1, min(i_t_fore + 1, tg_max)):
+            lamb += r_curr * tg_fore[st] * ct_fore[i_t_fore - st]
+
+        # Past series chunk
+        for st in range(i_t_fore + 1, tg_max):
+            lamb += r_curr * tg_past[st] * ct_past[-(st - i_t_fore)]
+
+        # Check lambda value
+        if lamb &lt; 0:
+            print(lamb)
+            raise ValueError(
+                &#34;Negative lambda calculated during &#34;
+                &#34;reconstruction&#34;)
+
+        # Poisson number
+        ct_fore[i_t_fore] = np.random.poisson(lamb)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="rtrend_forecast.inc_reconstruction.reconstruct_ct_multiple"><code class="name flex">
+<span>def <span class="ident">reconstruct_ct_multiple</span></span>(<span>ct_past, rt_fore_2d, tg_past, tg_fore, tg_max, ct_fore_2d, num_steps_fore, seed)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@nb.njit
+def reconstruct_ct_multiple(
+        ct_past, rt_fore_2d, tg_past, tg_fore, tg_max, ct_fore_2d,
+        num_steps_fore, seed):
+
+    np.random.seed(seed)  # Seeds the numba or numpy generator
+
+    # Main loop over R(t) samples
+    for rt_fore, ct_fore in zip(rt_fore_2d, ct_fore_2d):
+
+        # Loop over future steps
+        for i_t_fut in range(num_steps_fore):  # Loop over future steps
+            lamb = 0.  # Sum of generated cases from past cases
+            # r_curr = rt_fore.iloc[i_t_fut]  # Pandas
+            r_curr = rt_fore[i_t_fut]
+
+            # Future series chunk
+            for st in range(1, min(i_t_fut + 1, tg_max)):
+                lamb += r_curr * tg_fore[st] * ct_fore[i_t_fut - st]
+
+            # Past series chunk
+            for st in range(i_t_fut + 1, tg_max):
+                lamb += r_curr * tg_past[st] * ct_past[-(st - i_t_fut)]
+
+            # Poisson number
+            ct_fore[i_t_fut] = np.random.poisson(lamb)
+
+    return ct_fore_2d</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.inc_reconstruction.reconstruct_ct_single"><code class="name flex">
+<span>def <span class="ident">reconstruct_ct_single</span></span>(<span>ct_past, rt_fore, tg_past, tg_fore, tg_max, ct_fore, num_steps_fore, seed)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>DOCSTRINGS TODO</p>
+<p>NOTE: tg is assumed as constant, but different past and fore
+arrays are accepted.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@nb.njit
+def reconstruct_ct_single(
+        ct_past, rt_fore, tg_past, tg_fore, tg_max, ct_fore,
+        num_steps_fore, seed):
+    &#34;&#34;&#34;DOCSTRINGS TODO
+
+    NOTE: tg is assumed as constant, but different past and fore
+    arrays are accepted.
+    &#34;&#34;&#34;
+
+    np.random.seed(seed)  # Seeds the numba or numpy generator
+
+    # Main loop over future steps
+    for i_t_fut in range(num_steps_fore):  # Loop over future steps
+        lamb = 0.  # Sum of generated cases from past cases
+        # r_curr = rt_fore.iloc[i_t_fut]  # Pandas
+        r_curr = rt_fore[i_t_fut]
+
+        # Future series chunk
+        for st in range(1, min(i_t_fut + 1, tg_max)):
+            lamb += r_curr * tg_fore[st] * ct_fore[i_t_fut - st]
+
+        # Past series chunk
+        for st in range(i_t_fut + 1, tg_max):
+            lamb += r_curr * tg_past[st] * ct_past[-(st - i_t_fut)]
+
+        # Poisson number
+        ct_fore[i_t_fut] = np.random.poisson(lamb)
+
+    return ct_fore</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.inc_reconstruction.reconstruct_ct_tgtable_multiple"><code class="name flex">
+<span>def <span class="ident">reconstruct_ct_tgtable_multiple</span></span>(<span>ct_past, rt_fore_2d, tg_2d_past, tg_2d_fore, tg_max, ct_fore_2d, num_steps_fore, ndays_roi, seed)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@nb.njit
+def reconstruct_ct_tgtable_multiple(
+        ct_past, rt_fore_2d, tg_2d_past, tg_2d_fore, tg_max, ct_fore_2d,
+        num_steps_fore, ndays_roi, seed):
+
+    np.random.seed(seed)  # Seeds the numba or numpy generator
+
+    # Main loop over R(t) samples
+    for rt_fore, ct_fore in zip(rt_fore_2d, ct_fore_2d):
+
+        # Loop over future steps
+        for i_t_fut in range(num_steps_fore):  # Loop over future steps
+            lamb = 0.  # Sum of generated cases from past cases
+            # r_curr = rt_fore.iloc[i_t_fut]  # Pandas
+            r_curr = rt_fore[i_t_fut]
+
+            # Future series chunk
+            for st in range(1, min(i_t_fut + 1, tg_max)):
+                lamb += (r_curr * tg_2d_fore[i_t_fut - st, st]
+                         * ct_fore[i_t_fut - st])
+
+            # Past series chunk
+            for st in range(i_t_fut + 1, tg_max):
+                lamb += (r_curr * tg_2d_past[-(st - i_t_fut), st]
+                         * ct_past[-(st - i_t_fut)])
+
+            # Check lambda value
+            if lamb &lt; 0:
+                print(lamb)
+                raise ValueError(
+                    &#34;Negative lambda calculated during reconstruction&#34;)
+
+            # Poisson number
+            ct_fore[i_t_fut] = np.random.poisson(lamb)
+
+    return ct_fore_2d</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.inc_reconstruction.reconstruct_inc"><code class="name flex">
+<span>def <span class="ident">reconstruct_inc</span></span>(<span>incid_past: Union[numpy.ndarray, pandas.core.series.Series], rt_fore_array: Union[numpy.ndarray, pandas.core.series.Series, pandas.core.frame.DataFrame], tg_array, tg_max=None, incid_fore=None, seed=None, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Constructs incidence time series with the renewal equation.</p>
+<p>Requires granular data on past incidence, past and future
+generation time, and future reproduction number. The shape of the
+output incidence series (<code>ct_fore</code>) is based on the shape
+of the reproduction number array (<code>rt_fore_array</code>).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>incid_past</code></strong> :&ensp;<code>np.ndarray, pd.Series</code></dt>
+<dd>Incidence time series in the past.</dd>
+<dt><strong><code>rt_fore_array</code></strong> :&ensp;<code>np.ndarray, pd.Series, pd.DataFrame</code></dt>
+<dd>
+<p>A time series with <span><span class="MathJax_Preview">R(t)</span><script type="math/tex">R(t)</script></span> in future periods. It can be a
+1D or 2D array like, with the following signatures:</p>
+<ul>
+<li>1D: <code>a[i_t]</code></li>
+<li>2D: <code>a[i_sample, i_t]</code></li>
+</ul>
+</dd>
+<dt><strong><code>tg_array</code></strong> :&ensp;<code>???</code></dt>
+<dd>Generation time distribution.
+TODO expand compatibility for time-dependent array</dd>
+<dt><strong><code>incid_fore</code></strong> :&ensp;<code>optional</code></dt>
+<dd>Output container. Holds the future incidence series.
+The shape and signature is the same as <code>rt_fore_array</code>.</dd>
+<dt>tg_max :</dt>
+<dt>Truncation value (one past) for generation time.</dt>
+<dt><strong><code>seed</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>incid_fore</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>An array with the incidence series. The signature and shape are
+the same as the input <span><span class="MathJax_Preview">R(t)</span><script type="math/tex">R(t)</script></span> array, <code>rt_fore_array</code>.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reconstruct_inc(
+        incid_past: Union[np.ndarray, pd.Series],
+        rt_fore_array: Union[np.ndarray, pd.Series, pd.DataFrame],
+        tg_array, tg_max=None,
+        incid_fore=None, seed=None, **kwargs):
+    &#34;&#34;&#34;Constructs incidence time series with the renewal equation.
+
+    Requires granular data on past incidence, past and future
+    generation time, and future reproduction number. The shape of the
+    output incidence series (`ct_fore`) is based on the shape
+    of the reproduction number array (`rt_fore_array`).
+
+    Parameters
+    ----------
+    incid_past : np.ndarray, pd.Series
+        Incidence time series in the past.
+    rt_fore_array : np.ndarray, pd.Series, pd.DataFrame
+        A time series with \\(R(t)\\) in future periods. It can be a
+        1D or 2D array like, with the following signatures:
+
+        - 1D: `a[i_t]`
+        - 2D: `a[i_sample, i_t]`
+    tg_array : ???
+        Generation time distribution.
+        TODO expand compatibility for time-dependent array
+    incid_fore : optional
+        Output container. Holds the future incidence series.
+        The shape and signature is the same as `rt_fore_array`.
+    tg_max :
+        Truncation value (one past) for generation time.
+    seed : int, optional
+
+    Returns
+    -------
+    incid_fore : np.ndarray
+        An array with the incidence series. The signature and shape are
+        the same as the input \\(R(t)\\) array, `rt_fore_array`.
+    &#34;&#34;&#34;
+    num_steps_fore = rt_fore_array.shape[-1]
+
+    # Input types interpretation
+    # --------------------------
+
+    # --- R(t) input
+    run_mult = False  # Whether to run the reconstruction over multiple R(t) series.
+    if isinstance(rt_fore_array, np.ndarray):  # Numpy array
+        if rt_fore_array.ndim == 2:
+            run_mult = True
+        elif rt_fore_array.ndim &gt; 2:
+            raise ValueError(f&#34;Hey, input R(t) array rt_fore must either be 1D or 2D (ndim = {rt_fore_array.ndim}).&#34;)
+
+    elif isinstance(rt_fore_array, pd.Series):  # Pandas 1D series
+        rt_fore_array = rt_fore_array.to_numpy()
+
+    elif isinstance(rt_fore_array, pd.DataFrame):  # Pandas 2D data frame
+        rt_fore_array = rt_fore_array.to_numpy()
+        run_mult = True
+
+    else:
+        raise TypeError(f&#34;Hey, invalid type for input R(t) rt_fore: {type(rt_fore_array)}&#34;)
+
+    # --- C(t) past array
+    if isinstance(incid_past, pd.Series):
+        incid_past = incid_past.to_numpy()
+
+    # --- Tg(s) array
+    if isinstance(tg_array, pd.Series):
+        tg_array = tg_array.to_numpy()
+
+    # Optional arguments handling
+    # ---------------------------
+
+    if tg_max is None:
+        tg_max = tg_array.shape[0]
+
+    # Output array
+    if incid_fore is None:
+        incid_fore = np.empty_like(rt_fore_array, dtype=int)
+        #     ^  ^ Agnostic to 1D or 2D
+
+    # Time-based seed
+    if seed is None:
+        seed = round(1000 * time.time())
+
+    # Dispatch and run the reconstruction
+    # -----------------------------------
+    if run_mult:
+        return reconstruct_ct_multiple(
+            incid_past, rt_fore_array, tg_array, tg_max, incid_fore,
+            num_steps_fore, seed)
+    else:
+        return reconstruct_ct_single(
+            incid_past, rt_fore_array, tg_array, tg_array, tg_max,
+            incid_fore, num_steps_fore, seed)</code></pre>
+</details>
+</dd>
+<dt id="rtrend_forecast.inc_reconstruction.step_reconstruct_ct_multiple"><code class="name flex">
+<span>def <span class="ident">step_reconstruct_ct_multiple</span></span>(<span>i_t_fore, ct_past, rt_fore_2d, tg_past, tg_fore, tg_max, ct_fore_2d, nsamples)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Single step of the renewal equation c(t) reconstruction.
+modifies the ct_fore[] array in place, at position i_t_fore</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@GLOBAL_XTT.track()
+@nb.njit(
+    (nb.int32, nb.float64[:], nb.float64[:, :], nb.float64[:],
+     nb.float64[:], nb.int32, nb.float64[:, :], nb.int32),
+    cache=True
+)
+def step_reconstruct_ct_multiple(
+        i_t_fore, ct_past, rt_fore_2d, tg_past, tg_fore, tg_max,
+        ct_fore_2d, nsamples
+):
+    &#34;&#34;&#34;Single step of the renewal equation c(t) reconstruction.
+    modifies the ct_fore[] array in place, at position i_t_fore
+
+    &#34;&#34;&#34;
+    # np.random.seed(seed + i_t_fore)  # Seeds the numba/numpy generator
+
+    # Main loop over R(t) samples
+    for i_sample in range(nsamples):
+        rt_fore = rt_fore_2d[:, i_sample]
+        ct_fore = ct_fore_2d[:, i_sample]
+
+        lamb = 0.0  # Sum of generated cases from past cases
+        r_curr = rt_fore[i_t_fore]
+
+        # Future series chunk
+        for st in range(1, min(i_t_fore + 1, tg_max)):
+            lamb += r_curr * tg_fore[st] * ct_fore[i_t_fore - st]
+
+        # Past series chunk
+        for st in range(i_t_fore + 1, tg_max):
+            lamb += r_curr * tg_past[st] * ct_past[-(st - i_t_fore)]
+
+        # Check lambda value
+        if lamb &lt; 0:
+            print(lamb)
+            raise ValueError(
+                &#34;Negative lambda calculated during &#34;
+                &#34;reconstruction&#34;)
+
+        # Poisson number
+        ct_fore[i_t_fore] = np.random.poisson(lamb)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="rtrend_forecast" href="index.html">rtrend_forecast</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="rtrend_forecast.inc_reconstruction.reconstruct_ct_multiple" href="#rtrend_forecast.inc_reconstruction.reconstruct_ct_multiple">reconstruct_ct_multiple</a></code></li>
+<li><code><a title="rtrend_forecast.inc_reconstruction.reconstruct_ct_single" href="#rtrend_forecast.inc_reconstruction.reconstruct_ct_single">reconstruct_ct_single</a></code></li>
+<li><code><a title="rtrend_forecast.inc_reconstruction.reconstruct_ct_tgtable_multiple" href="#rtrend_forecast.inc_reconstruction.reconstruct_ct_tgtable_multiple">reconstruct_ct_tgtable_multiple</a></code></li>
+<li><code><a title="rtrend_forecast.inc_reconstruction.reconstruct_inc" href="#rtrend_forecast.inc_reconstruction.reconstruct_inc">reconstruct_inc</a></code></li>
+<li><code><a title="rtrend_forecast.inc_reconstruction.step_reconstruct_ct_multiple" href="#rtrend_forecast.inc_reconstruction.step_reconstruct_ct_multiple">step_reconstruct_ct_multiple</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
